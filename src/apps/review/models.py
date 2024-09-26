@@ -15,8 +15,16 @@ class ReviewLocation(NameMixin, URLMixin):
 class ReviewAuthor(models.Model):
     """Модель описывающая автора отзыва оставленного автосалону"""
 
-    first_name = models.CharField(max_length=100, verbose_name="имя автора")
-    last_name = models.CharField(max_length=100, verbose_name="фамилия автора")
+    first_name = models.CharField(
+        max_length=100,
+        help_text="максимальная длина 100 символов",
+        verbose_name="имя автора",
+    )
+    last_name = models.CharField(
+        max_length=100,
+        help_text="максимальная длина 100 символов",
+        verbose_name="фамилия автора",
+    )
     avatar_url = models.TextField(
         null=True,
         blank=True,
