@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class NamingMixin(models.Model):
+class NameMixin(models.Model):
     """Mixin для добавления поля name (обязательное, уникальное)"""
 
     name = models.CharField(max_length=255, unique=True, verbose_name="Название")
