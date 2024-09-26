@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     # Apps
     "src.apps.car",
     "src.apps.review",
+    "src.apps.service_info",
 ]
 
 MIDDLEWARE = [
