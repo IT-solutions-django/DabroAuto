@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Apps
     "src.apps.car",
+    "src.apps.review",
 ]
 
 MIDDLEWARE = [
