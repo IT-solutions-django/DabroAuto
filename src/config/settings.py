@@ -29,6 +29,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Apps
+    'src.apps.car'
 ]
 
 ROOT_URLCONF = 'config.urls'
