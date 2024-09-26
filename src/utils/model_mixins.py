@@ -4,16 +4,24 @@ from django.db import models
 class NameMixin(models.Model):
     """Mixin для добавления поля name (обязательное, уникальное)"""
 
-    name = models.CharField(max_length=255, unique=True, verbose_name="Название")
+    name = models.CharField(
+        max_length=255,
+        unique=True,
+        verbose_name="название",
+        help_text="максимальная длина 255 символов",
+    )
 
     class Meta:
         abstract = True
+
+    def __str__(self):
+        return self.name
 
 
 class URLMixin(models.Model):
     """Mixin для добавления поля url"""
 
-    url = models.TextField(verbose_name="ссылка")
+    url = models.TextField(verbose_name="ссылка", help_text="ссылка в формате http/...")
 
     class Meta:
         abstract = True
