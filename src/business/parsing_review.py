@@ -40,6 +40,11 @@ class ReviewParser2GIS:
             )
         return comments
 
+    def parce_average_review(self, html: str):
+        soup = BeautifulSoup(html, "html.parser")
+        average_review = soup.find("div", class_="_13nm4f0").text
+        return float(average_review)
+
 
 class ReviewParser:
     def __init__(self, parsing_service_cls, parsing_url: str):
@@ -52,11 +57,5 @@ class ReviewParser:
     def parse_review(self):
         return self.parsing_service.parse_review(self.html)
 
-
-parser = ReviewParser(
-    ReviewParser2GIS,
-    "https://2gis.ru/vladivostok/firm/70000001044743727/tab/reviews",
-)
-parser.load_html()
-comments = parser.parse_review()
-print(comments)
+    def parce_average_review(self):
+        return self.parsing_service.parce_average_review(self.html)
