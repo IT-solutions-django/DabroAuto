@@ -30,12 +30,14 @@ class ReviewParser2GIS:
                 full_name.text.split()[1] if len(full_name.text.split()) > 1 else None
             )
             stars = len(comment_html.find("div", class_="_1fkin5c").findAll("svg"))
+            created_at = comment_html.find("div", class_="_139ll30").text.split(",")[0]
             comments.append(
                 {
                     "first_name": first_name,
                     "last_name": last_name,
                     "stars": stars,
                     "avatar": None,
+                    "created_at": created_at,
                 }
             )
         return comments

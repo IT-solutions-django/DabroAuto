@@ -42,7 +42,7 @@ class ReviewAuthor(models.Model):
         verbose_name_plural = "авторы отзывов"
 
 
-class Review(CreatedAtMixin):
+class Review(models.Model):
     """Модель описывающая отзыв оставленный автосалону"""
 
     stars = models.IntegerField(
@@ -61,6 +61,11 @@ class Review(CreatedAtMixin):
         on_delete=models.PROTECT,
         related_name="review",
         verbose_name="площадка на которой расположен",
+    )
+    created_at = models.CharField(
+        max_length=100,
+        help_text="формат данных: 8 августа 2024",
+        verbose_name="дата добавления отзыва",
     )
 
     def __str__(self):

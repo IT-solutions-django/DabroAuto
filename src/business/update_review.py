@@ -26,7 +26,10 @@ def update_review():
             first_name=review["first_name"], last_name=review["last_name"]
         )
         Review.objects.create(
-            stars=review["stars"], author=review_author, location=review_location
+            stars=review["stars"],
+            author=review_author,
+            location=review_location,
+            created_at=review["created_at"],
         )
 
     average_review = parser.parce_average_review()
