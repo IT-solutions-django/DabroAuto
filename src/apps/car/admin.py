@@ -50,6 +50,7 @@ class CarAdmin(admin.ModelAdmin):
         "engine_type",
         "country_manufacturing",
         "price",
+        "image",
     )
     autocomplete_fields = (
         "brand",

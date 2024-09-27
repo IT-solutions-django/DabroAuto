@@ -1,5 +1,6 @@
 from django.db import models
 
+from src.apps.image.models import Image
 from src.utils.model_mixins import NameMixin
 
 
@@ -79,6 +80,9 @@ class Car(models.Model):
         on_delete=models.PROTECT,
         related_name="car",
         verbose_name="страна производства",
+    )
+    image = models.ManyToManyField(
+        Image, related_name="car", verbose_name="изображение"
     )
 
     def __str__(self):
