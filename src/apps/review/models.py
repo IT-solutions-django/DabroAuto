@@ -22,6 +22,8 @@ class ReviewAuthor(models.Model):
     )
     last_name = models.CharField(
         max_length=100,
+        null=True,
+        blank=True,
         help_text="максимальная длина 100 символов",
         verbose_name="фамилия автора",
     )
@@ -33,7 +35,7 @@ class ReviewAuthor(models.Model):
     )
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name or ''}"
 
     class Meta:
         verbose_name = "автор отзыва"
