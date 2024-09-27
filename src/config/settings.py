@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "src.apps.review",
     "src.apps.service_info",
     "src.apps.image",
+    "src.pages.home",
 ]
 
 MIDDLEWARE = [

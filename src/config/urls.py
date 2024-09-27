@@ -3,8 +3,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
+from src.pages.home.views import HomeView
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", HomeView.as_view()),
 ]
 
 if settings.DEBUG:

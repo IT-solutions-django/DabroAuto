@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Автомобили</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Марка</th>
+                <th>Модель</th>
+                <th>Спецификация</th>
+                <th>Год выпуска</th>
+                <th>Пробег</th>
+                <th>Цена</th>
+                <th>Тип двигателя</th>
+                <th>Страна производства</th>
+                <th>Изображения</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for car in cars %}
+            <tr>
+                <td>{{ car.brand.name }}</td>
+                <td>{{ car.model.name }}</td>
+                <td>{{ car.specification }}</td>
+                <td>{{ car.year_manufactured }}</td>
+                <td>{{ car.mileage }}</td>
+                <td>{{ car.price }}</td>
+                <td>{{ car.engine_type.name }}</td>
+                <td>{{ car.country_manufacturing.name }}</td>
+                <td>
+                    <img src="{{ car.image.first.image.url }}" alt="Car Image" style="width: 100px; height: auto;">
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <h1>Список отзывов</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Автор</th>
+                <th>Звезды</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in reviews %}
+            <tr>
+                <td>{{ review.author }}</td>
+                <td>{{ review.stars }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Площадки для отзывов</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Площадка</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review_location in review_locations %}
+            <tr>
+                <td><a href="{{ review_location.url }}">{{ review_location.name }}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <h2>Социальные сети</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for social in social_media %}
+            <tr>
+                <td><a href="{{ social.url }}">{{ social.name }}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Контактная информация</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Содержимое</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contact in contact_information %}
+            <tr>
+                <td>{{ contact.name }}</td>
+                <td>{{ contact.content }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Этапы работы</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Содержимое</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stage in stages_of_work %}
+            <tr>
+                <td>{{ stage.name }}</td>
+                <td>{{ stage.content }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Информация об автосалоне</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Блок</th>
+                <th>Контент</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for info in information_about_company %}
+            <tr>
+                <td>{{ info.block }}</td>
+            <td>{{ info.content }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
