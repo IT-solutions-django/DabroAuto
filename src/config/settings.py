@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "src.apps.car",
     "src.apps.review",
     "src.apps.service_info",
+    "src.apps.image",
 ]
 
 MIDDLEWARE = [
