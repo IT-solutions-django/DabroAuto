@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from src.apps.clip.models import Clip
+
+
+@admin.register(Clip)
+class ClipAdmin(admin.ModelAdmin):
+    search_fields = ("name", "url")
