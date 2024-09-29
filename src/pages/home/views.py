@@ -3,6 +3,7 @@ from typing import Any
 from django.views.generic import TemplateView
 
 from src.apps.car.models import Car
+from src.apps.clip.models import Clip
 from src.apps.review.models import Review, ReviewLocation
 from src.apps.service_info.models import (
     SocialMedia,
@@ -27,4 +28,5 @@ class HomeView(TemplateView):
         context["contact_information"] = ContactInformation.objects.all()
         context["stages_of_work"] = StagesOfWork.objects.all()
         context["information_about_company"] = InformationAboutCompany.objects.all()
+        context["clips"] = Clip.objects.all()
         return context

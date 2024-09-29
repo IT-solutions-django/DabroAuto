@@ -58,6 +58,30 @@
         </tbody>
     </table>
 
+    <h1>Список Клипов</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>youtube_id</th>
+                <th>Название</th>
+                <th>Количество просмотров</th>
+                <th>Ссылка</th>
+                <th>Превью</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for clip in clips %}
+            <tr>
+                <td>{{ clip.youtube_id }}</td>
+                <td>{{ clip.name }}</td>
+                <td>{{ clip.view_count }}</td>
+                <td>{{ clip.url }}</td>
+                <td><img src="{{ clip.thumbnail_url }}" alt="Clip Image" style="width: 100px; height: auto;"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
     <h1>Площадки для отзывов</h1>
     <table>
         <thead>
