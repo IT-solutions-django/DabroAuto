@@ -15,18 +15,12 @@ class ReviewLocation(NameMixin, URLMixin):
 class ReviewAuthor(models.Model):
     """Модель описывающая автора отзыва оставленного автосалону"""
 
-    first_name = models.CharField(
-        max_length=100,
-        help_text="максимальная длина 100 символов",
-        verbose_name="имя автора",
+    name = models.CharField(
+        max_length=255,
+        verbose_name="название",
+        help_text="максимальная длина 255 символов",
     )
-    last_name = models.CharField(
-        max_length=100,
-        null=True,
-        blank=True,
-        help_text="максимальная длина 100 символов",
-        verbose_name="фамилия автора",
-    )
+
     avatar_url = models.TextField(
         null=True,
         blank=True,
@@ -35,7 +29,7 @@ class ReviewAuthor(models.Model):
     )
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name or ''}"
+        return self.name
 
     class Meta:
         verbose_name = "автор отзыва"
@@ -62,9 +56,7 @@ class Review(models.Model):
         related_name="review",
         verbose_name="площадка на которой расположен",
     )
-    created_at = models.CharField(
-        max_length=100,
-        help_text="формат данных: 8 августа 2024",
+    created_at = models.DateField(
         verbose_name="дата добавления отзыва",
     )
 
@@ -74,3 +66,4 @@ class Review(models.Model):
     class Meta:
         verbose_name = "отзыв"
         verbose_name_plural = "отзывы"
+        ordering = ("-created_at",)

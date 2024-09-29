@@ -43,6 +43,7 @@
                 <th>Автор</th>
                 <th>Звезды</th>
                 <th>Дата создания</th>
+                <th>Аватарка</th>
             </tr>
         </thead>
         <tbody>
@@ -51,6 +52,7 @@
                 <td>{{ review.author }}</td>
                 <td>{{ review.stars }}</td>
                 <td>{{ review.created_at }}</td>
+                <td><img src="{{ review.author.avatar_url }}" alt="Avatar Image" style="width: 100px; height: auto;"></td>
             </tr>
             {% endfor %}
         </tbody>
