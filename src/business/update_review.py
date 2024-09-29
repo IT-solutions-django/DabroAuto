@@ -87,6 +87,3 @@ def _create_average_review(average_review: float) -> None:
     InformationAboutCompany.objects.update_or_create(
         block="average_review", defaults={"content": average_review}
     )
-
-
-update_review()
