@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 
-from src.business.update_review import update_review, send_error_message
+from src.business.review_parser_2gis import UpdateReviewError
+from src.business.update_review import update_review
 
 
 class Command(BaseCommand):
@@ -11,8 +12,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             update_review()
-        except Exception:
-            send_error_message()
+        except UpdateReviewError as e:
+            print(str(e))
             raise CommandError("Error when reviews updated. There are old data left.")
-
+        except Exception:
+            print("Произошла неизвестная ошибка при обновлении отзывов")
+            raise CommandError("Error when reviews updated. There are old data left.")
         self.stdout.write(self.style.SUCCESS("Reviews Updated"))

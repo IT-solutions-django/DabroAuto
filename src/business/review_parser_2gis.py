@@ -3,9 +3,13 @@ from typing import Any
 import requests
 
 
+class UpdateReviewError(Exception):
+    pass
+
+
 def get_2gis_organization_reviews_info(
     url: str, reviews_limit: int = 10
-) -> dict[str, Any] | None:
+) -> dict[str, Any]:
     """
     Получаем информацию об отзывах определенной организации.
     :param reviews_limit: Количество отзывов в ответе (default: 10);
@@ -14,11 +18,7 @@ def get_2gis_organization_reviews_info(
     """
 
     organization_id = _get_organization_id_by_url(url)
-    try:
-        fetched_reviews = _fetch_reviews(organization_id, reviews_limit)
-    except requests.exceptions.RequestException:
-        return None
-
+    fetched_reviews = _fetch_reviews(organization_id, reviews_limit)
     result = _get_needed_data_format(fetched_reviews)
     return result
 
@@ -29,8 +29,10 @@ def _get_organization_id_by_url(url: str) -> str:
     :param url: Ссылка на организацию 2 gis (пример: https://2gis.ru/vladivostok/firm/70000001044743727/tab/reviews);
     :return: Id организации 2 gis.
     """
-
-    return url.split("/")[5]
+    try:
+        return url.split("/")[5]
+    except IndexError:
+        raise UpdateReviewError("Некорректная ссылка на организацию 2gis.")
 
 
 def _fetch_reviews(organization_id: str, reviews_limit: int = 10) -> dict[str, dict]:
@@ -41,13 +43,14 @@ def _fetch_reviews(organization_id: str, reviews_limit: int = 10) -> dict[str, d
     :return: Словарь ответа 2gis API.
     """
 
-    # FIXME Обернуть в декоратор retry для нескольких попыток
-    response = requests.get(
-        f"https://public-api.reviews.2gis.com/2.0/branches/{organization_id}/reviews?"
-        f"limit={reviews_limit}&is_advertiser=false&fields=meta.branch_rating&sort_by=date_edited&"
-        f"key=b0209295-ae15-48b2-acb2-58309b333c37&locale=ru_RU"
-    )
-    return response.json()
+    try:
+        return requests.get(
+            f"https://public-api.reviews.2gis.com/2.0/branches/{organization_id}/reviews?"
+            f"limit={reviews_limit}&is_advertiser=false&fields=meta.branch_rating&sort_by=date_edited&"
+            f"key=b0209295-ae15-48b2-acb2-58309b333c37&locale=ru_RU"
+        ).json()
+    except Exception:
+        raise UpdateReviewError("Ошибка при запросе к 2gis API.")
 
 
 def _get_needed_data_format(fetched_data: dict[str, dict]) -> dict[str, Any]:

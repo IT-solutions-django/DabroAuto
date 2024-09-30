@@ -1,13 +1,14 @@
 from datetime import datetime
+from typing import Any
 
 from django.conf import settings
 from django.db import transaction
-from django.shortcuts import get_object_or_404
 
 from src.apps.review.models import Review, ReviewAuthor, ReviewLocation
 from src.apps.service_info.models import InformationAboutCompany, Settings
 from src.business.review_parser_2gis import (
     get_2gis_organization_reviews_info,
+    UpdateReviewError,
 )
 
 
@@ -17,14 +18,15 @@ def update_review() -> None:
     Обновление отзывов. Парсинг из 2gis и загрузка в базу.
     """
 
-    review_location_name = Settings.objects.get(
-        name=settings.REVIEWS_LOCATION_SETTINGS_NAME
+    review_location_name = _get_data_from_db(
+        Settings, name=settings.REVIEWS_LOCATION_SETTINGS_NAME
     )
-    count_reviews_to_parse = Settings.objects.get(
-        name=settings.COUNT_REVIEWS_TO_PARSE_SETTINGS
+    count_reviews_to_parse = _get_data_from_db(
+        Settings, name=settings.COUNT_REVIEWS_TO_PARSE_SETTINGS
     )
-
-    review_location = _get_review_location_to_parse(review_location_name.content)
+    review_location = _get_data_from_db(
+        ReviewLocation, name=review_location_name.content
+    )
     new_review_data = get_2gis_organization_reviews_info(
         review_location.url, int(count_reviews_to_parse.content)
     )
@@ -38,26 +40,12 @@ def update_review() -> None:
     _create_average_review(new_review_data["average_review"])
 
 
-def send_error_message():
-    """
-    При возникновении ошибки отправка оповещения в Telegram бота.
-    """
-    pass
-
-
-def _get_review_location_to_parse(location_name: str) -> ReviewLocation:
-    """
-    Получение объекта локации по его названию и обработка исключения.
-    :param location_name: Название локации отзыва;
-    :return Объект локации.
-    """
+def _get_data_from_db(klass: Any, *args: Any, **kwargs: Any) -> Any:
 
     try:
-        return get_object_or_404(ReviewLocation, name=location_name)
-    except Exception as e:
-        raise Exception(
-            f"В базе данных не найдена запись с переданным названием локации: {location_name}"
-        ) from e
+        return klass.objects.get(*args, **kwargs)
+    except Exception:
+        raise UpdateReviewError("Не найдена соответствующая запись в БД")
 
 
 def _delete_old_data() -> None:
