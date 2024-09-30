@@ -1,0 +1,216 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-Black.woff2') format('woff2'),
+         url('Inter-Black.ttf') format('truetype'),
+         url('Inter-Black.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-BlackItalic.woff2') format('woff2'),
+         url('Inter-BlackItalic.ttf') format('truetype'),
+         url('Inter-BlackItalic.otf') format('opentype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-Bold.woff2') format('woff2'),
+         url('Inter-Bold.ttf') format('truetype'),
+         url('Inter-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-BoldItalic.woff2') format('woff2'),
+         url('Inter-BoldItalic.ttf') format('truetype'),
+         url('Inter-BoldItalic.otf') format('opentype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-ExtraBold.woff2') format('woff2'),
+         url('Inter-ExtraBold.ttf') format('truetype'),
+         url('Inter-ExtraBold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-ExtraBoldItalic.woff2') format('woff2'),
+         url('Inter-ExtraBoldItalic.ttf') format('truetype'),
+         url('Inter-ExtraBoldItalic.otf') format('opentype');
+    font-weight: 800;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-ExtraLight.woff2') format('woff2'),
+         url('Inter-ExtraLight.ttf') format('truetype'),
+         url('Inter-ExtraLight.otf') format('opentype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-ExtraLightItalic.woff2') format('woff2'),
+         url('Inter-ExtraLightItalic.ttf') format('truetype'),
+         url('Inter-ExtraLightItalic.otf') format('opentype');
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-Italic.woff2') format('woff2'),
+         url('Inter-Italic.ttf') format('truetype'),
+         url('Inter-Italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-Light.woff2') format('woff2'),
+         url('Inter-Light.ttf') format('truetype'),
+         url('Inter-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-LightItalic.woff2') format('woff2'),
+         url('Inter-LightItalic.ttf') format('truetype'),
+         url('Inter-LightItalic.otf') format('opentype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-Medium.woff2') format('woff2'),
+         url('Inter-Medium.ttf') format('truetype'),
+         url('Inter-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-MediumItalic.woff2') format('woff2'),
+         url('Inter-MediumItalic.ttf') format('truetype'),
+         url('Inter-MediumItalic.otf') format('opentype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-Regular.woff2') format('woff2'),
+         url('Inter-Regular.ttf') format('truetype'),
+         url('Inter-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-SemiBold.woff2') format('woff2'),
+         url('Inter-SemiBold.ttf') format('truetype'),
+         url('Inter-SemiBold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-SemiBoldItalic.woff2') format('woff2'),
+         url('Inter-SemiBoldItalic.ttf') format('truetype'),
+         url('Inter-SemiBoldItalic.otf') format('opentype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-Thin.woff2') format('woff2'),
+         url('Inter-Thin.ttf') format('truetype'),
+         url('Inter-Thin.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('Inter-ThinItalic.woff2') format('woff2'),
+         url('Inter-ThinItalic.ttf') format('truetype'),
+         url('Inter-ThinItalic.otf') format('opentype');
+    font-weight: 100;
+    font-style: italic;
+}
+
+@font-face {
+	font-family: 'Bebas-Neue';
+	src: url('BebasNeueRegular.eot');
+	src:
+		url('BebasNeueRegular.eot?#iefix') format('embedded-opentype'),
+		url('BebasNeueRegular.woff') format('woff'),
+		url('BebasNeueRegular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Bebas-Neue';
+	src: url('BebasNeueBold.eot');
+	src:
+		url('BebasNeueBold.eot?#iefix') format('embedded-opentype'),
+		url('BebasNeueBold.woff') format('woff'),
+		url('BebasNeueBold.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Bebas-Neue';
+	src: url('BebasNeueLight.eot');
+	src:
+		url('BebasNeueLight.eot?#iefix') format('embedded-opentype'),
+		url('BebasNeueLight.woff') format('woff'),
+		url('BebasNeueLight.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Bebas-Neue';
+	src: url('BebasNeue-Thin.eot');
+	src:
+		url('BebasNeue-Thin.eot?#iefix') format('embedded-opentype'),
+		url('BebasNeue-Thin.woff') format('woff'),
+		url('BebasNeue-Thin.ttf') format('truetype');
+	font-weight: 100;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Bebas Neue Book';
+	src: url('BebasNeueBook.eot');
+	src: local('Bebas Neue Book'), local('BebasNeueBook'),
+		url('BebasNeueBook.eot?#iefix') format('embedded-opentype'),
+		url('BebasNeueBook.woff') format('woff'),
+		url('BebasNeueBook.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
