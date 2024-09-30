@@ -21,8 +21,10 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(id=id, **kwargs)
         context["title"] = "Главная"
-        context["cars"] = Car.objects.all()
-        context["reviews"] = Review.objects.all()
+        context["cars"] = Car.objects.all().select_related(
+            "brand", "model", "engine_type", "country_manufacturing"
+        )
+        context["reviews"] = Review.objects.all().select_related("author", "location")
         context["review_locations"] = ReviewLocation.objects.all()
         context["social_media"] = SocialMedia.objects.all()
         context["contact_information"] = ContactInformation.objects.all()
@@ -30,3 +32,6 @@ class HomeView(TemplateView):
         context["information_about_company"] = InformationAboutCompany.objects.all()
         context["clips"] = Clip.objects.all()
         return context
+
+
+9

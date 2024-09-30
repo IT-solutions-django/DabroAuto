@@ -34,9 +34,6 @@ def update_review() -> None:
         review_location.url, int(count_reviews_to_parse.content)
     )
 
-    if new_review_data is None:
-        raise Exception("Ошибка при парсинге отзывов из 2gis")
-
     _delete_old_data()
 
     _create_reviews(new_review_data["reviews"], review_location)
