@@ -2,6 +2,8 @@ from typing import Any
 
 import requests
 
+from requests.adapters import Retry, HTTPAdapter
+
 
 class UpdateReviewError(Exception):
     pass
@@ -43,8 +45,12 @@ def _fetch_reviews(organization_id: str, reviews_limit: int = 10) -> dict[str, d
     :return: Словарь ответа 2gis API.
     """
 
+    session = requests.Session()
+    retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
+    session.mount("https://", HTTPAdapter(max_retries=retries))
+
     try:
-        return requests.get(
+        return session.get(
             f"https://public-api.reviews.2gis.com/2.0/branches/{organization_id}/reviews?"
             f"limit={reviews_limit}&is_advertiser=false&fields=meta.branch_rating&sort_by=date_edited&"
             f"key=b0209295-ae15-48b2-acb2-58309b333c37&locale=ru_RU"
