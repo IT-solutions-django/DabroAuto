@@ -13,8 +13,20 @@ REVIEWS_LOCATION_NAME = "2gis"
 COUNT_REVIEWS = 20
 
 
+def update_review_or_send_error_message() -> None:
+    """
+    Обновление отзывов. Парсинг из 2gis и загрузка в базу.
+    При возникновении ошибки отправка оповещения в Telegram бота.
+    """
+
+    try:
+        _update_review()
+    except Exception:
+        _send_error_message()
+
+
 @transaction.atomic
-def update_review() -> None:
+def _update_review() -> None:
     """
     Обновление отзывов. Парсинг из 2gis и загрузка в базу.
     """
@@ -31,6 +43,13 @@ def update_review() -> None:
 
     _create_reviews(new_review_data["reviews"], review_location)
     _create_average_review(new_review_data["average_review"])
+
+
+def _send_error_message():
+    """
+    При возникновении ошибки отправка оповещения в Telegram бота.
+    """
+    pass
 
 
 def _get_review_location_to_parse(location_name: str) -> ReviewLocation:
@@ -85,5 +104,5 @@ def _create_average_review(average_review: float) -> None:
     """
 
     InformationAboutCompany.objects.update_or_create(
-        block="average_review", defaults={"content": average_review}
+        block="Средний рейтинг", defaults={"content": average_review}
     )
