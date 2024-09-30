@@ -22,9 +22,12 @@ class ContactInformation(NameMixin, ContentMixin):
 class StagesOfWork(NameMixin, ContentMixin):
     """Модель описывающая этапы работы автосалона"""
 
+    position = models.PositiveIntegerField(verbose_name="позиция этапа")
+
     class Meta:
         verbose_name = "этап работы"
         verbose_name_plural = "этапы работы"
+        ordering = ("position",)
 
 
 class InformationAboutCompany(ContentMixin):

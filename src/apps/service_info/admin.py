@@ -19,7 +19,8 @@ class SocialMediaAdmin(admin.ModelAdmin):
 class StagesOfWorkAdmin(admin.ModelAdmin):
     """Класс админ-панели этапов работы автосалона"""
 
-    search_fields = ("name",)
+    search_fields = ("name", "position")
+    ordering = ("position",)
 
 
 @admin.register(ContactInformation)
