@@ -43,3 +43,11 @@ class InformationAboutCompany(ContentMixin):
     class Meta:
         verbose_name = "информация об автосалоне"
         verbose_name_plural = "информация об автосалоне"
+
+
+class Settings(NameMixin, ContentMixin):
+    """Модель описывающая информацию об настройках сайта"""
+
+    class Meta:
+        verbose_name = "настройка сайта"
+        verbose_name_plural = "настройки сайта"

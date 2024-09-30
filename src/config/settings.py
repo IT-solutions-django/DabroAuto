@@ -101,3 +101,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+REVIEWS_LOCATION_SETTINGS_NAME = "Название сервиса откуда берутся отзывы"
+COUNT_REVIEWS_TO_PARSE_SETTINGS = "Количество выгружаемых отзывов"

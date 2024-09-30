@@ -1,39 +1,32 @@
 from datetime import datetime
 
+from django.conf import settings
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 
 from src.apps.review.models import Review, ReviewAuthor, ReviewLocation
-from src.apps.service_info.models import InformationAboutCompany
+from src.apps.service_info.models import InformationAboutCompany, Settings
 from src.business.review_parser_2gis import (
     get_2gis_organization_reviews_info,
 )
 
-REVIEWS_LOCATION_NAME = "2gis"
-COUNT_REVIEWS = 20
-
-
-def update_review_or_send_error_message() -> None:
-    """
-    Обновление отзывов. Парсинг из 2gis и загрузка в базу.
-    При возникновении ошибки отправка оповещения в Telegram бота.
-    """
-
-    try:
-        _update_review()
-    except Exception:
-        _send_error_message()
-
 
 @transaction.atomic
-def _update_review() -> None:
+def update_review() -> None:
     """
     Обновление отзывов. Парсинг из 2gis и загрузка в базу.
     """
 
-    review_location = _get_review_location_to_parse(REVIEWS_LOCATION_NAME)
+    review_location_name = Settings.objects.get(
+        name=settings.REVIEWS_LOCATION_SETTINGS_NAME
+    )
+    count_reviews_to_parse = Settings.objects.get(
+        name=settings.COUNT_REVIEWS_TO_PARSE_SETTINGS
+    )
+
+    review_location = _get_review_location_to_parse(review_location_name.content)
     new_review_data = get_2gis_organization_reviews_info(
-        review_location.url, COUNT_REVIEWS
+        review_location.url, int(count_reviews_to_parse.content)
     )
 
     if new_review_data is None:
@@ -45,7 +38,7 @@ def _update_review() -> None:
     _create_average_review(new_review_data["average_review"])
 
 
-def _send_error_message():
+def send_error_message():
     """
     При возникновении ошибки отправка оповещения в Telegram бота.
     """
