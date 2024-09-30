@@ -24,6 +24,9 @@ def update_review() -> None:
     count_reviews_to_parse = _get_data_from_db(
         Settings, name=settings.COUNT_REVIEWS_TO_PARSE_SETTINGS
     )
+
+    _check_count_reviews_is_valid(count_reviews_to_parse.content)
+
     review_location = _get_data_from_db(
         ReviewLocation, name=review_location_name.content
     )
@@ -40,7 +43,20 @@ def update_review() -> None:
     _create_average_review(new_review_data["average_review"])
 
 
+def _check_count_reviews_is_valid(count_reviews: str):
+    """
+    Проверка на валидность числа отзывов из БД.
+    :param count_reviews: Число отзывов в виде строки.
+    :return:
+    """
+    if not count_reviews.isdigit() or 0 >= int(count_reviews) > 50:
+        raise UpdateReviewError("Указано некорректное число отзывов в настройках.")
+
+
 def _get_data_from_db(klass: Any, *args: Any, **kwargs: Any) -> Any:
+    """
+    Получение Данных из БД (get возвращающий кастомное исключение).
+    """
 
     try:
         return klass.objects.get(*args, **kwargs)
