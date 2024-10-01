@@ -13,13 +13,10 @@ def update_clip() -> None:
     """
     Обновление клипов. Парсинг из YouTube API и загрузка в базу.
     """
-    youtube_api_key = Settings.objects.get(
-        name=settings.YOUTUBE_DEVELOPER_KEY_SETTINGS_NAME
-    )
     playlist_url = Settings.objects.get(name=settings.PLAYLIST_URL_SETTINGS)
     count_clips = Settings.objects.get(name=settings.CLIPS_COUNT_SETTINGS)
 
-    new_clips_data = YouTubeClipParser(youtube_api_key.content).get_clips_info(
+    new_clips_data = YouTubeClipParser(settings.YOUTUBE_API_KEY).get_clips_info(
         playlist_url.content, int(count_clips.content)
     )
 

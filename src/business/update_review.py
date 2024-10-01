@@ -30,8 +30,11 @@ def update_review() -> None:
     review_location = _get_data_from_db(
         ReviewLocation, name=review_location_name.content
     )
+
     new_review_data = get_2gis_organization_reviews_info(
-        review_location.url, int(count_reviews_to_parse.content)
+        review_location.url,
+        settings.API_KEY_2GIS,
+        int(count_reviews_to_parse.content),
     )
 
     _delete_old_data()

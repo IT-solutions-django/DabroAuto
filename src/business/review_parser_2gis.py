@@ -10,17 +10,18 @@ class UpdateReviewError(Exception):
 
 
 def get_2gis_organization_reviews_info(
-    url: str, reviews_limit: int = 10
+    url: str, api_key_2gis: str, reviews_limit: int = 10
 ) -> dict[str, Any]:
     """
     Получаем информацию об отзывах определенной организации.
+    :param api_key_2gis: 2GIS API KEY
     :param reviews_limit: Количество отзывов в ответе (default: 10);
     :param url: Ссылка на организацию 2 gis (пример: https://2gis.ru/vladivostok/firm/70000001044743727/tab/reviews);
     :return: Словарь с данными об отзывах организации.
     """
 
     organization_id = _get_organization_id_by_url(url)
-    fetched_reviews = _fetch_reviews(organization_id, reviews_limit)
+    fetched_reviews = _fetch_reviews(organization_id, api_key_2gis, reviews_limit)
     result = _get_needed_data_format(fetched_reviews)
     return result
 
@@ -37,9 +38,12 @@ def _get_organization_id_by_url(url: str) -> str:
         raise UpdateReviewError("Некорректная ссылка на организацию 2gis.")
 
 
-def _fetch_reviews(organization_id: str, reviews_limit: int = 10) -> dict[str, dict]:
+def _fetch_reviews(
+    organization_id: str, api_key_2gis: str, reviews_limit: int = 10
+) -> dict[str, dict]:
     """
     Использую публичное API 2gis, получаем полную информацию об отзывах организации.
+    :param api_key_2gis: 2GIS API KEY
     :param organization_id: Id организации 2gis;
     :param reviews_limit: Количество отзывов в ответе (default: 10);
     :return: Словарь ответа 2gis API.
@@ -53,7 +57,7 @@ def _fetch_reviews(organization_id: str, reviews_limit: int = 10) -> dict[str, d
         return session.get(
             f"https://public-api.reviews.2gis.com/2.0/branches/{organization_id}/reviews?"
             f"limit={reviews_limit}&is_advertiser=false&fields=meta.branch_rating&sort_by=date_edited&"
-            f"key=b0209295-ae15-48b2-acb2-58309b333c37&locale=ru_RU"
+            f"key={api_key_2gis}&locale=ru_RU"
         ).json()
     except Exception:
         raise UpdateReviewError("Ошибка при запросе к 2gis API.")
