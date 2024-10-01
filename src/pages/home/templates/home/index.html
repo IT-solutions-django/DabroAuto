@@ -86,8 +86,7 @@
                                     {% for main_car_image in korea_cars.0.image.all %}
                                         <div class="swiper-slide">
                                         <a href="#" class="items_slid1">
-{#                                            <img src="{{ main_car_image.image.url }}" alt="">#}
-                                            <img src="static/img/photoWrapper1.png" alt="">
+                                            <img class="main_card_img" src="{{ main_car_image.image.url }}" alt="">
                                             <div class="info_tops">
                                                 <h4>{{ korea_cars.0.brand }} {{ korea_cars.0.model }} {{ korea_cars.0.specification }}</h4>
                                                 <p>{{ korea_cars.0.year_manufactured }} • {{ korea_cars.0.engine_type }} • {{ korea_cars.0.beautiful_mileage }} км</p>
@@ -119,7 +118,7 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <a class="items_slid1">
-                                            <img src="static/img/photoWrapper1.png" alt="">
+                                            <img class="main_card_img" src="{{ korea_cars.0.image.all.first.image.url }}" alt="">
                                             <div class="info_tops">
                                                 <h4>{{ korea_cars.0.brand }} {{ korea_cars.0.model }} {{ korea_cars.0.specification }}</h4>
                                                 <p>{{ korea_cars.0.year_manufactured }} • {{ korea_cars.0.engine_type }} • {{ korea_cars.0.beautiful_mileage }} км</p>
@@ -139,7 +138,7 @@
                                                 <p>{{ car.year_manufactured }} • {{ car.engine_type }} • {{ car.beautiful_mileage }} км</p>
                                             </div>
                                             <div class="img_items">
-                                                <img src="static/img/Subtract1.png" alt="">
+                                                <img class="main_card_img" src="{{ car.image.all.first.image.url }}" alt="">
                                             </div>
                                             <div class="bottoms_als">
                                                 <h4>{{ car.beautiful_price }} ₽</h4>
@@ -174,7 +173,7 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <a class="items_slid1">
-                                            <img src="static/img/photoWrapper1.png" alt="">
+                                            <img class="main_card_img" src="{{ china_cars.0.image.all.first.image.url }}" alt="">
                                             <div class="info_tops">
                                                 <h4>{{ china_cars.0.brand }} {{ china_cars.0.model }} {{ china_cars.0.specification }}</h4>
                                                 <p>{{ china_cars.0.year_manufactured }} • {{ china_cars.0.engine_type }} • {{ china_cars.0.beautiful_mileage }} км</p>
@@ -194,7 +193,7 @@
                                                 <p>{{ car.year_manufactured }} • {{ car.engine_type }} • {{ car.beautiful_mileage }} км</p>
                                             </div>
                                             <div class="img_items">
-                                                <img src="static/img/Subtract1.png" alt="">
+                                               <img class="main_card_img" src="{{ car.image.all.first.image.url }}" alt="">
                                             </div>
                                             <div class="bottoms_als">
                                                 <h4>{{ car.beautiful_price }} ₽</h4>
@@ -215,8 +214,7 @@
                                     {% for main_car_image in china_cars.0.image.all %}
                                         <div class="swiper-slide">
                                         <a href="#" class="items_slid1">
-{#                                            <img src="{{ main_car_image.image.url }}" alt="">#}
-                                            <img src="static/img/photoWrapper1.png" alt="">
+                                            <img class="main_card_img" src="{{ main_car_image.image.url }}" alt="">
                                             <div class="info_tops">
                                                 <h4>{{ china_cars.0.brand }} {{ china_cars.0.model }} {{ china_cars.0.specification }}</h4>
                                                 <p>{{ china_cars.0.year_manufactured }} • {{ china_cars.0.engine_type }} • {{ china_cars.0.beautiful_mileage }} км</p>
@@ -249,8 +247,7 @@
                                     {% for main_car_image in japan_cars.0.image.all %}
                                         <div class="swiper-slide">
                                         <a href="#" class="items_slid1">
-{#                                            <img src="{{ main_car_image.image.url }}" alt="">#}
-                                            <img src="static/img/photoWrapper1.png" alt="">
+                                            <img class="main_card_img" src="{{ main_car_image.image.url }}" alt="">
                                             <div class="info_tops">
                                                 <h4>{{ japan_cars.0.brand }} {{ japan_cars.0.model }} {{ japan_cars.0.specification }}</h4>
                                                 <p>{{ japan_cars.0.year_manufactured }} • {{ japan_cars.0.engine_type }} • {{ japan_cars.0.beautiful_mileage }} км</p>
@@ -284,7 +281,7 @@
 
                                     <div class="swiper-slide">
                                         <a class="items_slid1">
-                                            <img src="static/img/photoWrapper1.png" alt="">
+                                            <img class="main_card_img" src="{{ japan_cars.0.image.all.first.image.url }}" alt="">
                                             <div class="info_tops">
                                                 <h4>{{ japan_cars.0.brand }} {{ japan_cars.0.model }} {{ japan_cars.0.specification }}</h4>
                                                 <p>{{ japan_cars.0.year_manufactured }} • {{ japan_cars.0.engine_type }} • {{ japan_cars.0.beautiful_mileage }} км</p>
@@ -304,7 +301,7 @@
                                                 <p>{{ car.year_manufactured }} • {{ car.engine_type }} • {{ car.beautiful_mileage }} км</p>
                                             </div>
                                             <div class="img_items">
-                                                <img src="static/img/Subtract1.png" alt="">
+                                                <img class="main_card_img" src="{{ car.image.all.first.image.url }}" alt="">
                                             </div>
                                             <div class="bottoms_als">
                                                 <h4>{{ car.beautiful_price }} ₽</h4>

@@ -27,7 +27,6 @@ class YouTubeClipParser:
     def get_playlists_info(self, channel_url: str):
         channel_id = self._get_channel_id(channel_url)
         playlists_info = self._get_playlists_info_by_channel_id(channel_id)
-        print(2)
         return playlists_info
 
     def _get_channel_id(self, channel_url: str) -> str:
