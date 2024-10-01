@@ -2638,4 +2638,30 @@ body:has(.modal_.show) .modal_back {
   .popular_cars .popular_cars_block .right_sliders .items2 .bottoms_als {
     margin-left: 0;
   }
-}/*# sourceMappingURL=index.css.map */
+}
+
+.logo-avtar-default {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 70px;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center;
+  object-position: center;
+
+  flex-shrink: 0;
+  justify-content: center;
+}
+
+/*# sourceMappingURL=index.css.map */

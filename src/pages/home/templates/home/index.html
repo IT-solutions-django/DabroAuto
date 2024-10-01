@@ -1190,7 +1190,7 @@
                                     {% if review.author.avatar_url %}
                                         <img src="{{ review.author.avatar_url }}" alt="">
                                     {% else %}
-                                        <img src="static/img/comment1.png" alt="">
+                                        <div class="logo-avtar-default" style="background-color: {{ review.author.logo_background }}">{{ review.author.logo_text }}</div>
                                     {% endif %}
 
                                     <div class="user_name">{{ review.author.name }}</div>

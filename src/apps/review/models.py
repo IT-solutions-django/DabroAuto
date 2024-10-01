@@ -28,6 +28,14 @@ class ReviewAuthor(models.Model):
         verbose_name="ссылка на аватарку",
     )
 
+    @property
+    def logo_text(self) -> str:
+        return "".join(name_word[0].upper() for name_word in self.name.split())
+
+    @property
+    def logo_background(self) -> str:
+        return "#A84CA8"
+
     def __str__(self):
         return self.name
 
