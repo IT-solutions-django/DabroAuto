@@ -18,39 +18,21 @@ def update_review() -> None:
     Обновление отзывов. Парсинг из 2gis и загрузка в базу.
     """
 
-    review_location_name = _get_data_from_db(
-        Settings, name=settings.REVIEWS_LOCATION_SETTINGS_NAME
-    )
-    count_reviews_to_parse = _get_data_from_db(
-        Settings, name=settings.COUNT_REVIEWS_TO_PARSE_SETTINGS
-    )
+    review_location_name = "2gis"
+    count_reviews_to_parse = 20
 
-    _check_count_reviews_is_valid(count_reviews_to_parse.content)
-
-    review_location = _get_data_from_db(
-        ReviewLocation, name=review_location_name.content
-    )
+    review_location = _get_data_from_db(ReviewLocation, name=review_location_name)
 
     new_review_data = get_2gis_organization_reviews_info(
         review_location.url,
         settings.API_KEY_2GIS,
-        int(count_reviews_to_parse.content),
+        count_reviews_to_parse,
     )
 
     _delete_old_data()
 
     _create_reviews(new_review_data["reviews"], review_location)
     _create_average_review(new_review_data["average_review"])
-
-
-def _check_count_reviews_is_valid(count_reviews: str):
-    """
-    Проверка на валидность числа отзывов из БД.
-    :param count_reviews: Число отзывов в виде строки.
-    :return:
-    """
-    if not count_reviews.isdigit() or 0 >= int(count_reviews) > 50:
-        raise UpdateReviewError("Указано некорректное число отзывов в настройках.")
 
 
 def _get_data_from_db(klass: Any, *args: Any, **kwargs: Any) -> Any:
