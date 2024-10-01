@@ -24,6 +24,36 @@ class YouTubeClipParser:
             self.API_SERVICE_NAME, self.API_VERSION, developerKey=api_key
         )
 
+    def get_playlists_info(self, channel_url: str):
+        channel_id = self._get_channel_id(channel_url)
+        playlists_info = self._get_playlists_info_by_channel_id(channel_id)
+        print(2)
+        return playlists_info
+
+    def _get_channel_id(self, channel_url: str) -> str:
+        channel_handle = channel_url.split("/")[3]
+        response = (
+            self.youtube_client.channels()
+            .list(part="id", forHandle=channel_handle)
+            .execute()
+        )
+        return response["items"][0]["id"]
+
+    def _get_playlists_info_by_channel_id(self, channel_id: str):
+        response = (
+            self.youtube_client.playlists()
+            .list(part="snippet", channelId=channel_id, maxResults=50)
+            .execute()
+        )
+        result = [
+            {
+                "name": playlist["snippet"]["title"],
+                "youtube_id": playlist["id"],
+            }
+            for playlist in response["items"]
+        ]
+        return result
+
     def get_clips_info(self, url: str, count_videos: int = 10) -> list[dict[str, Any]]:
         """
         Получение полной информации о клипах определенного плейлиста.

@@ -25,6 +25,13 @@ def update_clip() -> None:
     _create_clips(new_clips_data)
 
 
+def get_playlists_info() -> None:
+    playlists_info = YouTubeClipParser(settings.YOUTUBE_API_KEY).get_playlists_info(
+        "https://www.youtube.com/@batareyka25"
+    )
+    print(*playlists_info, sep="\n")
+
+
 def _delete_old_data() -> None:
     """
     Удаление старых данных из таблицы Clip.
