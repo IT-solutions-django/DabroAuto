@@ -21,9 +21,11 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(id=id, **kwargs)
         context["title"] = "Главная"
-        # context["cars"] = Car.objects.all().select_related(
-        #     "brand", "model", "engine_type", "country_manufacturing"
-        # )
+
+        context["korea_cars"] = Car.objects.filter(country_manufacturing__name="Корея")
+        context["china_cars"] = Car.objects.filter(country_manufacturing__name="Китай")
+        context["japan_cars"] = Car.objects.filter(country_manufacturing__name="Япония")
+
         # context["clips"] = Clip.objects.all()
 
         context["phone_number_main"] = ContactInformation.objects.get(

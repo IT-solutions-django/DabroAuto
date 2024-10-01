@@ -85,9 +85,18 @@ class Car(models.Model):
         Image, related_name="car", verbose_name="изображение"
     )
 
+    @property
+    def beautiful_price(self):
+        return "{0:,}".format(self.price).replace(",", " ")
+
+    @property
+    def beautiful_mileage(self):
+        return "{0:,}".format(self.mileage).replace(",", " ")
+
     def __str__(self):
         return f"{self.brand} {self.model} {self.specification}"
 
     class Meta:
         verbose_name = "автомобиль"
         verbose_name_plural = "автомобили"
+        ordering = ("-price",)
