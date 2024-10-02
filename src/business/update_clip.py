@@ -4,7 +4,6 @@ from django.conf import settings
 from django.db import transaction
 
 from src.apps.clip.models import Clip
-from src.apps.service_info.models import Settings
 from src.business.settings_integration_client import get_settings_integration_config
 from src.business.youtube_integration import YouTubeClipParser
 
@@ -15,24 +14,17 @@ def update_clip() -> None:
     Обновление клипов. Парсинг из YouTube API и загрузка в базу.
     """
     settings_integration_config = get_settings_integration_config()
+    youtube_parser = YouTubeClipParser(settings.YOUTUBE_API_KEY)
 
-    playlist_url = settings_integration_config.get("youtube_channel_url", None)
+    channel_url = settings_integration_config.get("youtube_channel_url", None)
+    playlists = settings_integration_config.get("youtube_playlists", None)
     count_clips = settings_integration_config.get("youtube_count_videos", 0)
 
-    new_clips_data = YouTubeClipParser(settings.YOUTUBE_API_KEY).get_clips_info(
-        playlist_url, count_clips
-    )
+    new_clips_data = youtube_parser.get_clips_info(channel_url, playlists, count_clips)
 
     _delete_old_data()
 
     _create_clips(new_clips_data)
-
-
-def get_playlists_info() -> None:
-    playlists_info = YouTubeClipParser(settings.YOUTUBE_API_KEY).get_playlists_info(
-        "https://www.youtube.com/@batareyka25"
-    )
-    print(*playlists_info, sep="\n")
 
 
 def _delete_old_data() -> None:

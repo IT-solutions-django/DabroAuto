@@ -24,3 +24,4 @@ class Clip(NameMixin, URLMixin):
     class Meta:
         verbose_name = "клип"
         verbose_name_plural = "клипы"
+        ordering = ("id",)
