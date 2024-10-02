@@ -110,3 +110,7 @@ API_KEY_2GIS = os.getenv("API_KEY_2GIS")
 SETTINGS_INTEGRATION_PATH = os.path.join(
     BASE_DIR, "config", "settings_integration.json"
 )
+
+CLIPS_PATH = os.path.join(BASE_DIR, "media", "clips")
+
+PROXY_URL = os.getenv("PROXY_URL")
