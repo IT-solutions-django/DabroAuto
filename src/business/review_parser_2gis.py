@@ -21,8 +21,8 @@ def get_2gis_organization_reviews_info(
     """
 
     organization_id = _get_organization_id_by_url(url)
-    fetched_reviews = _fetch_reviews(organization_id, api_key_2gis, reviews_limit)
-    result = _get_needed_data_format(fetched_reviews)
+    fetched_reviews = _fetch_reviews(organization_id, api_key_2gis)
+    result = _get_needed_data_format(fetched_reviews, reviews_limit)
     return result
 
 
@@ -38,14 +38,11 @@ def _get_organization_id_by_url(url: str) -> str:
         raise UpdateReviewError("Некорректная ссылка на организацию 2gis.")
 
 
-def _fetch_reviews(
-    organization_id: str, api_key_2gis: str, reviews_limit: int = 10
-) -> dict[str, dict]:
+def _fetch_reviews(organization_id: str, api_key_2gis: str) -> dict[str, dict]:
     """
     Использую публичное API 2gis, получаем полную информацию об отзывах организации.
     :param api_key_2gis: 2GIS API KEY
     :param organization_id: Id организации 2gis;
-    :param reviews_limit: Количество отзывов в ответе (default: 10);
     :return: Словарь ответа 2gis API.
     """
 
@@ -56,19 +53,24 @@ def _fetch_reviews(
     try:
         return session.get(
             f"https://public-api.reviews.2gis.com/2.0/branches/{organization_id}/reviews?"
-            f"limit={reviews_limit}&is_advertiser=false&fields=meta.branch_rating&sort_by=date_edited&"
+            f"limit=50&is_advertiser=false&fields=meta.branch_rating&sort_by=date_edited&"
             f"key={api_key_2gis}&locale=ru_RU"
         ).json()
     except Exception:
         raise UpdateReviewError("Ошибка при запросе к 2gis API.")
 
 
-def _get_needed_data_format(fetched_data: dict[str, dict]) -> dict[str, Any]:
+def _get_needed_data_format(
+    fetched_data: dict[str, dict], reviews_limit: int = 10
+) -> dict[str, Any]:
     """
     Фильтрация ненужных данных ответа и преобразование нужных в необходимый формат.
     :param fetched_data: Данные ответа от API 2gis;
+    :param reviews_limit: Количество отзывов в ответе (default: 10);
     :return: Словарь с данными об отзывах организации
     """
+
+    MIN_RATING = 4
 
     return {
         "average_review": fetched_data["meta"]["branch_rating"],
@@ -82,5 +84,6 @@ def _get_needed_data_format(fetched_data: dict[str, dict]) -> dict[str, Any]:
                 },
             }
             for review in fetched_data["reviews"]
-        ],
+            if review["rating"] >= MIN_RATING
+        ][:reviews_limit],
     }
