@@ -26,7 +26,7 @@ class HomeView(TemplateView):
         context["china_cars"] = Car.objects.filter(country_manufacturing__name="Китай")
         context["japan_cars"] = Car.objects.filter(country_manufacturing__name="Япония")
 
-        # context["clips"] = Clip.objects.all()
+        context["clips"] = Clip.objects.all()
 
         context["phone_number_main"] = ContactInformation.objects.get(
             name="Основной номер телефона",

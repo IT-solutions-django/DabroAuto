@@ -33,8 +33,8 @@
                         <a href="#">{{ phone_number_main }}</a>
                     </div>
                     <div class="mesengers">
-                        <a href="{{ tg_url }}"><img src="static/img/cta_button.svg" alt=""></a>
-                        <a href="{{ whatsapp_url }}"><img src="static/img/cta_button1.svg" alt=""></a>
+                        <a href="{{ tg_url }}" target="_blank"><img src="static/img/cta_button.svg" alt=""></a>
+                        <a href="{{ whatsapp_url }}" target="_blank"><img src="static/img/cta_button1.svg" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -454,7 +454,7 @@
                     <div class="btns_a">
                         <a href="#">Получить консультацию</a>
                     </div>
-                <a href="{{ whatsapp_url }}"><img src="static/img/w1.svg" alt=""></a>
+                <a href="{{ whatsapp_url }}" target="_blank"><img src="static/img/w1.svg" alt=""></a>
                </div>
               </div>
               <div class="save_discount">
@@ -481,7 +481,7 @@
                             <div class="btns_a">
                                 <a href="#">Получить консультацию</a>
                             </div>
-                        <a href="{{ whatsapp_url }}"><img src="static/img/w1.svg" alt=""></a>
+                        <a href="{{ whatsapp_url }}" target="_blank"><img src="static/img/w1.svg" alt=""></a>
                        </div>
                     </div>
                     <div class="img_abouts">
@@ -560,7 +560,7 @@
                     </div>
                     <div class="comment_links">
                         {% for review_location in review_locations %}
-                            <a href="{{ review_location.url }}">
+                            <a href="{{ review_location.url }}" target="_blank">
                             {{ review_location.name }}
                             <img src="static/img/arr_link.svg" alt="">
                         </a>
@@ -615,7 +615,7 @@
                     <div class="title">
                         <h2><img src="static/img/clip_logo.svg" alt="">Клипы</h2>
                     </div>
-                    <a href="#" class="clips_link d-none d-sm-flex">
+                    <a href="{{ vk_url }}" target="_blank" class="clips_link d-none d-sm-flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <g clip-path="url(#clip0_11_1091)">
                                 <mask id="mask0_11_1091" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
@@ -637,36 +637,13 @@
                 </div>
                 <div class="clips_swiper swiper">
                     <div class="swiper-wrapper">
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip1.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip2.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip3.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip4.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip5.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip6.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip7.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip8.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip9.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip10.png" alt="">
-                        </a>
+
+                        {% for clip in clips %}
+                            <a href="#" class="swiper-slide">
+                                <img src="{{ clip.thumbnail_url }}" alt="">
+                            </a>
+                        {% endfor %}
+
                     </div>
                 </div>
                 <a href="#" class="clips_link d-flex d-sm-none">
@@ -698,7 +675,7 @@
                         <div class="title">
                             <h2><span>Подпишись</span> и не упусти свой автомобиль мечты</h2>
                         </div>
-                        <a href="{{ tg_url }}" class="subscribe_item">
+                        <a href="{{ tg_url }}" class="subscribe_item" target="_blank">
                             <div class="subscribe_item_img">
                                 <img src="static/img/ico-tg.svg" alt="">
                             </div>
@@ -707,7 +684,7 @@
                                 <img src="static/img/arr_link.svg" alt="">
                             </div>
                         </a>
-                        <a href="{{ vk_url }}" class="subscribe_item">
+                        <a href="{{ vk_url }}" class="subscribe_item" target="_blank">
                             <div class="subscribe_item_img">
                                 <img src="static/img/ico-wk.svg" alt="">
                             </div>
@@ -716,7 +693,7 @@
                                 <img src="static/img/arr_link.svg" alt="">
                             </div>
                         </a>
-                        <a href="{{ inst_url }}" class="subscribe_item">
+                        <a href="{{ inst_url }}" class="subscribe_item" target="_blank">
                             <div class="subscribe_item_img">
                                 <img src="static/img/ico-insta.svg" alt="">
                             </div>
@@ -743,7 +720,7 @@
                             <p>Звонок по России бесплатный</p>
                             <a href="tel:+{{ phone_number }}">{{ phone_number }}</a>
                         </div>
-                        <div class="contact_item">
+                        <div class="contact_item" target="_blank">
                             <p>WhatsApp</p>
                             <a href="{{ whatsapp_url }}">{{ whatsapp }}</a>
                         </div>
@@ -811,10 +788,10 @@
                         <p>Звонок по России бесплатный</p>
                         <a href="tel:+{{ phone_number }}">{{ phone_number }}</a>
                         <div class="social">
-                            <a href="{{ tg_url }}"><img src="static/img/ico-tg2.svg" alt=""></a>
-                            <a href="{{ whatsapp_url }}"><img src="static/img/ico-whatsapp.svg" alt=""></a>
-                            <a href="{{ vk_url }}"><img src="static/img/ico-wk2.svg" alt=""></a>
-                            <a href="{{ inst_url }}"><img src="static/img/ico-insta2.svg" alt=""></a>
+                            <a href="{{ tg_url }}" target="_blank"><img src="static/img/ico-tg2.svg" alt=""></a>
+                            <a href="{{ whatsapp_url }}" target="_blank"><img src="static/img/ico-whatsapp.svg" alt=""></a>
+                            <a href="{{ vk_url }}" target="_blank"><img src="static/img/ico-wk2.svg" alt=""></a>
+                            <a href="{{ inst_url }}" target="_blank"><img src="static/img/ico-insta2.svg" alt=""></a>
                         </div>
                     </div>
                 </div>

@@ -2664,4 +2664,8 @@ body:has(.modal_.show) .modal_back {
   justify-content: center;
 }
 
+.swiper-slide img {
+  object-fit: cover;
+}
+
 /*# sourceMappingURL=index.css.map */

@@ -24,7 +24,33 @@ class YouTubeClipParser:
             self.API_SERVICE_NAME, self.API_VERSION, developerKey=api_key
         )
 
-    def get_playlists_info(self, channel_url: str):
+    def get_clips_info(
+        self, channel_url: str, playlists: list[str], count_videos: int = 10
+    ) -> list[dict[str, Any]]:
+        """
+        Получение полной информации о клипах определенного плейлиста.
+        :param channel_url: Ссылка на youtube канал;
+        :param playlists: Список названий плейлистов;
+        :param count_videos: Количество загружаемых видео.
+        """
+
+        playlists_info = self._get_playlists_info(channel_url)
+        playlists_ids = [
+            playlist_info["youtube_id"]
+            for playlist_info in playlists_info
+            if playlist_info["name"] in playlists
+        ]
+
+        videos_ids = []
+
+        for playlist_id in playlists_ids:
+            video_ids = self._get_playlist_videos_ids(playlist_id)
+            videos_ids.extend(video_ids)
+
+        videos_info = self._get_videos_info_by_ids(videos_ids[: min(50, count_videos)])
+        return videos_info
+
+    def _get_playlists_info(self, channel_url: str):
         channel_id = self._get_channel_id(channel_url)
         playlists_info = self._get_playlists_info_by_channel_id(channel_id)
         return playlists_info
@@ -53,18 +79,6 @@ class YouTubeClipParser:
         ]
         return result
 
-    def get_clips_info(self, url: str, count_videos: int = 10) -> list[dict[str, Any]]:
-        """
-        Получение полной информации о клипах определенного плейлиста.
-        :param url: Ссылка на плейлист. Пример: https://www.youtube.com/watch?v=VfSC0PJyMrY&list=PLD59-zQ-GT2g1don616MMZ5bZKD3rDMmJ.
-        :param count_videos: Количество загружаемых видео.
-        """
-
-        playlist_id = self._get_playlist_id_by_url(url)
-        videos_ids = self._get_playlist_videos_ids(playlist_id, count_videos)
-        videos_info = self._get_videos_info_by_ids(videos_ids)
-        return videos_info
-
     @staticmethod
     def _get_playlist_id_by_url(url: str) -> str:
         """
@@ -75,20 +89,17 @@ class YouTubeClipParser:
         parsed_url = urlparse(url)
         return parse_qs(parsed_url.query)["list"][0]
 
-    def _get_playlist_videos_ids(
-        self, playlist_id: str, count_videos: int = 10
-    ) -> list[str]:
+    def _get_playlist_videos_ids(self, playlist_id: str) -> list[str]:
         """
         Получаем id видеозаписей переданного плейлиста.
         :param playlist_id: id Плейлиста;
-        :param count_videos: Количество загружаемых видео.
         """
 
         videos_short_info = (
             self.youtube_client.playlistItems()
             .list(
                 part="contentDetails",
-                maxResults=count_videos,
+                maxResults=50,
                 playlistId=playlist_id,
             )
             .execute()
