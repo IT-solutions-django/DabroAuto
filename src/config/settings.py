@@ -107,9 +107,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 API_KEY_2GIS = os.getenv("API_KEY_2GIS")
 
-
-REVIEWS_LOCATION_SETTINGS_NAME = "Название сервиса откуда берутся отзывы"
-COUNT_REVIEWS_TO_PARSE_SETTINGS = "Количество выгружаемых отзывов"
-
-PLAYLIST_URL_SETTINGS = "Ссылка на плейлист с клипами"
-CLIPS_COUNT_SETTINGS = "Количество загружаемых клипов"
+SETTINGS_INTEGRATION_PATH = os.path.join(
+    BASE_DIR, "config", "settings_integration.json"
+)
