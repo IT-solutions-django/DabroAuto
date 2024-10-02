@@ -637,36 +637,13 @@
                 </div>
                 <div class="clips_swiper swiper">
                     <div class="swiper-wrapper">
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip1.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip2.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip3.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip4.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip5.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip6.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip7.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip8.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip9.png" alt="">
-                        </a>
-                        <a href="#" class="swiper-slide">
-                            <img src="static/img/clip10.png" alt="">
-                        </a>
+
+                        {% for clip in clips %}
+                            <a href="#" class="swiper-slide">
+                                <img src="{{ clip.thumbnail_url }}" alt="">
+                            </a>
+                        {% endfor %}
+
                     </div>
                 </div>
                 <a href="#" class="clips_link d-flex d-sm-none">
