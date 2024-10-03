@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     # Prom Apps
     "src.pages.home",
     "src.custom_commands",
-    "src.celery",
+    "src.tasks",
 ]
 
 MIDDLEWARE = [

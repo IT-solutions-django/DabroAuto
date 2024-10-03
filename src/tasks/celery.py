@@ -1,11 +1,11 @@
 import os
 from celery import Celery
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "src.config.settings"
+os.environ["DJANGO_SETTINGS_MODULE"] = "config.settings"
 
 app = Celery("car_seller")
 
-app.config_from_object(f"django.conf:settings", namespace="CELERY")
+app.config_from_object("django.conf:settings", namespace="CELERY")
 
 app.autodiscover_tasks()
 
