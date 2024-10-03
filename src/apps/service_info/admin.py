@@ -50,4 +50,5 @@ class QuestionnaireAdmin(admin.ModelAdmin):
     """Класс админ-панели с информацией об обратной связи"""
 
     search_fields = ("name",)
-    fields = ("name", "phone_number", "content")
+    fields = ("name", "phone_number", "content", "created_at")
+    readonly_fields = ("created_at",)
