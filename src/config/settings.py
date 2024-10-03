@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     # Prom Apps
     "src.pages.home",
     "src.custom_commands",
+    "src.celery",
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,7 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
 EMAIL_TO_GETTING_INFO = "kirypleshkov@mail.ru"
+
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
+CELERY_TIMEZONE = "Asia/Barnaul"
