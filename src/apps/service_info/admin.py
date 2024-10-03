@@ -6,6 +6,7 @@ from src.apps.service_info.models import (
     ContactInformation,
     InformationAboutCompany,
     Settings,
+    Questionnaire,
 )
 
 
@@ -42,3 +43,12 @@ class InformationAboutCompanyAdmin(admin.ModelAdmin):
 @admin.register(Settings)
 class SettingsAdmin(admin.ModelAdmin):
     search_fields = ("name",)
+
+
+@admin.register(Questionnaire)
+class QuestionnaireAdmin(admin.ModelAdmin):
+    """Класс админ-панели с информацией об обратной связи"""
+
+    search_fields = ("name",)
+    fields = ("name", "phone_number", "content", "created_at")
+    readonly_fields = ("created_at",)

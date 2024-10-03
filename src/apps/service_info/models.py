@@ -1,6 +1,7 @@
+from django.core.validators import RegexValidator
 from django.db import models
 
-from src.utils.model_mixins import NameMixin, ContentMixin, URLMixin
+from src.utils.model_mixins import NameMixin, ContentMixin, URLMixin, CreatedAtMixin
 
 
 class SocialMedia(NameMixin, URLMixin):
@@ -66,3 +67,31 @@ class Settings(models.Model):
     class Meta:
         verbose_name = "настройка сайта"
         verbose_name_plural = "настройки сайта"
+
+
+class Questionnaire(ContentMixin, CreatedAtMixin):
+    """Модель описывающая информацию об обратной связи"""
+
+    name = models.CharField(
+        max_length=255,
+        verbose_name="имя отправителя",
+        help_text="максимальная длина 255 символов",
+    )
+    phone_number = models.CharField(
+        max_length=16,
+        validators=[
+            RegexValidator(
+                regex=r"^\+7 \d{3} \d{3} \d{2} \d{2}$",
+                message="Номер телефона должен быть определенного формата: '+7 999 999 99 99'.",
+            )
+        ],
+        verbose_name="номер телефона",
+        help_text="формат: '+79999999999'",
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "обратная связь"
+        verbose_name_plural = "обратная связь"

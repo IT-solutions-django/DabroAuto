@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     # Prom Apps
     "src.pages.home",
     "src.custom_commands",
+    "src.tasks",
 ]
 
 MIDDLEWARE = [
@@ -89,7 +90,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "ru"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Barnaul"
 
 USE_I18N = True
 
@@ -114,3 +115,16 @@ SETTINGS_INTEGRATION_PATH = os.path.join(
 CLIPS_PATH = os.path.join(BASE_DIR, "media", "clips")
 
 PROXY_URL = os.getenv("PROXY_URL")
+
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+EMAIL_TO_GETTING_INFO = "kirypleshkov@mail.ru"
+
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
+CELERY_TIMEZONE = "Asia/Barnaul"

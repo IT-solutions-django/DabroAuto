@@ -23,3 +23,23 @@ services:
       - .:/docker-entrypoint-initdb.d
     ports:
       - "6543:5432"
+
+  redis:
+     image: redis
+     container_name: car_seller_redis
+     command: redis-server /usr/local/etc/redis/redis.conf
+     volumes:
+       - .:/usr/local/etc/redis/redis.conf
+     ports:
+       - "6380:6379"
+
+  celery:
+     build: .
+     container_name: car_seller_celery
+     command: celery -A celery worker -l info
+     environment:
+       - CELERY_BROKER=redis://redis:6379
+       - CELERY_BACKEND=redis://redis:6379
+     depends_on:
+       - postgres
+       - redis
