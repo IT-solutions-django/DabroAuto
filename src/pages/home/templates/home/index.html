@@ -729,27 +729,28 @@
                             <div>{{ address }}</div>
                         </div>
                     </div>
-                    <form class="contact_form">
+                    <form class="contact_form" id="contactForm" method="post" action="">
+                        {% csrf_token %}
                         <div class="form_group">
                             <label>
                                 <p>Имя</p>
-                                <input type="text" placeholder="Введите имя">
+                                <input type="text" name="name" placeholder="Введите имя">
                             </label>
                             <label>
                                 <p>Телефон</p>
-                                <input type="tel" placeholder="+7">
+                                <input type="tel" name="phone_number" placeholder="+7">
                             </label>
                         </div>
                         <div class="form_group">
                             <label>
                                 <p>Уточните свой вопрос</p>
-                                <textarea placeholder="Введите текст сообщения, укажите страну, марку и год машины."></textarea>
+                                <textarea name="content" placeholder="Введите текст сообщения, укажите страну, марку и год машины."></textarea>
                             </label>
                         </div>
                         <div class="form_group">
                             <label>
                                 <span class="checkmark"></span>
-                                <input type="checkbox" name="" id="">
+                                <input type="checkbox" name="privacy_policy_agreed" id="">
                                 <p>С <a href="#">правилами политики конфиденциальности</a> ознакомлен</p>
                             </label>
                         </div>
@@ -841,6 +842,27 @@
     </div>
     <div class="modal_back"></div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+      $('#contactForm').submit(function () {
+          $.ajax({
+              data: $(this).serialize(),
+              type: $(this).attr('method'),
+              url: "{% url 'home' %}",
+              success: function (response) {
+                  $('#contactForm').trigger('reset');
+                  alert("Ваше сообщение успешно доставлено!");
+              },
+              error: function (response) {
+                  const errors = JSON.parse(response.responseJSON.errors)
+                  console.log(errors)
+              }
+          });
+          return false;
+      });
+  })
+</script>
 
 
 <script src="static/libs/imask.js"></script>

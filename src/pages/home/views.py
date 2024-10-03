@@ -1,6 +1,7 @@
 from typing import Any
 
-from django.views.generic import TemplateView
+from django.http import JsonResponse
+from django.views.generic import FormView
 
 from src.apps.car.models import Car
 from src.apps.clip.models import Clip
@@ -11,12 +12,30 @@ from src.apps.service_info.models import (
     InformationAboutCompany,
     StagesOfWork,
 )
+from src.pages.home.forms import QuestionnaireForm
 
 
-class HomeView(TemplateView):
+class HomeView(FormView):
     """View для отображения главной страницы"""
 
+    form_class = QuestionnaireForm
     template_name = "home/index.html"
+    success_url = "/"
+
+    def form_valid(self, form):
+        """
+        Если форма валидна, вернем код 200
+        вместе с именем пользователя
+        """
+        form.save()
+        return JsonResponse(None, status=200)
+
+    def form_invalid(self, form):
+        """
+        Если форма невалидна, возвращаем код 400 с ошибками.
+        """
+        errors = form.errors.as_json()
+        return JsonResponse({"errors": errors}, status=400)
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(id=id, **kwargs)
