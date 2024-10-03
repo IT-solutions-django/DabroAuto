@@ -12,6 +12,7 @@ from src.apps.service_info.models import (
     InformationAboutCompany,
     StagesOfWork,
 )
+from src.business.sending_mail import send_email
 from src.pages.home.forms import QuestionnaireForm
 
 
@@ -26,7 +27,13 @@ class HomeView(FormView):
         """
         Если форма валидна, вернем код 200
         """
-        form.save()
+        message = form.save()
+        send_email(
+            "Обратная связь от сайта Правый руль",
+            f"Автор: {message.name}\n"
+            f"Номер телефона: {message.phone_number}\n"
+            f"Содержание: {message.content}",
+        )
         return JsonResponse({}, status=200)
 
     def form_invalid(self, form):
