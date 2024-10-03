@@ -25,10 +25,9 @@ class HomeView(FormView):
     def form_valid(self, form):
         """
         Если форма валидна, вернем код 200
-        вместе с именем пользователя
         """
         form.save()
-        return JsonResponse(None, status=200)
+        return JsonResponse({}, status=200)
 
     def form_invalid(self, form):
         """
