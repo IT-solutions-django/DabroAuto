@@ -9,9 +9,6 @@ class Command(BaseCommand):
     """
 
     def handle(self, *args, **options):
-        try:
-            construct_query_with_base_filters()
-        except Exception:
-            raise CommandError("Error when clips download. There are old data left.")
+        construct_query_with_base_filters()
 
         self.stdout.write(self.style.SUCCESS("Clips Downloaded"))
