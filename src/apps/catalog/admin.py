@@ -1,9 +1,6 @@
 from django.contrib import admin
 
-from src.apps.catalog.models import BaseFilter, CarMark, CarModel
-
-
-# Register your models here.
+from src.apps.catalog.models import BaseFilter, CarMark, CarModel, CarColor
 
 
 @admin.register(BaseFilter)
@@ -26,4 +23,9 @@ class CarMarkAdmin(admin.ModelAdmin):
 @admin.register(CarModel)
 class CarModelAdmin(admin.ModelAdmin):
     list_display = ("name", "mark")
+    search_fields = ("name",)
+
+
+@admin.register(CarColor)
+class CarColorAdmin(admin.ModelAdmin):
     search_fields = ("name",)

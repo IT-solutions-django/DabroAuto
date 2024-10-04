@@ -4,13 +4,38 @@ import xml.etree.ElementTree as ET
 import requests
 from django.db import transaction
 
-from src.apps.catalog.models import BaseFilter, CarMark, CarModel
+from src.apps.catalog.models import BaseFilter, CarMark, CarModel, CarColor
 import datetime
 
 
 def construct_query_with_base_filters():
     base_filters = get_base_filters()
     upload_and_save_marks_and_models(base_filters)
+    upload_and_save_colors(base_filters)
+
+
+@transaction.atomic
+def upload_and_save_colors(base_filters: dict[str, str]):
+    CarColor.objects.all().delete()
+
+    limit_start = 0
+    query = get_sql_query("DISTINCT+COLOR", base_filters.values(), f"{limit_start},250")
+    data = fetch_by_query(query)
+
+    while len(data) > 0:
+        for row in data:
+            if row.get("COLOR") is None:
+                continue
+            print(row)
+            CarColor.objects.create(name=row["COLOR"])
+
+        limit_start += 250
+        query = get_sql_query(
+            "DISTINCT+MODEL_NAME,+MARKA_NAME",
+            base_filters.values(),
+            f"{limit_start},250",
+        )
+        data = fetch_by_query(query)
 
 
 @transaction.atomic

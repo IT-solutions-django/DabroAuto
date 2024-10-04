@@ -37,3 +37,9 @@ class CarModel(models.Model):
     class Meta:
         verbose_name = "модель автомобиля"
         verbose_name_plural = "модели автомобиля"
+
+
+class CarColor(NameMixin):
+    class Meta:
+        verbose_name = "цвет автомобиля"
+        verbose_name_plural = "цвета автомобиля"

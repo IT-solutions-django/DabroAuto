@@ -11,4 +11,4 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         construct_query_with_base_filters()
 
-        self.stdout.write(self.style.SUCCESS("Clips Downloaded"))
+        self.stdout.write(self.style.SUCCESS("Catalog meta Downloaded"))
