@@ -850,9 +850,6 @@
 <script>
   $(document).ready(function () {
       $('#contactForm').submit(function () {
-          var inputValue = $("input[name='privacy_policy_agreed']").val();
-          console.log(inputValue);
-
           $.ajax({
               data: $(this).serialize(),
               type: $(this).attr('method'),
