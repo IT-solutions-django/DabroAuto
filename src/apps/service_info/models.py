@@ -73,7 +73,7 @@ class Questionnaire(ContentMixin, CreatedAtMixin):
     """Модель описывающая информацию об обратной связи"""
 
     name = models.CharField(
-        max_length=255,
+        max_length=20,
         verbose_name="имя отправителя",
         help_text="максимальная длина 255 символов",
     )

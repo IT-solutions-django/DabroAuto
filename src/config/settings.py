@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "src.apps.service_info",
     "src.apps.image",
     "src.apps.clip",
+    "src.apps.catalog",
     # Prom Apps
     "src.pages.home",
     "src.custom_commands",

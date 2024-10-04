@@ -1396,7 +1396,6 @@ header .header_menu .contact_info .phone_inf a {
   opacity: 1;
 }
 .contacts .contact_form .form_group label:has(input[type=checkbox]) input {
-  visibility: hidden;
   opacity: 0;
   position: absolute;
 }
