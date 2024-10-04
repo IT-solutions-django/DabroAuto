@@ -734,23 +734,27 @@
                         <div class="form_group">
                             <label>
                                 <p>Имя</p>
-                                <input type="text" name="name" placeholder="Введите имя">
+                                {{ form.name }}
+{#                                <input type="text" name="name" placeholder="Введите имя">#}
                             </label>
                             <label>
                                 <p>Телефон</p>
-                                <input type="tel" name="phone_number" placeholder="+7">
+                                {{ form.phone_number }}
+{#                                <input type="tel" name="phone_number" placeholder="+7">#}
                             </label>
                         </div>
                         <div class="form_group">
                             <label>
                                 <p>Уточните свой вопрос</p>
-                                <textarea name="content" placeholder="Введите текст сообщения, укажите страну, марку и год машины."></textarea>
+                                {{ form.content }}
+{#                                <textarea name="content" placeholder="Введите текст сообщения, укажите страну, марку и год машины."></textarea>#}
                             </label>
                         </div>
                         <div class="form_group">
                             <label>
                                 <span class="checkmark"></span>
-                                <input type="checkbox" name="privacy_policy_agreed" id="">
+                                {{ form.privacy_policy_agreed }}
+{#                                <input type="checkbox" name="privacy_policy_agreed" id="">#}
                                 <p>С <a href="#">правилами политики конфиденциальности</a> ознакомлен</p>
                             </label>
                         </div>
@@ -846,6 +850,9 @@
 <script>
   $(document).ready(function () {
       $('#contactForm').submit(function () {
+          var inputValue = $("input[name='privacy_policy_agreed']").val();
+          console.log(inputValue);
+
           $.ajax({
               data: $(this).serialize(),
               type: $(this).attr('method'),
