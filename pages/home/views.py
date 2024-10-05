@@ -12,8 +12,8 @@ from apps.service_info.models import (
     InformationAboutCompany,
     StagesOfWork,
 )
-from business.sending_mail import send_email
 from pages.home.forms import QuestionnaireForm
+from tasks.tasks import send_email_task
 
 
 class HomeView(FormView):
@@ -28,7 +28,7 @@ class HomeView(FormView):
         Если форма валидна, вернем код 200
         """
         message = form.save()
-        send_email(
+        send_email_task.delay(
             "Обратная связь от сайта Правый руль",
             f"Автор: {message.name}\n"
             f"Номер телефона: {message.phone_number}\n"
