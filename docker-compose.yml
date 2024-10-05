@@ -44,3 +44,13 @@ services:
        - redis
      volumes:
        - ./media:/usr/src/app/media
+
+  celery-beat:
+     build: .
+     container_name: car_seller_celery_beat
+     command: celery -A config beat -l info
+     depends_on:
+       - postgres
+       - redis
+     volumes:
+       - ./media:/usr/src/app/media
