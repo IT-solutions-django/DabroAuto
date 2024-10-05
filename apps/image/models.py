@@ -16,23 +16,20 @@ class Image(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
         if self.image.name.split(".")[-1] != "svg":
-            img = Img.open(self.image.path)
+            img = Img.open(self.image)
 
             # Сохраняем изображение в формате WEBP
             img_io = io.BytesIO()
             img.save(img_io, format="WEBP")
             img_io.seek(0)
 
-            # Обновляем поле изображения
-            self.image.save(
-                self.image.name.split(".")[0] + ".webp",
-                ContentFile(img_io.read()),
-                save=False,
+            self.image = ContentFile(
+                img_io.getvalue(),
+                name=self.image.name.split(".")[0].split("/")[-1] + ".webp",
             )
-            super().save(update_fields=["image"])
+
+        super(Image, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.image.name.split("/")[-1]
