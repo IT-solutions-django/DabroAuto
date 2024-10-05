@@ -1,6 +1,6 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 
-from business.download_clips import download_clips
+from tasks.tasks import download_clips_task
 
 
 class Command(BaseCommand):
@@ -9,9 +9,6 @@ class Command(BaseCommand):
     """
 
     def handle(self, *args, **options):
-        try:
-            download_clips()
-        except Exception:
-            raise CommandError("Error when clips download. There are old data left.")
+        download_clips_task.delay()
 
-        self.stdout.write(self.style.SUCCESS("Clips Downloaded"))
+        self.stdout.write(self.style.SUCCESS("Clips Downloading task started"))
