@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import path
 
 from pages.admin_settings_integration.views import SettingsIntegrationView
+from pages.catalog_page.views import CatalogView
 from pages.home.views import HomeView
 
 urlpatterns = [
@@ -18,6 +19,7 @@ urlpatterns = [
         name="settings_integration",
     ),
     path("admin/", admin.site.urls),
+    path("catalog/", CatalogView.as_view(), name="catalog-page"),
     path("", HomeView.as_view(), name="home"),
 ]
 

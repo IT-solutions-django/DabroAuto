@@ -29,9 +29,11 @@ INSTALLED_APPS = [
     # Pages
     "pages.home",
     "pages.admin_settings_integration",
+    "pages.catalog_page",
     # Prom Apps
     "custom_commands",
     "tasks",
+    "pages",
 ]
 
 MIDDLEWARE = [
