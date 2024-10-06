@@ -26,8 +26,10 @@ INSTALLED_APPS = [
     "apps.image",
     "apps.clip",
     "apps.catalog",
-    # Prom Apps
+    # Pages
     "pages.home",
+    "pages.admin_settings_integration",
+    # Prom Apps
     "custom_commands",
     "tasks",
 ]
