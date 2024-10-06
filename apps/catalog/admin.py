@@ -1,6 +1,13 @@
 from django.contrib import admin
 
-from apps.catalog.models import BaseFilter, CarMark, CarModel, CarColor, Country
+from apps.catalog.models import (
+    BaseFilter,
+    CarMark,
+    CarModel,
+    CarColor,
+    Country,
+    CarPriv,
+)
 
 
 @admin.register(Country)
@@ -33,4 +40,9 @@ class CarModelAdmin(admin.ModelAdmin):
 
 @admin.register(CarColor)
 class CarColorAdmin(admin.ModelAdmin):
+    search_fields = ("name",)
+
+
+@admin.register(CarPriv)
+class CarPrivAdmin(admin.ModelAdmin):
     search_fields = ("name",)

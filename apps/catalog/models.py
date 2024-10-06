@@ -17,13 +17,20 @@ class Country(NameMixin):
         verbose_name_plural = "страны производства"
 
 
-class BaseFilter(models.Model):
-    country_manufacturing = models.OneToOneField(
+class CountryRelatedMixin(models.Model):
+    """Mixin для добавления связи с таблицей Country"""
+
+    country_manufacturing = models.ForeignKey(
         Country,
         on_delete=models.PROTECT,
-        related_name="base_filter",
         verbose_name="страна производства",
     )
+
+    class Meta:
+        abstract = True
+
+
+class BaseFilter(CountryRelatedMixin):
 
     auction_date = models.PositiveIntegerField(
         verbose_name="дата аукциона",
@@ -74,7 +81,7 @@ class BaseFilter(models.Model):
         return self.country_manufacturing.name
 
 
-class CarMark(NameMixin):
+class CarMark(NameMixin, CountryRelatedMixin):
     class Meta:
         verbose_name = "марка автомобиля"
         verbose_name_plural = "марки автомобиля"
@@ -100,7 +107,13 @@ class CarModel(models.Model):
         verbose_name_plural = "модели автомобиля"
 
 
-class CarColor(NameMixin):
+class CarColor(NameMixin, CountryRelatedMixin):
     class Meta:
         verbose_name = "цвет автомобиля"
         verbose_name_plural = "цвета автомобиля"
+
+
+class CarPriv(NameMixin, CountryRelatedMixin):
+    class Meta:
+        verbose_name = "привод автомобиля"
+        verbose_name_plural = "приводы автомобиля"

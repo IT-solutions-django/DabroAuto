@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from business.catalog_filtering import construct_query_with_base_filters
+from business.catalog_parser import update_catalog_meta
 
 
 class Command(BaseCommand):
@@ -9,6 +9,6 @@ class Command(BaseCommand):
     """
 
     def handle(self, *args, **options):
-        construct_query_with_base_filters()
+        update_catalog_meta()
 
         self.stdout.write(self.style.SUCCESS("Catalog meta Downloaded"))
