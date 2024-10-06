@@ -23,6 +23,73 @@ def update_catalog_meta():
     upload_and_save_priv(table_name, base_filters.values())
 
 
+def get_cars_info(table_name: str, filters: dict, page: int, cars_per_page: int):
+    base_filters = get_base_filters(table_name)
+    filters = connect_filters(filters, base_filters)
+    query = get_sql_query(
+        "*", table_name, filters, f"{cars_per_page * (page - 1)},{cars_per_page}"
+    )
+    print(query)
+    data = fetch_by_query(query)
+    print(data)
+
+
+def connect_filters(filters: dict, base_filters: dict):
+    mark_name = get_model_data_or_none(filters.get("mark"), CarMark)
+    model_name = get_model_data_or_none(filters.get("model"), CarModel)
+    priv = get_model_data_or_none(filters.get("priv"), CarPriv)
+    color = get_model_data_or_none(filters.get("color"), CarColor)
+    year_from = filters.get("year_from")
+    year_to = filters.get("year_to")
+    eng_v_from = filters.get("eng_v_from")
+    eng_v_to = filters.get("eng_v_to")
+    mileage_from = filters.get("mileage_from")
+    mileage_to = filters.get("mileage_to")
+    kpp_type = filters.get("kpp_type")
+
+    result = [
+        mark_name and f"MARKA_NAME+=+'{mark_name}'",
+        model_name and f"MODEL_NAME+=+'{model_name}'",
+        priv and f"PRIV+=+'{priv}'",
+        color and f"COLOR+=+'{color}'",
+        year_from and f"YEAR+>=+{year_from}",
+        year_to and f"YEAR+<=+{year_to}",
+        eng_v_from and f"ENG_V+>=+{eng_v_from}",
+        eng_v_to and f"ENG_V+<=+{eng_v_to}",
+        mileage_from and f"MILEAGE+>=+{mileage_from}",
+        mileage_to and f"MILEAGE+<=+{mileage_to}",
+        kpp_type and f"KPP_TYPE+=+'{kpp_type}'",
+    ]
+
+    if mark_name is not None:
+        del base_filters["MARKA_NAME"]
+
+    if year_to:
+        del base_filters["YEAR"]
+
+    if eng_v_from:
+        del base_filters["ENG_V"]
+
+    if mileage_to:
+        del base_filters["MILEAGE"]
+
+    if kpp_type:
+        del base_filters["KPP_TYPE"]
+
+    result.extend(base_filters.values())
+
+    result = [res for res in result if res is not None]
+
+    return result
+
+
+def get_model_data_or_none(id: str | None, model):
+    try:
+        return model.objects.get(id=id).name
+    except:
+        return None
+
+
 @transaction.atomic
 def upload_and_save_priv(table_name: str, base_filters: Iterable[str]):
     CarPriv.objects.all().delete()
@@ -83,7 +150,12 @@ def fetch_by_query(sql_query: str):
     res = requests.get(url)
     xml_node = ET.fromstring(res.text)
 
-    return [{elem.tag: elem.text for elem in row} for row in xml_node.findall("row")]
+    # print([row for row in xml_node.findall("row")])
+    #
+    # return [
+    #     {elem.tag: elem.text for elem in row if elem is not None}
+    #     for row in xml_node.findall("row")
+    # ]
 
 
 def get_sql_query(

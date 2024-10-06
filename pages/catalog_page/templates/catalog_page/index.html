@@ -29,43 +29,48 @@
     </form>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-      $(document).ready(function () {
+        $(document).ready(function () {
 
-      $('#id_model').empty().append('<option value="" selected="">Модель авто</option>');
+        {#$('#id_model').empty().append('<option value="" selected="">Модель авто</option>');#}
 
-      $('#searchForm').submit(function () {
-          $.ajax({
-              data: $(this).serialize(),
-              type: $(this).attr('method'),
-              url: "{% url 'catalog-page' %}",
-              success: function (response) {
-                  console.log(response)
-              },
-              error: function (response) {
-                  const errors = JSON.parse(response.responseJSON.errors)
-                  console.log(errors)
+        $('#searchForm').submit(function () {
+
+            $.ajax({
+                data: $(this).serialize(),
+                type: $(this).attr('method'),
+                url: "{% url 'catalog-page' %}",
+                success: function (response) {
+                    const newParams = $('#searchForm').serialize().split('&').filter(e => e.split('=')[0] != 'csrfmiddlewaretoken');
+                    const url = new URL(window.location.href);
+                    newParams.forEach(e => url.searchParams.set(e.split('=')[0], e.split('=')[1]))
+
+                    window.history.pushState({}, '', url);
+                },
+                error: function (response) {
+                    const errors = JSON.parse(response.responseJSON.errors)
+                    console.log(errors)
+                }
+            });
+            return false;
+        });
+        $("[name='mark']").change(function() {
+            const markId = $(this).val();
+            $.ajax({
+                url: `/models/?mark_id=${markId || -1}`,
+                type: 'GET',
+                success: function(data) {
+                    $('#id_model').empty().append('<option value="" selected="">Модель авто</option>');
+
+                    $.each(data, function(index, item) {
+                      $('#id_model').append('<option value="' + item.id + '">' + item.name + '</option>');
+                    });
+                },
+              error: function(xhr, status, error) {
+                  console.error('Ошибка AJAX:', error);
               }
           });
-          return false;
+
       });
-      $("[name='mark']").change(function() {
-        const markId = $(this).val();
-        $.ajax({
-            url: `/models/?mark_id=${markId || -1}`,
-            type: 'GET',
-            success: function(data) {
-                $('#id_model').empty().append('<option value="" selected="">Модель авто</option>');
-
-                $.each(data, function(index, item) {
-                    $('#id_model').append('<option value="' + item.id + '">' + item.name + '</option>');
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error('Ошибка AJAX:', error);
-            }
-        });
-
-    });
-  })
+    })
     </script>
 {% endblock %}

@@ -6,6 +6,7 @@ from django.views import View
 from django.views.generic import FormView
 
 from apps.catalog.models import CarMark, CarModel
+from business.catalog_parser import get_cars_info
 from pages.catalog_page.forms import CarSearchForm
 
 
@@ -15,12 +16,12 @@ class CatalogView(FormView):
     form_class = CarSearchForm
     template_name = "catalog_page/index.html"
     success_url = "/"
+    cars_per_page = 10
 
     def form_valid(self, form, *args, **kwargs):
         """
         Если форма валидна, вернем код 200
         """
-        print(form.data)
         return JsonResponse({}, status=200)
 
     def form_invalid(self, form):
@@ -34,12 +35,21 @@ class CatalogView(FormView):
         context = super().get_context_data(id=id, **kwargs)
         context["title"] = "Каталог"
 
+        cars_info = get_cars_info(
+            "stats",
+            self.request.GET,
+            self.request.GET.get("page", 1),
+            self.cars_per_page,
+        )
+
         return context
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         country = "stats"
         kwargs["country"] = country
+        kwargs["initial"] = self.request.GET
+
         return kwargs
 
 
