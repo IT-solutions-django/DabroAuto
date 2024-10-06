@@ -69,7 +69,7 @@ class Settings(models.Model):
         verbose_name_plural = "настройки сайта"
 
 
-class Questionnaire(ContentMixin, CreatedAtMixin):
+class Questionnaire(CreatedAtMixin):
     """Модель описывающая информацию об обратной связи"""
 
     name = models.CharField(
@@ -88,6 +88,7 @@ class Questionnaire(ContentMixin, CreatedAtMixin):
         verbose_name="номер телефона",
         help_text="формат: '+79999999999'",
     )
+    content = models.TextField(verbose_name="контент", blank=True, null=True)
 
     def __str__(self):
         return self.name
