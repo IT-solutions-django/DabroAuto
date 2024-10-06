@@ -11,58 +11,42 @@ import datetime
 def construct_query_with_base_filters():
     table_name = "stats"
     base_filters = get_base_filters(table_name)
-    upload_and_save_marks_and_models(base_filters)
-    upload_and_save_colors(base_filters)
+    upload_and_save_marks_and_models(table_name, base_filters.values())
+    upload_and_save_colors(table_name, base_filters.values())
 
 
 @transaction.atomic
-def upload_and_save_colors(base_filters: dict[str, str]):
+def upload_and_save_colors(table_name: str, base_filters: Iterable[str]):
     CarColor.objects.all().delete()
+    fields = "DISTINCT+COLOR"
 
-    limit_start = 0
-    query = get_sql_query("DISTINCT+COLOR", base_filters.values(), f"{limit_start},250")
-    data = fetch_by_query(query)
-
-    while len(data) > 0:
-        for row in data:
-            if row.get("COLOR") is None:
-                continue
-            print(row)
-            CarColor.objects.create(name=row["COLOR"])
-
-        limit_start += 250
-        query = get_sql_query(
-            "DISTINCT+MODEL_NAME,+MARKA_NAME",
-            base_filters.values(),
-            f"{limit_start},250",
-        )
-        data = fetch_by_query(query)
+    for line in full_data_fetch(fields, table_name, base_filters):
+        if line.get("COLOR") is None:
+            continue
+        CarColor.objects.create(name=line["COLOR"])
 
 
 @transaction.atomic
-def upload_and_save_marks_and_models(base_filters: dict[str, str]):
-
+def upload_and_save_marks_and_models(table_name: str, base_filters: Iterable[str]):
     CarMark.objects.all().delete()
     CarModel.objects.all().delete()
+    fields = "DISTINCT+MODEL_NAME,+MARKA_NAME"
 
-    limit_start = 0
-    query = get_sql_query(
-        "DISTINCT+MODEL_NAME,+MARKA_NAME", base_filters.values(), f"{limit_start},250"
-    )
+    for line in full_data_fetch(fields, table_name, base_filters):
+        car_mark, _ = CarMark.objects.get_or_create(name=line["MARKA_NAME"])
+        CarModel.objects.create(name=line["MODEL_NAME"], mark=car_mark)
+
+
+def full_data_fetch(fields: str, table_name: str, base_filters: Iterable[str]):
+    offset = 0
+    query = get_sql_query(fields, table_name, base_filters, f"{offset},250")
     data = fetch_by_query(query)
 
     while len(data) > 0:
-        for row in data:
-            print(row)
-            car_mark, _ = CarMark.objects.get_or_create(name=row["MARKA_NAME"])
-            CarModel.objects.create(name=row["MODEL_NAME"], mark=car_mark)
+        yield from data
 
-        limit_start += 250
-        query = get_sql_query(
-            "DISTINCT+MODEL_NAME,+MARKA_NAME",
-            base_filters.values(),
-            f"{limit_start},250",
-        )
+        offset += 250
+        query = get_sql_query(fields, table_name, base_filters, f"{offset},250")
         data = fetch_by_query(query)
 
 
@@ -71,19 +55,13 @@ def fetch_by_query(sql_query: str):
     res = requests.get(url)
     xml_node = ET.fromstring(res.text)
 
-    result = []
-
-    for row in xml_node.findall("row"):
-        result_dict = {}
-        for elem in row:
-            result_dict[elem.tag] = elem.text
-        result.append(result_dict)
-
-    return result
+    return [{elem.tag: elem.text for elem in row} for row in xml_node.findall("row")]
 
 
-def get_sql_query(fields: str, base_filters: Iterable[str], limit: str):
-    query = f"select+{fields}+from+stats+WHERE+1+=+1+and+{'+and+'.join(base_filters)}+limit+{limit}"
+def get_sql_query(
+    fields: str, table_name: str, base_filters: Iterable[str], limit: str
+):
+    query = f"select+{fields}+from+{table_name}+WHERE+1+=+1+and+{'+and+'.join(base_filters)}+limit+{limit}"
     return query
 
 
