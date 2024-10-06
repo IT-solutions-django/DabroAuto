@@ -20,8 +20,7 @@ class CatalogView(FormView):
         """
         Если форма валидна, вернем код 200
         """
-
-        # print(self, form. sep="\n")
+        print(form.data)
         return JsonResponse({}, status=200)
 
     def form_invalid(self, form):

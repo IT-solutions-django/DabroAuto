@@ -72,7 +72,9 @@ class CarSearchForm(forms.Form):
             (mark.id, mark.name)
             for mark in CarMark.objects.filter(country_manufacturing=country)
         ]
-        self.fields["model"].choices = [(None, "Модель авто")]
+        self.fields["model"].choices = [(None, "Модель авто")] + [
+            (model.id, model.name) for model in CarModel.objects.all()
+        ]
         self.fields["priv"].choices = [(None, "Привод")] + [
             (priv.id, priv.name)
             for priv in CarPriv.objects.filter(country_manufacturing=country)
