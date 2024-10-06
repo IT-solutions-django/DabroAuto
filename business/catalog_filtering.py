@@ -9,7 +9,8 @@ import datetime
 
 
 def construct_query_with_base_filters():
-    base_filters = get_base_filters()
+    table_name = "stats"
+    base_filters = get_base_filters(table_name)
     upload_and_save_marks_and_models(base_filters)
     upload_and_save_colors(base_filters)
 
@@ -86,29 +87,23 @@ def get_sql_query(fields: str, base_filters: Iterable[str], limit: str):
     return query
 
 
-def get_base_filters():
-    auction_date = BaseFilter.objects.get(model_name="AUCTION_DATE").content
-    auction = BaseFilter.objects.get(model_name="AUCTION").content
-    marka_name = BaseFilter.objects.get(model_name="MARKA_NAME").content
-    year = BaseFilter.objects.get(model_name="YEAR").content
-    eng_v = BaseFilter.objects.get(model_name="ENG_V").content
-    mileage = BaseFilter.objects.get(model_name="MILEAGE").content
-    status = BaseFilter.objects.get(model_name="STATUS").content
-    finish = BaseFilter.objects.get(model_name="FINISH").content
-    kpp_type = BaseFilter.objects.get(model_name="KPP_TYPE").content
+def get_base_filters(table_name: str):
+    base_filers = BaseFilter.objects.get(country_manufacturing__table_name=table_name)
 
     max_auction_date = datetime.datetime.now() - datetime.timedelta(
-        days=int(auction_date)
+        days=int(base_filers.auction_date)
     )
+
+    kpp_types = (str(kpp_type) for kpp_type in base_filers.kpp_type)
 
     return {
         "AUCTION_DATE": f"AUCTION_DATE+>=+'{max_auction_date.date()}'",
-        "AUCTION": f"AUCTION+NOT+LIKE+'%{auction}%'",
-        "MARKA_NAME": f"MARKA_NAME+NOT+IN+(+'{ "',+'".join(marka_name.split(';'))}'+)",
-        "YEAR": f"YEAR+<=+{year}",
-        "ENG_V": f"ENG_V+>+{eng_v}",
-        "MILEAGE": f"MILEAGE+<=+{mileage}",
-        "STATUS": f"STATUS+=+'{status}'",
-        "FINISH": f"FINISH+>+{finish}",
-        "KPP_TYPE": f"KPP_TYPE+IN+(+'{ "',+'".join(kpp_type.split(';'))}'+)",
+        "AUCTION": f"AUCTION+NOT+LIKE+'%{base_filers.auction}%'",
+        "MARKA_NAME": f"MARKA_NAME+NOT+IN+(+'{ "',+'".join(base_filers.marka_name)}'+)",
+        "YEAR": f"YEAR+<=+{base_filers.year}",
+        "ENG_V": f"ENG_V+>+{base_filers.eng_v}",
+        "MILEAGE": f"MILEAGE+<=+{base_filers.mileage}",
+        "STATUS": f"STATUS+=+'{base_filers.status}'",
+        "FINISH": f"FINISH+>+{base_filers.finish}",
+        "KPP_TYPE": f"KPP_TYPE+IN+(+'{ "',+'".join(kpp_types)}'+)",
     }

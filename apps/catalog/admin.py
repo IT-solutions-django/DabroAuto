@@ -1,11 +1,16 @@
 from django.contrib import admin
 
-from apps.catalog.models import BaseFilter, CarMark, CarModel, CarColor
+from apps.catalog.models import BaseFilter, CarMark, CarModel, CarColor, Country
+
+
+@admin.register(Country)
+class CountryAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(BaseFilter)
 class BaseFilterAdmin(admin.ModelAdmin):
-    fields = ("name", "model_name", "content")
+    pass
 
 
 class CarModelInline(admin.TabularInline):
