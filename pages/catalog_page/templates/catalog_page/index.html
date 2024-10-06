@@ -1,9 +1,68 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method="post">
+    <form id="searchForm" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-    <button type="submit">{{ form.submit.value }}</button>
-</form>
+        <div style="display: flex; gap: 20px">
+            {{ form.mark }}
+            <div style="display: flex">
+                {{ form.year_from }}
+                {{ form.year_to }}
+            </div>
+            <div style="display: flex">
+                {{ form.eng_v_from }}
+                {{ form.eng_v_to }}
+            </div>
+            {{ form.priv }}
+        </div>
+        <div style="display: flex; gap: 20px; padding-top: 20px">
+            {{ form.model }}
+            <div style="display: flex">
+                {{ form.mileage_from }}
+                {{ form.mileage_to }}
+            </div>
+            {{ form.kpp_type }}
+            {{ form.color }}
+        </div>
+
+        <button style="margin-top: 20px" type="submit">Показать</button>
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+      $('#searchForm').submit(function () {
+          $.ajax({
+              data: $(this).serialize(),
+              type: $(this).attr('method'),
+              url: "{% url 'catalog-page' %}",
+              success: function (response) {
+                  console.log(response)
+              },
+              error: function (response) {
+                  const errors = JSON.parse(response.responseJSON.errors)
+                  console.log(errors)
+              }
+          });
+          return false;
+      });
+      $("[name='mark']").change(function() {
+        const markId = $(this).val();
+        $.ajax({
+            url: `/models/?mark_id=${markId || -1}`,
+            type: 'GET',
+            success: function(data) {
+                $('#id_model').empty().append('<option value="" selected="">Модель авто</option>');
+
+                $.each(data, function(index, item) {
+                    $('#id_model').append('<option value="' + item.id + '">' + item.name + '</option>');
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Ошибка AJAX:', error);
+            }
+        });
+
+    });
+  })
+    </script>
 {% endblock %}

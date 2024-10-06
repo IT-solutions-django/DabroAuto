@@ -1,8 +1,11 @@
 from typing import Any
 
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.views import View
 from django.views.generic import FormView
 
+from apps.catalog.models import CarMark, CarModel
 from pages.catalog_page.forms import CarSearchForm
 
 
@@ -13,10 +16,12 @@ class CatalogView(FormView):
     template_name = "catalog_page/index.html"
     success_url = "/"
 
-    def form_valid(self, form):
+    def form_valid(self, form, *args, **kwargs):
         """
         Если форма валидна, вернем код 200
         """
+
+        # print(self, form. sep="\n")
         return JsonResponse({}, status=200)
 
     def form_invalid(self, form):
@@ -31,3 +36,16 @@ class CatalogView(FormView):
         context["title"] = "Каталог"
 
         return context
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        country = "stats"
+        kwargs["country"] = country
+        return kwargs
+
+
+class CarModelListView(View):
+    def get(self, request, *args, **kwargs):
+        mark_id = request.GET.get("mark_id")
+        models = CarModel.objects.filter(mark_id=mark_id).values("id", "name") or []
+        return JsonResponse(list(models), safe=False)
