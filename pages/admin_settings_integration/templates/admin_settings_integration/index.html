@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="{% static 'admin/css/forms.css' %}">
 <link rel="stylesheet" href="{% static 'admin/css/responsive.css' %}">
 <div class="container">
-        <h1>Настройки интеграции</h1>
         <form method="post">
             {% csrf_token %}
             {{ form.youtube_channel_url.label }} {{ form.youtube_channel_url }}<br>
