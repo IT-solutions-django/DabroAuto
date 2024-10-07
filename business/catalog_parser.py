@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import Iterable
 from bs4 import BeautifulSoup
 
@@ -15,6 +16,16 @@ from apps.catalog.models import (
 import datetime
 
 
+@dataclass
+class CarCard:
+    mark: str
+    model: str
+    grade: str
+    year: int
+    mileage: int
+    images: list[str]
+
+
 def update_catalog_meta():
     table_name = "stats"
     base_filters = get_base_filters(table_name)
@@ -29,8 +40,20 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
     query = get_sql_query(
         "*", table_name, filters, f"{cars_per_page * (int(page) - 1)},{cars_per_page}"
     )
-    print(query)
-    return fetch_by_query(query)
+    data = fetch_by_query(query)
+    clear_data = [
+        CarCard(
+            mark=car["MARKA_NAME"],
+            model=car["MODEL_NAME"],
+            grade=car["GRADE"],
+            year=car["YEAR"],
+            mileage=car["MILEAGE"],
+            images=[image[:-3] for image in car["IMAGES"].split("#")],
+        )
+        for car in data
+    ]
+
+    return clear_data
 
 
 def connect_filters(filters: dict, base_filters: dict):
@@ -96,7 +119,7 @@ def upload_and_save_priv(table_name: str, base_filters: Iterable[str]):
     fields = "DISTINCT+PRIV"
 
     for line in full_data_fetch(fields, table_name, base_filters):
-        if line.get("PRIV") is None:
+        if not line.get("PRIV"):
             continue
         CarPriv.objects.create(
             name=line["PRIV"], country_manufacturing=country_manufacturing
@@ -110,7 +133,7 @@ def upload_and_save_colors(table_name: str, base_filters: Iterable[str]):
     fields = "DISTINCT+COLOR"
 
     for line in full_data_fetch(fields, table_name, base_filters):
-        if line.get("COLOR") is None:
+        if not line.get("COLOR"):
             continue
         CarColor.objects.create(
             name=line["COLOR"], country_manufacturing=country_manufacturing
