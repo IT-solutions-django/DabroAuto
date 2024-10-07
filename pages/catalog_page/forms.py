@@ -1,7 +1,7 @@
 from django import forms
 from django.shortcuts import get_object_or_404
 
-from apps.catalog.models import CarMark, CarModel, Country, CarPriv, CarColor
+from apps.catalog.models import CarMark, CarModel, Country, CarColor
 
 
 class CarSearchForm(forms.Form):
@@ -143,7 +143,15 @@ class CarSearchForm(forms.Form):
         ],
         required=False,
     )
-    priv = forms.ChoiceField(required=False)
+    priv = forms.ChoiceField(
+        choices=[(None, "Привод")]
+        + [
+            ("FF", "Передний привод"),
+            ("FR", "Задний привод"),
+            ("NOT", "Полный привод"),
+        ],
+        required=False,
+    )
     color = forms.ChoiceField(required=False)
 
     def __init__(self, *args, **kwargs):
@@ -158,9 +166,6 @@ class CarSearchForm(forms.Form):
         ]
         self.fields["model"].choices = [(None, "Модель авто")] + [
             (model.id, model.name) for model in CarModel.objects.all()
-        ]
-        self.fields["priv"].choices = [(None, "Привод")] + [
-            (priv.id, priv.name) for priv in CarPriv.objects.all()
         ]
         self.fields["color"].choices = [(None, "Цвет")] + [
             (color.id, color.name)

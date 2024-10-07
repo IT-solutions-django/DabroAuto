@@ -10,9 +10,7 @@ from apps.catalog.models import (
     CarMark,
     CarModel,
     CarColor,
-    CarPriv,
     Country,
-    CarPrivApiTag,
 )
 import datetime
 
@@ -33,7 +31,6 @@ def update_catalog_meta():
     base_filters = get_base_filters(table_name)
     upload_and_save_marks_and_models(table_name, base_filters.values())
     upload_and_save_colors(table_name, base_filters.values())
-    upload_and_save_priv(table_name, base_filters.values())
 
 
 def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int):
@@ -77,7 +74,7 @@ def get_cars_count(table_name: str, filters: list[str]):
 def connect_filters(filters: dict, base_filters: dict):
     mark_name = get_model_data_or_none(filters.get("mark"), CarMark)
     model_name = get_model_data_or_none(filters.get("model"), CarModel)
-    priv = get_priv_data_or_none(filters.get("priv"))
+    priv = filters.get("priv") or None
     color = get_model_data_or_none(filters.get("color"), CarColor)
     year_from = filters.get("year_from") or None
     year_to = filters.get("year_to") or None
@@ -87,12 +84,15 @@ def connect_filters(filters: dict, base_filters: dict):
     mileage_to = filters.get("mileage_to") or None
     kpp_type = filters.get("kpp_type") or None
 
-    priv_clear = priv and [priv_tag.name for priv_tag in priv.api_tags.all()]
+    if priv in ("FF", "FR"):
+        priv = f"PRIV+=+'{priv}'"
+    elif priv == "NOT":
+        priv = "PRIV+NOT+IN+('FF',+'FR')"
 
     result = [
         mark_name and f"MARKA_NAME+=+'{mark_name}'",
         model_name and f"MODEL_NAME+=+'{model_name}'",
-        priv and f"PRIV+IN+(+'{ "',+'".join(priv_clear)}'+)",
+        priv,
         color and f"COLOR+=+'{color}'",
         year_from and f"YEAR+>=+{year_from}",
         year_to and f"YEAR+<=+{year_to}",
@@ -130,40 +130,6 @@ def get_model_data_or_none(id: str | None, model):
         return model.objects.get(id=id).name
     except:
         return None
-
-
-def get_priv_data_or_none(id: str | None):
-    try:
-        return CarPriv.objects.get(id=id)
-    except:
-        return None
-
-
-@transaction.atomic
-def upload_and_save_priv(table_name: str, base_filters: Iterable[str]):
-    CarPrivApiTag.objects.all().delete()
-    country_manufacturing = Country.objects.get(table_name=table_name)
-    fields = "DISTINCT+PRIV"
-
-    ff_priv, _ = CarPriv.objects.get_or_create(name="Передний привод")
-    fr_priv, _ = CarPriv.objects.get_or_create(name="Задний привод")
-    full_priv, _ = CarPriv.objects.get_or_create(name="Полный привод")
-
-    CarPrivApiTag.objects.create(
-        name="FF", priv=ff_priv, country_manufacturing=country_manufacturing
-    )
-    CarPrivApiTag.objects.create(
-        name="FR", priv=fr_priv, country_manufacturing=country_manufacturing
-    )
-
-    for priv in full_data_fetch(fields, table_name, base_filters):
-        if priv["PRIV"] in ("FF", "FR", ""):
-            continue
-        CarPrivApiTag.objects.create(
-            name=priv["PRIV"],
-            priv=full_priv,
-            country_manufacturing=country_manufacturing,
-        )
 
 
 @transaction.atomic
