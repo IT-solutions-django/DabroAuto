@@ -24,6 +24,7 @@ class CarCard:
     year: int
     mileage: int
     images: list[str]
+    price: int
 
 
 def update_catalog_meta():
@@ -48,6 +49,7 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
             grade=car["GRADE"],
             year=car["YEAR"],
             mileage=car["MILEAGE"],
+            price=car["FINISH"],
             images=[image[:-3] for image in car["IMAGES"].split("#")],
         )
         for car in data
