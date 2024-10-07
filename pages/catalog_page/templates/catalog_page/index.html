@@ -27,7 +27,7 @@
 
         <button style="margin-top: 20px" type="submit">Показать</button>
     </form>
-    <div>
+    <div id="carContainer">
     {% for car in cars_info %}
         <div style="background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin: 10px; padding: 15px; width: 200px;">
             <h3 style="margin: 0;">{{ car.mark }} {{ car.model }} {{ car.grade }}</h3>
@@ -36,6 +36,17 @@
             <h4 style="margin: 10px 0;">Цена: <span>{{ car.price }} ₽</span></h4>
         </div>
     {% endfor %}
+    </div>
+    <div class="pagination">
+        {% for page in page_range %}
+            {% if page == "..." %}
+                <span>...</span>
+            {% elif page == current_page %}
+                <span style="color: red; font-weight: bold;">{{ page }}</span>  <!-- Выделяем текущую страницу -->
+            {% else %}
+                <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ page }}">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -53,8 +64,47 @@
                     const newParams = $('#searchForm').serialize().split('&').filter(e => e.split('=')[0] != 'csrfmiddlewaretoken');
                     const url = new URL(window.location.href);
                     newParams.forEach(e => url.searchParams.set(e.split('=')[0], e.split('=')[1]))
+                    url.searchParams.set('page', '1')
 
                     window.history.pushState({}, '', url);
+
+                    const cars = response.cars_info; // Получаем массив автомобилей
+                    let carsHtml = ''; // Переменная для хранения HTML-кода
+
+                    // Генерируем HTML-код для каждого автомобиля
+                    cars.forEach(car => {
+                        carsHtml += `
+                            <div style="background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin: 10px; padding: 15px; width: 200px;">
+                                <h3 style="margin: 0;">${car.mark} ${car.model} ${car.grade}</h3>
+                                <p style="margin: 5px 0;">${car.year} • ${car.mileage} км</p>
+                                <img style="max-width: 100px; height: auto;" src="${car.images[0]}" alt="${car.mark} ${car.model}">
+                                <h4 style="margin: 10px 0;">Цена: <span>₽</span></h4>
+                            </div>
+                        `;
+                    });
+
+                    // Обновляем контейнер с автомобилями
+                    $('#carContainer').html(carsHtml);
+
+                    const pageRange = response.page_range; // Новый диапазон страниц
+                    const currentPage = 1; // Текущая страница
+                    console.log(pageRange)
+
+                    // Генерируем HTML-код для пагинации
+                    let paginationHtml = '';
+                    for (const page of pageRange) {
+                        if (page === "...") {
+                            paginationHtml += `<span>...</span>`;
+                        } else if (page === currentPage) {
+                            paginationHtml += `<span style="color: red; font-weight: bold;">${page}</span>`; // Выделяем текущую страницу
+                        } else {
+                            url.searchParams.set('page', `${page}`)
+                            paginationHtml += `<a href="?${url.searchParams.toString()}">${page}</a>`;
+                        }
+                    }
+
+                    // Обновляем контейнер с пагинацией
+                    $('.pagination').html(paginationHtml);
                 },
                 error: function (response) {
                     const errors = JSON.parse(response.responseJSON.errors)

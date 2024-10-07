@@ -53,7 +53,21 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
         for car in data
     ]
 
-    return clear_data
+    cars_count = get_cars_count(table_name, filters)
+    pages_count = (int(cars_count) - 1) // cars_per_page + 1
+
+    return clear_data, pages_count
+
+
+def get_cars_count(table_name: str, filters: list[str]):
+    query = get_sql_query(
+        "count(*)",
+        table_name,
+        filters,
+        "0,1",
+    )
+    data = fetch_by_query(query)
+    return data[0]["TAG0"]
 
 
 def connect_filters(filters: dict, base_filters: dict):
