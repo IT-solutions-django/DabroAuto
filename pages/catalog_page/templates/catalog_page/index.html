@@ -52,7 +52,7 @@
     <script>
         $(document).ready(function () {
 
-        {#$('#id_model').empty().append('<option value="" selected="">Модель авто</option>');#}
+        updateModels()
 
         $('#searchForm').submit(function () {
 
@@ -113,24 +113,40 @@
             });
             return false;
         });
-        $("[name='mark']").change(function() {
-            const markId = $(this).val();
+
+        $("[name='mark']").change(updateModels);
+
+        function updateModels() {
+            const markId = $("[name='mark']").val();
             $.ajax({
                 url: `/models/?mark_id=${markId || -1}`,
                 type: 'GET',
                 success: function(data) {
+
+                    const selectedModel = $('#id_model').val();
+                    console.log(selectedModel)
+
+                    // Очищаем текущий список моделей и добавляем первую опцию
                     $('#id_model').empty().append('<option value="" selected="">Модель авто</option>');
 
+                    // Добавляем новые опции из данных
                     $.each(data, function(index, item) {
-                      $('#id_model').append('<option value="' + item.id + '">' + item.name + '</option>');
+                        $('#id_model').append('<option value="' + item.id + '">' + item.name + '</option>');
                     });
-                },
-              error: function(xhr, status, error) {
-                  console.error('Ошибка AJAX:', error);
-              }
-          });
 
-      });
+                    // Устанавливаем выбранную модель, если она присутствует в обновленных данных
+                    if (data.some(item => Number(item.id) === Number(selectedModel))) {
+                        $('#id_model').val(selectedModel);
+                    } else {
+                        $('#id_model').val(''); // Если модели нет, выбираем "Модель авто"
+                    }
+
+                },
+                error: function(xhr, status, error) {
+                    console.error('Ошибка AJAX:', error);
+                }
+            });
+        }
     })
     </script>
 {% endblock %}
