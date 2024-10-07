@@ -113,7 +113,21 @@ class CarColor(NameMixin, CountryRelatedMixin):
         verbose_name_plural = "цвета автомобиля"
 
 
-class CarPriv(NameMixin, CountryRelatedMixin):
+class CarPriv(NameMixin):
+
     class Meta:
         verbose_name = "привод автомобиля"
         verbose_name_plural = "приводы автомобиля"
+
+
+class CarPrivApiTag(NameMixin, CountryRelatedMixin):
+    priv = models.ForeignKey(
+        CarPriv,
+        on_delete=models.CASCADE,
+        related_name="api_tags",
+        verbose_name="привод",
+    )
+
+    class Meta:
+        verbose_name = "api тэг привода автомобиля"
+        verbose_name_plural = "api тэги привода автомобиля"

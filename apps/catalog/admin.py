@@ -7,6 +7,7 @@ from apps.catalog.models import (
     CarColor,
     Country,
     CarPriv,
+    CarPrivApiTag,
 )
 
 
@@ -43,6 +44,12 @@ class CarColorAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 
+class CarPrivApiTagInline(admin.TabularInline):
+    model = CarPrivApiTag
+    extra = 0
+
+
 @admin.register(CarPriv)
 class CarPrivAdmin(admin.ModelAdmin):
     search_fields = ("name",)
+    inlines = (CarPrivApiTagInline,)
