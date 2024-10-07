@@ -102,7 +102,7 @@ def connect_filters(filters: dict, base_filters: dict):
     if mark_name is not None:
         del base_filters["MARKA_NAME"]
 
-    if year_to:
+    if year_to or year_from:
         del base_filters["YEAR"]
 
     if eng_v_from:
