@@ -227,14 +227,15 @@ def get_sql_query(
 def get_base_filters(table_name: str):
     base_filers = BaseFilter.objects.get(country_manufacturing__table_name=table_name)
 
-    max_auction_date = datetime.datetime.now() - datetime.timedelta(
-        days=int(base_filers.auction_date)
+    max_auction_date = (
+        base_filers.auction_date
+        and datetime.datetime.now()
+        - datetime.timedelta(days=int(base_filers.auction_date))
     )
 
     kpp_types = (str(kpp_type) for kpp_type in base_filers.kpp_type)
 
-    return {
-        "AUCTION_DATE": f"AUCTION_DATE+>=+'{max_auction_date.date()}'",
+    result = {
         "AUCTION": f"AUCTION+NOT+LIKE+'%{base_filers.auction}%'",
         "MARKA_NAME": f"MARKA_NAME+NOT+IN+(+'{ "',+'".join(base_filers.marka_name)}'+)",
         "YEAR": f"YEAR+<=+{base_filers.year}",
@@ -244,3 +245,11 @@ def get_base_filters(table_name: str):
         "FINISH": f"FINISH+>+{base_filers.finish}",
         "KPP_TYPE": f"KPP_TYPE+IN+(+'{ "',+'".join(kpp_types)}'+)",
     }
+    if base_filers.auction_date is not None:
+        result.update(
+            {
+                "AUCTION_DATE": f"AUCTION_DATE+>=+'{max_auction_date.date()}'",
+            }
+        )
+
+    return result

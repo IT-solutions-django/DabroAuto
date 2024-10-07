@@ -32,10 +32,6 @@ class CountryRelatedMixin(models.Model):
 
 class BaseFilter(CountryRelatedMixin):
 
-    auction_date = models.PositiveIntegerField(
-        verbose_name="дата аукциона",
-        help_text="за какой период от текущей даты (дней)",
-    )
     auction = models.CharField(
         max_length=20,
         verbose_name="название аукциона",
@@ -71,6 +67,12 @@ class BaseFilter(CountryRelatedMixin):
         models.PositiveIntegerField(),
         verbose_name="типы КПП",
         help_text="исключаем эти типы",
+    )
+    auction_date = models.PositiveIntegerField(
+        verbose_name="дата аукциона",
+        help_text="за какой период от текущей даты (дней)",
+        blank=True,
+        null=True,
     )
 
     class Meta:
