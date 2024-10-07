@@ -1,5 +1,5 @@
 from typing import Iterable
-import xml.etree.ElementTree as ET
+from bs4 import BeautifulSoup
 
 import requests
 from django.db import transaction
@@ -23,15 +23,14 @@ def update_catalog_meta():
     upload_and_save_priv(table_name, base_filters.values())
 
 
-def get_cars_info(table_name: str, filters: dict, page: int, cars_per_page: int):
+def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int):
     base_filters = get_base_filters(table_name)
     filters = connect_filters(filters, base_filters)
     query = get_sql_query(
-        "*", table_name, filters, f"{cars_per_page * (page - 1)},{cars_per_page}"
+        "*", table_name, filters, f"{cars_per_page * (int(page) - 1)},{cars_per_page}"
     )
     print(query)
-    data = fetch_by_query(query)
-    print(data)
+    return fetch_by_query(query)
 
 
 def connect_filters(filters: dict, base_filters: dict):
@@ -39,13 +38,13 @@ def connect_filters(filters: dict, base_filters: dict):
     model_name = get_model_data_or_none(filters.get("model"), CarModel)
     priv = get_model_data_or_none(filters.get("priv"), CarPriv)
     color = get_model_data_or_none(filters.get("color"), CarColor)
-    year_from = filters.get("year_from")
-    year_to = filters.get("year_to")
-    eng_v_from = filters.get("eng_v_from")
-    eng_v_to = filters.get("eng_v_to")
-    mileage_from = filters.get("mileage_from")
-    mileage_to = filters.get("mileage_to")
-    kpp_type = filters.get("kpp_type")
+    year_from = filters.get("year_from") or None
+    year_to = filters.get("year_to") or None
+    eng_v_from = filters.get("eng_v_from") or None
+    eng_v_to = filters.get("eng_v_to") or None
+    mileage_from = filters.get("mileage_from") or None
+    mileage_to = filters.get("mileage_to") or None
+    kpp_type = filters.get("kpp_type") or None
 
     result = [
         mark_name and f"MARKA_NAME+=+'{mark_name}'",
@@ -148,14 +147,11 @@ def full_data_fetch(fields: str, table_name: str, base_filters: Iterable[str]):
 def fetch_by_query(sql_query: str):
     url = f"http://78.46.90.228/api/?ip=45.84.177.55&code=A25nhGfE56Kd&sql={sql_query}"
     res = requests.get(url)
-    xml_node = ET.fromstring(res.text)
-
-    # print([row for row in xml_node.findall("row")])
-    #
-    # return [
-    #     {elem.tag: elem.text for elem in row if elem is not None}
-    #     for row in xml_node.findall("row")
-    # ]
+    soup = BeautifulSoup(res.content.decode("utf-8"), "xml")
+    return [
+        {elem.name: elem.getText() for elem in row.findChildren()}
+        for row in soup.findAll("row")
+    ]
 
 
 def get_sql_query(

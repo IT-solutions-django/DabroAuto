@@ -1,11 +1,10 @@
 from typing import Any
 
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 from django.views import View
 from django.views.generic import FormView
 
-from apps.catalog.models import CarMark, CarModel
+from apps.catalog.models import CarModel
 from business.catalog_parser import get_cars_info
 from pages.catalog_page.forms import CarSearchForm
 
@@ -35,10 +34,10 @@ class CatalogView(FormView):
         context = super().get_context_data(id=id, **kwargs)
         context["title"] = "Каталог"
 
-        cars_info = get_cars_info(
+        context["cars_info"] = get_cars_info(
             "stats",
             self.request.GET,
-            self.request.GET.get("page", 1),
+            self.request.GET.get("page", "1"),
             self.cars_per_page,
         )
 
