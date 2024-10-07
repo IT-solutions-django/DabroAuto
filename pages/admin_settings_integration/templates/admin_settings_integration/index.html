@@ -13,36 +13,10 @@
             {% csrf_token %}
             {{ form.youtube_channel_url.label }} {{ form.youtube_channel_url }}<br>
             {{ form.youtube_count_videos.label }} {{ form.youtube_count_videos }}<br>
-            {{ form.youtube_playlists.label }} {{ form.youtube_playlists }}<br>
-            <button type="button" onclick="updatePlaylists()">Обновить плейлисты</button><br>
+            {{ form.youtube_playlists.label }} {{ form.youtube_playlists }} {{ form.youtube_playlists.help_text }}<br>
             {{ form.reviews_service_name.label }} {{ form.reviews_service_name }}<br>
             {{ form.reviews_count.label }} {{ form.reviews_count }}<br>
             <button type="submit">Сохранить</button>
         </form>
     </div>
-    <script>
-function updatePlaylists() {
-    const channelUrl = document.querySelector('input[name="youtube_channel_url"]').value;
-    fetch("{% url 'update_playlists' %}", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}'
-        },
-        body: JSON.stringify({ youtube_channel_url: channelUrl })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-        const playlistsSelect = document.querySelector('select[name="youtube_playlists"]');
-        playlistsSelect.innerHTML = ''; // Очистить текущие опции
-        data.playlists.forEach(playlist => {
-            const option = document.createElement('option');
-            option.value = playlist.id;
-            option.textContent = playlist.title;
-            playlistsSelect.appendChild(option);
-        });
-    });
-}
-</script>
 {% endblock %}

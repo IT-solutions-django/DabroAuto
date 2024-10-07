@@ -1,47 +1,59 @@
 import json
+from typing import Any
 
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import FormView
 
+from business.settings_integration_client import (
+    get_settings_integration_config,
+    save_to_json,
+)
 from pages.admin_settings_integration.forms import IntegrationConfigForm
 
 
-class SettingsIntegrationView(View):
+class SettingsIntegrationView(FormView):
     json_file_path = "config/settings_integration.json"
+    form_class = IntegrationConfigForm
+    template_name = "admin_settings_integration/index.html"
+    success_url = "/admin/settings-integration/"
 
-    def get(self, request):
-        # Чтение данных из JSON-файла
-        with open(self.json_file_path, "r") as json_file:
-            data = json.load(json_file)
+    def form_valid(self, form, *args, **kwargs):
+        """
+        Если форма валидна, вернем код 200
+        """
+        new_data = {
+            "youtube_channel_url": form.data["youtube_channel_url"],
+            "youtube_count_videos": form.data["youtube_count_videos"],
+            "youtube_playlists": form.data["youtube_playlists"].split(", "),
+            "reviews_service_name": form.data["reviews_service_name"],
+            "reviews_count": form.data["reviews_count"],
+        }
+        save_to_json(new_data)
+        return super().form_valid(form)
 
-        form = IntegrationConfigForm(initial=data)
-        return render(request, "admin_settings_integration/index.html", {"form": form})
+    def form_invalid(self, form):
+        """
+        Если форма невалидна, возвращаем код 400 с ошибками.
+        """
+        errors = form.errors.as_json()
+        return JsonResponse({"errors": errors}, status=400)
 
-    def post(self, request):
-        form = IntegrationConfigForm(request.POST)
-        if form.is_valid():
-            # Сохранение данных в JSON-файл
-            new_data = {
-                "youtube_channel_url": form.cleaned_data["youtube_channel_url"],
-                "youtube_count_videos": form.cleaned_data["youtube_count_videos"],
-                "youtube_playlists": form.cleaned_data["youtube_playlists"],
-                "reviews_service_name": form.cleaned_data["reviews_service_name"],
-                "reviews_count": form.cleaned_data["reviews_count"],
-            }
-            with open(self.json_file_path, "w") as json_file:
-                json.dump(new_data, json_file, indent=4)
-            return redirect("settings_integration")  # Перенаправление после сохранения
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Настройки интеграции"
 
-        return render(request, "admin_settings_integration/index.html", {"form": form})
+        return context
 
-    def update_playlists(self, request):
-        print(1111)
-        if request.method == "POST":
-            channel_url = request.POST.get("youtube_channel_url")
-            form = IntegrationConfigForm(initial={"youtube_channel_url": channel_url})
-            form.fields["youtube_playlists"].choices = form.get_playlists(channel_url)
-            playlists = form.fields["youtube_playlists"].choices
-            return JsonResponse(
-                {"playlists": [{"id": id, "title": title} for id, title in playlists]}
-            )
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+
+        settings_integration_config = get_settings_integration_config()
+
+        kwargs["initial"] = settings_integration_config
+        kwargs["initial"]["youtube_playlists"] = ", ".join(
+            settings_integration_config["youtube_playlists"]
+        )
+
+        return kwargs
