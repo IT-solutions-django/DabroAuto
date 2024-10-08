@@ -28,10 +28,10 @@ class CarCard:
 
 
 def update_catalog_meta():
-    table_name = "stats"
-    base_filters = get_base_filters(table_name)
-    upload_and_save_marks_and_models(table_name, base_filters.values())
-    upload_and_save_colors(table_name, base_filters.values())
+    tables = ("stats", "main")
+    for table in tables:
+        base_filters = get_base_filters(table)
+        upload_and_save_marks_and_models(table, base_filters.values())
 
 
 def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int):
@@ -142,24 +142,11 @@ def get_color_data_or_none(id: str | None):
 
 
 @transaction.atomic
-def upload_and_save_colors(table_name: str, base_filters: Iterable[str]):
-    CarColor.objects.all().delete()
-    country_manufacturing = Country.objects.get(table_name=table_name)
-    fields = "DISTINCT+COLOR"
-
-    for line in full_data_fetch(fields, table_name, base_filters):
-        if not line.get("COLOR"):
-            continue
-        CarColor.objects.create(
-            name=line["COLOR"], country_manufacturing=country_manufacturing
-        )
-
-
-@transaction.atomic
 def upload_and_save_marks_and_models(table_name: str, base_filters: Iterable[str]):
-    CarMark.objects.all().delete()
-    CarModel.objects.all().delete()
     country_manufacturing = Country.objects.get(table_name=table_name)
+    CarMark.objects.filter(country_manufacturing=country_manufacturing).delete()
+    CarModel.objects.filter(mark__country_manufacturing=country_manufacturing).delete()
+
     fields = "DISTINCT+MODEL_NAME,+MARKA_NAME"
 
     for line in full_data_fetch(fields, table_name, base_filters):
