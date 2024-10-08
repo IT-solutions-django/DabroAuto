@@ -11,6 +11,7 @@ from apps.catalog.models import (
     CarModel,
     CarColor,
     Country,
+    CarColorTag,
 )
 import datetime
 
@@ -75,7 +76,7 @@ def connect_filters(filters: dict, base_filters: dict):
     mark_name = get_model_data_or_none(filters.get("mark"), CarMark)
     model_name = get_model_data_or_none(filters.get("model"), CarModel)
     priv = filters.get("priv") or None
-    color = get_model_data_or_none(filters.get("color"), CarColor)
+    colors = get_color_data_or_none(filters.get("color")) or None
     year_from = filters.get("year_from") or None
     year_to = filters.get("year_to") or None
     eng_v_from = filters.get("eng_v_from") or None
@@ -93,7 +94,7 @@ def connect_filters(filters: dict, base_filters: dict):
         mark_name and f"MARKA_NAME+=+'{mark_name}'",
         model_name and f"MODEL_NAME+=+'{model_name}'",
         priv,
-        color and f"COLOR+=+'{color}'",
+        colors and f"COLOR+IN+(+'{ "',+'".join(colors)}'+)",
         year_from and f"YEAR+>=+{year_from}",
         year_to and f"YEAR+<=+{year_to}",
         eng_v_from and f"ENG_V+>=+{eng_v_from}",
@@ -128,6 +129,14 @@ def connect_filters(filters: dict, base_filters: dict):
 def get_model_data_or_none(id: str | None, model):
     try:
         return model.objects.get(id=id).name
+    except:
+        return None
+
+
+def get_color_data_or_none(id: str | None):
+    try:
+        tags = CarColorTag.objects.filter(color_id=id)
+        return [tag.name for tag in tags]
     except:
         return None
 
@@ -217,5 +226,4 @@ def get_base_filters(table_name: str):
                 "AUCTION_DATE": f"AUCTION_DATE+>=+'{max_auction_date.date()}'",
             }
         )
-
     return result
