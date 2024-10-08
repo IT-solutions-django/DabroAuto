@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <h1>{{ name }}</h1>
     <form id="searchForm" method="post">
         {% csrf_token %}
         <div style="display: flex; gap: 20px">
@@ -59,7 +60,7 @@
             $.ajax({
                 data: $(this).serialize(),
                 type: $(this).attr('method'),
-                url: "{% url 'catalog-page' %}",
+                url: $(location).attr('href'),
                 success: function (response) {
                     const newParams = $('#searchForm').serialize().split('&').filter(e => e.split('=')[0] != 'csrfmiddlewaretoken');
                     const url = new URL(window.location.href);
