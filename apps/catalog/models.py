@@ -1,7 +1,7 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
-from utils.model_mixins import NameMixin, ContentMixin
+from utils.model_mixins import NameMixin, ContentMixin, UpdatedAtMixin
 
 
 class Country(NameMixin):
@@ -32,10 +32,6 @@ class CountryRelatedMixin(models.Model):
 
 class BaseFilter(CountryRelatedMixin):
 
-    auction_date = models.PositiveIntegerField(
-        verbose_name="дата аукциона",
-        help_text="за какой период от текущей даты (дней)",
-    )
     auction = models.CharField(
         max_length=20,
         verbose_name="название аукциона",
@@ -50,9 +46,11 @@ class BaseFilter(CountryRelatedMixin):
         verbose_name="год выпуска",
         help_text="минимальный год для выборки",
     )
-    eng_v = models.PositiveIntegerField(
+    eng_v = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
         verbose_name="объем двигателя",
-        help_text="строго больше какого значения",
+        help_text="строго больше какого значения (л)",
     )
     mileage = models.PositiveIntegerField(
         verbose_name="пробег",
@@ -71,6 +69,12 @@ class BaseFilter(CountryRelatedMixin):
         models.PositiveIntegerField(),
         verbose_name="типы КПП",
         help_text="исключаем эти типы",
+    )
+    auction_date = models.PositiveIntegerField(
+        verbose_name="дата аукциона",
+        help_text="за какой период от текущей даты (дней)",
+        blank=True,
+        null=True,
     )
 
     class Meta:
@@ -107,13 +111,30 @@ class CarModel(models.Model):
         verbose_name_plural = "модели автомобиля"
 
 
-class CarColor(NameMixin, CountryRelatedMixin):
+class CarColor(NameMixin):
     class Meta:
         verbose_name = "цвет автомобиля"
         verbose_name_plural = "цвета автомобиля"
 
 
-class CarPriv(NameMixin, CountryRelatedMixin):
+class CarColorTag(NameMixin, CountryRelatedMixin):
+    color = models.ForeignKey(
+        CarColor, on_delete=models.CASCADE, related_name="tags", verbose_name="цвет"
+    )
+
     class Meta:
-        verbose_name = "привод автомобиля"
-        verbose_name_plural = "приводы автомобиля"
+        verbose_name = "тег цвета автомобиля"
+        verbose_name_plural = "теги цвета автомобиля"
+
+
+class CurrencyRate(NameMixin, UpdatedAtMixin):
+    course = models.DecimalField(
+        max_digits=10,
+        decimal_places=4,
+        verbose_name="курс",
+        help_text="стоимость одной единицы в рублях",
+    )
+
+    class Meta:
+        verbose_name = "курс валют"
+        verbose_name_plural = "курсы валют"

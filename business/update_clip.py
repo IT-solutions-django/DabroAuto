@@ -18,7 +18,7 @@ def update_clip() -> None:
 
     channel_url = settings_integration_config.get("youtube_channel_url", None)
     playlists = settings_integration_config.get("youtube_playlists", None)
-    count_clips = settings_integration_config.get("youtube_count_videos", 0)
+    count_clips = int(settings_integration_config.get("youtube_count_videos", 0))
 
     new_clips_data = youtube_parser.get_clips_info(channel_url, playlists, count_clips)
 

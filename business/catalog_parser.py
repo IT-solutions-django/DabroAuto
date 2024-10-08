@@ -10,7 +10,6 @@ from apps.catalog.models import (
     CarMark,
     CarModel,
     CarColor,
-    CarPriv,
     Country,
 )
 import datetime
@@ -32,7 +31,6 @@ def update_catalog_meta():
     base_filters = get_base_filters(table_name)
     upload_and_save_marks_and_models(table_name, base_filters.values())
     upload_and_save_colors(table_name, base_filters.values())
-    upload_and_save_priv(table_name, base_filters.values())
 
 
 def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int):
@@ -41,6 +39,7 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
     query = get_sql_query(
         "*", table_name, filters, f"{cars_per_page * (int(page) - 1)},{cars_per_page}"
     )
+    print(query)
     data = fetch_by_query(query)
     clear_data = [
         CarCard(
@@ -75,7 +74,7 @@ def get_cars_count(table_name: str, filters: list[str]):
 def connect_filters(filters: dict, base_filters: dict):
     mark_name = get_model_data_or_none(filters.get("mark"), CarMark)
     model_name = get_model_data_or_none(filters.get("model"), CarModel)
-    priv = get_model_data_or_none(filters.get("priv"), CarPriv)
+    priv = filters.get("priv") or None
     color = get_model_data_or_none(filters.get("color"), CarColor)
     year_from = filters.get("year_from") or None
     year_to = filters.get("year_to") or None
@@ -85,10 +84,15 @@ def connect_filters(filters: dict, base_filters: dict):
     mileage_to = filters.get("mileage_to") or None
     kpp_type = filters.get("kpp_type") or None
 
+    if priv in ("FF", "FR"):
+        priv = f"PRIV+=+'{priv}'"
+    elif priv == "NOT":
+        priv = "PRIV+NOT+IN+('FF',+'FR')"
+
     result = [
         mark_name and f"MARKA_NAME+=+'{mark_name}'",
         model_name and f"MODEL_NAME+=+'{model_name}'",
-        priv and f"PRIV+=+'{priv}'",
+        priv,
         color and f"COLOR+=+'{color}'",
         year_from and f"YEAR+>=+{year_from}",
         year_to and f"YEAR+<=+{year_to}",
@@ -102,7 +106,7 @@ def connect_filters(filters: dict, base_filters: dict):
     if mark_name is not None:
         del base_filters["MARKA_NAME"]
 
-    if year_to or year_from:
+    if year_from:
         del base_filters["YEAR"]
 
     if eng_v_from:
@@ -126,20 +130,6 @@ def get_model_data_or_none(id: str | None, model):
         return model.objects.get(id=id).name
     except:
         return None
-
-
-@transaction.atomic
-def upload_and_save_priv(table_name: str, base_filters: Iterable[str]):
-    CarPriv.objects.all().delete()
-    country_manufacturing = Country.objects.get(table_name=table_name)
-    fields = "DISTINCT+PRIV"
-
-    for line in full_data_fetch(fields, table_name, base_filters):
-        if not line.get("PRIV"):
-            continue
-        CarPriv.objects.create(
-            name=line["PRIV"], country_manufacturing=country_manufacturing
-        )
 
 
 @transaction.atomic
@@ -203,20 +193,29 @@ def get_sql_query(
 def get_base_filters(table_name: str):
     base_filers = BaseFilter.objects.get(country_manufacturing__table_name=table_name)
 
-    max_auction_date = datetime.datetime.now() - datetime.timedelta(
-        days=int(base_filers.auction_date)
+    max_auction_date = (
+        base_filers.auction_date
+        and datetime.datetime.now()
+        - datetime.timedelta(days=int(base_filers.auction_date))
     )
 
     kpp_types = (str(kpp_type) for kpp_type in base_filers.kpp_type)
 
-    return {
-        "AUCTION_DATE": f"AUCTION_DATE+>=+'{max_auction_date.date()}'",
+    result = {
         "AUCTION": f"AUCTION+NOT+LIKE+'%{base_filers.auction}%'",
         "MARKA_NAME": f"MARKA_NAME+NOT+IN+(+'{ "',+'".join(base_filers.marka_name)}'+)",
-        "YEAR": f"YEAR+<=+{base_filers.year}",
+        "YEAR": f"YEAR+>=+{base_filers.year}",
         "ENG_V": f"ENG_V+>+{base_filers.eng_v}",
         "MILEAGE": f"MILEAGE+<=+{base_filers.mileage}",
         "STATUS": f"STATUS+=+'{base_filers.status}'",
         "FINISH": f"FINISH+>+{base_filers.finish}",
         "KPP_TYPE": f"KPP_TYPE+IN+(+'{ "',+'".join(kpp_types)}'+)",
     }
+    if base_filers.auction_date is not None:
+        result.update(
+            {
+                "AUCTION_DATE": f"AUCTION_DATE+>=+'{max_auction_date.date()}'",
+            }
+        )
+
+    return result

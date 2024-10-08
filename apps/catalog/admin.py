@@ -6,7 +6,8 @@ from apps.catalog.models import (
     CarModel,
     CarColor,
     Country,
-    CarPriv,
+    CurrencyRate,
+    CarColorTag,
 )
 
 
@@ -38,11 +39,18 @@ class CarModelAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 
+class CarColorTagInline(admin.TabularInline):
+    model = CarColorTag
+    extra = 0
+
+
 @admin.register(CarColor)
 class CarColorAdmin(admin.ModelAdmin):
     search_fields = ("name",)
+    inlines = (CarColorTagInline,)
 
 
-@admin.register(CarPriv)
-class CarPrivAdmin(admin.ModelAdmin):
+@admin.register(CurrencyRate)
+class CurrencyRateAdmin(admin.ModelAdmin):
     search_fields = ("name",)
+    readonly_fields = ("updated_at",)
