@@ -6,6 +6,7 @@ from apps.catalog.models import (
     CarModel,
     CarColor,
     Country,
+    CurrencyRate,
 )
 
 
@@ -40,3 +41,9 @@ class CarModelAdmin(admin.ModelAdmin):
 @admin.register(CarColor)
 class CarColorAdmin(admin.ModelAdmin):
     search_fields = ("name",)
+
+
+@admin.register(CurrencyRate)
+class CurrencyRateAdmin(admin.ModelAdmin):
+    search_fields = ("name",)
+    readonly_fields = ("updated_at",)

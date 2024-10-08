@@ -1,7 +1,7 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
-from utils.model_mixins import NameMixin, ContentMixin
+from utils.model_mixins import NameMixin, ContentMixin, UpdatedAtMixin
 
 
 class Country(NameMixin):
@@ -113,3 +113,16 @@ class CarColor(NameMixin, CountryRelatedMixin):
     class Meta:
         verbose_name = "цвет автомобиля"
         verbose_name_plural = "цвета автомобиля"
+
+
+class CurrencyRate(NameMixin, UpdatedAtMixin):
+    course = models.DecimalField(
+        max_digits=10,
+        decimal_places=4,
+        verbose_name="курс",
+        help_text="стоимость одной единицы в рублях",
+    )
+
+    class Meta:
+        verbose_name = "курс валют"
+        verbose_name_plural = "курсы валют"

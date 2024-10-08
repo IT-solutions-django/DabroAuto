@@ -39,7 +39,16 @@ class ContentMixin(models.Model):
 class CreatedAtMixin(models.Model):
     """Mixin для добавления поля created_at"""
 
-    created_at = models.DateTimeField(auto_now=True, verbose_name="дата создания")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="дата создания")
+
+    class Meta:
+        abstract = True
+
+
+class UpdatedAtMixin(models.Model):
+    """Mixin для добавления поля updated_at"""
+
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="дата обновления")
 
     class Meta:
         abstract = True
