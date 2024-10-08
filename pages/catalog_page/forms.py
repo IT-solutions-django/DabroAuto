@@ -103,8 +103,7 @@ class CarSearchForm(forms.Form):
             (model.id, model.name) for model in CarModel.objects.all()
         ]
         self.fields["color"].choices = [(None, "Цвет")] + [
-            (color.id, color.name)
-            for color in CarColor.objects.filter(country_manufacturing=country)
+            (color.id, color.name) for color in CarColor.objects.all()
         ]
 
         base_filter = BaseFilter.objects.get(country_manufacturing=country)
