@@ -204,7 +204,7 @@ def get_base_filters(table_name: str):
     result = {
         "AUCTION": f"AUCTION+NOT+LIKE+'%{base_filers.auction}%'",
         "MARKA_NAME": f"MARKA_NAME+NOT+IN+(+'{ "',+'".join(base_filers.marka_name)}'+)",
-        "YEAR": f"YEAR+<=+{base_filers.year}",
+        "YEAR": f"YEAR+>=+{base_filers.year}",
         "ENG_V": f"ENG_V+>+{base_filers.eng_v}",
         "MILEAGE": f"MILEAGE+<=+{base_filers.mileage}",
         "STATUS": f"STATUS+=+'{base_filers.status}'",
