@@ -46,9 +46,11 @@ class BaseFilter(CountryRelatedMixin):
         verbose_name="год выпуска",
         help_text="минимальный год для выборки",
     )
-    eng_v = models.PositiveIntegerField(
+    eng_v = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
         verbose_name="объем двигателя",
-        help_text="строго больше какого значения",
+        help_text="строго больше какого значения (л)",
     )
     mileage = models.PositiveIntegerField(
         verbose_name="пробег",
