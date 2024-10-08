@@ -21,7 +21,7 @@ def update_review() -> None:
     settings_integration_config = get_settings_integration_config()
 
     review_location_name = settings_integration_config.get("reviews_service_name", None)
-    count_reviews_to_parse = settings_integration_config.get("reviews_count", 0)
+    count_reviews_to_parse = int(settings_integration_config.get("reviews_count", 0))
 
     review_location = _get_data_from_db(ReviewLocation, name=review_location_name)
 
