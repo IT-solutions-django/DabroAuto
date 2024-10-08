@@ -111,10 +111,20 @@ class CarModel(models.Model):
         verbose_name_plural = "модели автомобиля"
 
 
-class CarColor(NameMixin, CountryRelatedMixin):
+class CarColor(NameMixin):
     class Meta:
         verbose_name = "цвет автомобиля"
         verbose_name_plural = "цвета автомобиля"
+
+
+class CarColorTag(NameMixin, CountryRelatedMixin):
+    color = models.ForeignKey(
+        CarColor, on_delete=models.CASCADE, related_name="tags", verbose_name="цвет"
+    )
+
+    class Meta:
+        verbose_name = "тег цвета автомобиля"
+        verbose_name_plural = "теги цвета автомобиля"
 
 
 class CurrencyRate(NameMixin, UpdatedAtMixin):

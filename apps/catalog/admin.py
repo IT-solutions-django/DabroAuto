@@ -7,6 +7,7 @@ from apps.catalog.models import (
     CarColor,
     Country,
     CurrencyRate,
+    CarColorTag,
 )
 
 
@@ -38,9 +39,15 @@ class CarModelAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 
+class CarColorTagInline(admin.TabularInline):
+    model = CarColorTag
+    extra = 0
+
+
 @admin.register(CarColor)
 class CarColorAdmin(admin.ModelAdmin):
     search_fields = ("name",)
+    inlines = (CarColorTagInline,)
 
 
 @admin.register(CurrencyRate)
