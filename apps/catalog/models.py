@@ -128,7 +128,7 @@ class CarColor(NameMixin):
         verbose_name_plural = "цвета автомобиля"
 
 
-class CarColorTag(CountryRelatedMixin):
+class CarColorTag(models.Model):
     name = models.CharField(
         max_length=255,
         verbose_name="название",
@@ -144,7 +144,7 @@ class CarColorTag(CountryRelatedMixin):
     class Meta:
         verbose_name = "тег цвета автомобиля"
         verbose_name_plural = "теги цвета автомобиля"
-        unique_together = ("name", "color", "country_manufacturing")
+        unique_together = ("name", "color")
 
 
 class CurrencyRate(NameMixin, UpdatedAtMixin):
