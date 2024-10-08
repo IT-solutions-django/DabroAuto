@@ -24,4 +24,8 @@ app.conf.beat_schedule = {
         "task": "tasks.tasks.download_clips_task",
         "schedule": crontab(hour="4", minute="2"),
     },
+    "update_currency_rate": {
+        "task": "tasks.update_currency_rate_task",
+        "schedule": crontab(hour="11", minute="0"),
+    },
 }
