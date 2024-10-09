@@ -5,7 +5,7 @@ from pages.car_card.views import CarCardView
 from pages.catalog_page.views import (
     CatalogJapanView,
     CarModelListView,
-    CatalogChinaView,
+    CatalogKoreaView,
 )
 from pages.home.views import HomeView
 
@@ -17,7 +17,7 @@ urlpatterns = [
     ),
     path("catalog-japan/<str:id>/", CarCardView.as_view(), name="car-card"),
     path("catalog-japan/", CatalogJapanView.as_view(), name="catalog-japan-page"),
-    path("catalog-china/", CatalogChinaView.as_view(), name="catalog-china-page"),
+    path("catalog-korea/", CatalogKoreaView.as_view(), name="catalog-korea-page"),
     path("models/", CarModelListView.as_view(), name="models"),
     path("", HomeView.as_view(), name="home"),
 ]

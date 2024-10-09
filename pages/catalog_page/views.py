@@ -77,8 +77,8 @@ class CatalogJapanView(FormView):
         return kwargs
 
 
-class CatalogChinaView(FormView):
-    """View для отображения каталога Китайских автомобилей"""
+class CatalogKoreaView(FormView):
+    """View для отображения каталога Корейских автомобилей"""
 
     form_class = CarSearchForm
     template_name = "catalog_page/index.html"
@@ -110,7 +110,7 @@ class CatalogChinaView(FormView):
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(id=id, **kwargs)
         context["title"] = "Каталог"
-        context["name"] = "Китай"
+        context["name"] = "Корея"
 
         cars_info, pages_count = get_cars_info(
             "main",
@@ -121,7 +121,7 @@ class CatalogChinaView(FormView):
         context["cars_info"] = cars_info
         context["pages_count"] = pages_count
 
-        context["popular_cars"] = get_popular_cars("Китай", self.count_popular_cars)
+        context["popular_cars"] = get_popular_cars("Корея", self.count_popular_cars)
 
         current_page = int(self.request.GET.get("page", 1))
         context["current_page"] = current_page
