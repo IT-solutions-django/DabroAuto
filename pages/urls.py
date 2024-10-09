@@ -1,6 +1,7 @@
 from django.urls import path
 
 from pages.admin_settings_integration.views import SettingsIntegrationView
+from pages.car_card.views import CarCardView
 from pages.catalog_page.views import (
     CatalogJapanView,
     CarModelListView,
@@ -14,6 +15,7 @@ urlpatterns = [
         SettingsIntegrationView.as_view(),
         name="settings_integration",
     ),
+    path("catalog-japan/<str:id>/", CarCardView.as_view(), name="car-card"),
     path("catalog-japan/", CatalogJapanView.as_view(), name="catalog-japan-page"),
     path("catalog-china/", CatalogChinaView.as_view(), name="catalog-china-page"),
     path("models/", CarModelListView.as_view(), name="models"),

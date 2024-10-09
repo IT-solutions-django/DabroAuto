@@ -5,6 +5,7 @@ import random
 
 import requests
 from django.db import transaction
+from django.http import Http404
 
 from apps.car.models import Car
 from apps.catalog.models import (
@@ -34,6 +35,54 @@ def update_catalog_meta():
     for table in tables:
         base_filters = get_base_filters(table)
         upload_and_save_marks_and_models(table, base_filters.values())
+
+
+def get_car_by_id(country_manufacturing: str, car_id: str):
+    try:
+        car = Car.objects.get(
+            id=car_id, country_manufacturing__name=country_manufacturing
+        )
+    except Exception:
+        car = None
+
+    if car is not None:
+        return CarCard(
+            id=str(car.id),
+            mark=car.brand.name,
+            model=car.model.name,
+            grade=car.specification,
+            year=car.year_manufactured,
+            mileage=car.mileage,
+            price=car.price,
+            images=[im.image.name for im in car.image.all()],
+        )
+
+    country = Country.objects.get(name=country_manufacturing)
+
+    query = get_sql_query(
+        "*",
+        country.table_name,
+        [f"id+=+'{car_id}'"],
+        "0,1",
+    )
+    print(query)
+    data = fetch_by_query(query)
+
+    try:
+        car = data[0]
+    except Exception:
+        raise Http404()
+
+    return CarCard(
+        id=car["ID"],
+        mark=car["MARKA_NAME"],
+        model=car["MODEL_NAME"],
+        grade=car["GRADE"],
+        year=car["YEAR"],
+        mileage=car["MILEAGE"],
+        price=car["FINISH"],
+        images=[image[:-3] for image in car["IMAGES"].split("#")],
+    )
 
 
 def get_popular_cars(country_manufacturing: str, count_cars: int):

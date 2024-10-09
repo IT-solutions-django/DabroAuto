@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "pages.home",
     "pages.admin_settings_integration",
     "pages.catalog_page",
+    "pages.car_card",
     # Prom Apps
     "custom_commands",
     "tasks",
