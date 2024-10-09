@@ -60,8 +60,6 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
             mileage=car.mileage,
             price=car.price,
             images=["/media/" + im.image.name for im in car.image.all()],
-            # kpp=
-            # kuzov=
         )
 
     country = Country.objects.get(name=country_manufacturing)
@@ -94,7 +92,7 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
         year=car["YEAR"],
         mileage=car["MILEAGE"],
         price=car["FINISH"],
-        images=[image[:-3] for image in car["IMAGES"].split("#")],
+        images=[image for image in car["IMAGES"].split("#")],
         kuzov=car["KUZOV"],
         kpp="Механика" if car["KPP_TYPE"] == 1 else "Автомат",
         eng_v=str(float(car["ENG_V"]) / 1000),

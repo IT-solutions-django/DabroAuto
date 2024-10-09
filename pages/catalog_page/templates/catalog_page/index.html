@@ -32,12 +32,14 @@
     <h2>Популярные авто</h2>
     <div style="display: flex">
         {% for car in popular_cars %}
-            <div style="background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin: 10px; padding: 15px; width: 200px;">
-                <h3 style="margin: 0;">{{ car.mark }} {{ car.model }} {{ car.grade }}</h3>
-                <p style="margin: 5px 0;">{{ car.year }} • {{ car.mileage }} км</p>
-                <img style="max-width: 100px; height: auto;" src="/media/{{ car.images.0 }}" alt="{{ car.mark }} {{ car.model }}">
-                <h4 style="margin: 10px 0;">Цена: <span>{{ car.price }} ₽</span></h4>
-            </div>
+            <a href="{{ request.path }}{{ car.id }}">
+                <div style="background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin: 10px; padding: 15px; width: 200px;">
+                    <h3 style="margin: 0;">{{ car.mark }} {{ car.model }} {{ car.grade }}</h3>
+                    <p style="margin: 5px 0;">{{ car.year }} • {{ car.mileage }} км</p>
+                    <img style="max-width: 100px; height: auto;" src="/media/{{ car.images.0 }}" alt="{{ car.mark }} {{ car.model }}">
+                    <h4 style="margin: 10px 0;">Цена: <span>{{ car.price }} ₽</span></h4>
+                </div>
+            </a>
         {% endfor %}
     </div>
 
@@ -46,12 +48,14 @@
 
     <div id="carContainer">
     {% for car in cars_info %}
-        <div style="background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin: 10px; padding: 15px; width: 200px;">
-            <h3 style="margin: 0;">{{ car.mark }} {{ car.model }} {{ car.grade }}</h3>
-            <p style="margin: 5px 0;">{{ car.year }} • {{ car.mileage }} км</p>
-            <img style="max-width: 100px; height: auto;" src="{{ car.images.0 }}" alt="{{ car.mark }} {{ car.model }}">
-            <h4 style="margin: 10px 0;">Цена: <span>{{ car.price }} ₽</span></h4>
-        </div>
+        <a href="{{ request.path }}{{ car.id }}">
+            <div style="background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin: 10px; padding: 15px; width: 200px;">
+                <h3 style="margin: 0;">{{ car.mark }} {{ car.model }} {{ car.grade }}</h3>
+                <p style="margin: 5px 0;">{{ car.year }} • {{ car.mileage }} км</p>
+                <img style="max-width: 100px; height: auto;" src="{{ car.images.0 }}" alt="{{ car.mark }} {{ car.model }}">
+                <h4 style="margin: 10px 0;">Цена: <span>{{ car.price }} ₽</span></h4>
+            </div>
+        </a>
     {% endfor %}
     </div>
     <div class="pagination">
@@ -91,12 +95,14 @@
                     // Генерируем HTML-код для каждого автомобиля
                     cars.forEach(car => {
                         carsHtml += `
+                            <a href="{{ request.path }}${car.id}">
                             <div style="background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin: 10px; padding: 15px; width: 200px;">
                                 <h3 style="margin: 0;">${car.mark} ${car.model} ${car.grade}</h3>
                                 <p style="margin: 5px 0;">${car.year} • ${car.mileage} км</p>
                                 <img style="max-width: 100px; height: auto;" src="${car.images[0]}" alt="${car.mark} ${car.model}">
                                 <h4 style="margin: 10px 0;">Цена: <span>${car.price} ₽</span></h4>
                             </div>
+                            </a>
                         `;
                     });
 
