@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from apps.telegram_sender.models import Chat
+
+
+@admin.register(Chat)
+class ChatAdmin(admin.ModelAdmin):
+    search_fields = ("chat_id",)

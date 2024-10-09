@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 from celery import Celery
 from celery.schedules import crontab
@@ -27,5 +28,9 @@ app.conf.beat_schedule = {
     "update_currency_rate": {
         "task": "tasks.update_currency_rate_task",
         "schedule": crontab(hour="11", minute="0"),
+    },
+    "telegram_chats_update": {
+        "task": "tasks.telegram_chats_update_task",
+        "schedule": timedelta(hours=2),
     },
 }
