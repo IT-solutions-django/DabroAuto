@@ -81,6 +81,9 @@ class Car(models.Model):
         related_name="car",
         verbose_name="страна производства",
     )
+    is_popular = models.BooleanField(
+        default=False, verbose_name="показывать в популярных"
+    )
     image = models.ManyToManyField(
         Image, related_name="car", verbose_name="изображение"
     )
