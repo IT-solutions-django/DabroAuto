@@ -1,5 +1,6 @@
 from django.db import models
 
+from apps.catalog.models import CarColor
 from apps.image.models import Image
 from utils.model_mixins import NameMixin
 
@@ -37,6 +38,22 @@ class CarModel(NameMixin):
     class Meta:
         verbose_name = "модель автомобиля"
         verbose_name_plural = "модели автомобиля"
+
+
+class CarKPP(NameMixin):
+    """Модель описывающая КПП автомобиля"""
+
+    class Meta:
+        verbose_name = "КПП автомобиля"
+        verbose_name_plural = "КПП автомобиля"
+
+
+class CarPriv(NameMixin):
+    """Модель описывающая Привод автомобиля"""
+
+    class Meta:
+        verbose_name = "Привод автомобиля"
+        verbose_name_plural = "Привод автомобиля"
 
 
 class Car(models.Model):
@@ -83,6 +100,35 @@ class Car(models.Model):
     )
     is_popular = models.BooleanField(
         default=False, verbose_name="показывать в популярных"
+    )
+    kuzov = models.CharField(
+        max_length=100,
+        verbose_name="кузов",
+        help_text="максимальная длина - 100 символов",
+    )
+    kpp = models.ForeignKey(
+        CarKPP,
+        on_delete=models.PROTECT,
+        related_name="car",
+        verbose_name="КПП",
+    )
+    eng_v = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        verbose_name="объем двигателя",
+        help_text="значение в литрах",
+    )
+    priv = models.ForeignKey(
+        CarPriv,
+        on_delete=models.PROTECT,
+        related_name="car",
+        verbose_name="привод",
+    )
+    color = models.ForeignKey(
+        CarColor,
+        on_delete=models.PROTECT,
+        related_name="car",
+        verbose_name="цвет",
     )
     image = models.ManyToManyField(
         Image, related_name="car", verbose_name="изображение"

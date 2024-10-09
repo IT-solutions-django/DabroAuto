@@ -6,6 +6,8 @@ from apps.car.models import (
     CarModel,
     EngineType,
     Car,
+    CarKPP,
+    CarPriv,
 )
 
 
@@ -26,6 +28,20 @@ class CarBrandAdmin(admin.ModelAdmin):
 @admin.register(CarModel)
 class CarModelAdmin(admin.ModelAdmin):
     """Класс админ-панели модели автомобиля"""
+
+    search_fields = ("name",)
+
+
+@admin.register(CarKPP)
+class CarKPPAdmin(admin.ModelAdmin):
+    """Класс админ-панели КПП автомобиля"""
+
+    search_fields = ("name",)
+
+
+@admin.register(CarPriv)
+class CarPrivAdmin(admin.ModelAdmin):
+    """Класс админ-панели привода автомобиля"""
 
     search_fields = ("name",)
 
@@ -51,6 +67,11 @@ class CarAdmin(admin.ModelAdmin):
         "country_manufacturing",
         "price",
         "is_popular",
+        "kuzov",
+        "kpp",
+        "eng_v",
+        "priv",
+        "color",
         "image",
     )
     autocomplete_fields = (

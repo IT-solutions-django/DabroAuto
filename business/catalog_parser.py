@@ -60,6 +60,11 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
             mileage=car.mileage,
             price=car.price,
             images=["/media/" + im.image.name for im in car.image.all()],
+            kuzov=car.kuzov,
+            kpp=car.kpp,
+            eng_v=car.eng_v,
+            priv=car.priv,
+            color=car.color,
         )
 
     country = Country.objects.get(name=country_manufacturing)
