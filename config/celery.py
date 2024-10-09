@@ -26,11 +26,11 @@ app.conf.beat_schedule = {
         "schedule": crontab(hour="4", minute="2"),
     },
     "update_currency_rate": {
-        "task": "tasks.update_currency_rate_task",
+        "task": "tasks.tasks.update_currency_rate_task",
         "schedule": crontab(hour="11", minute="0"),
     },
     "telegram_chats_update": {
-        "task": "tasks.telegram_chats_update_task",
+        "task": "tasks.tasks.telegram_chats_update_task",
         "schedule": timedelta(hours=2),
     },
 }
