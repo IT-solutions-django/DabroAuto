@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Iterable
+from typing import Iterable, Optional
 from bs4 import BeautifulSoup
 import random
 
@@ -28,6 +28,11 @@ class CarCard:
     mileage: int
     images: list[str]
     price: int
+    kuzov: Optional[str] = None
+    kpp: Optional[str] = None
+    eng_v: Optional[str] = None
+    priv: Optional[str] = None
+    color: Optional[str] = None
 
 
 def update_catalog_meta():
@@ -54,7 +59,9 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
             year=car.year_manufactured,
             mileage=car.mileage,
             price=car.price,
-            images=[im.image.name for im in car.image.all()],
+            images=["/media/" + im.image.name for im in car.image.all()],
+            # kpp=
+            # kuzov=
         )
 
     country = Country.objects.get(name=country_manufacturing)
@@ -72,6 +79,13 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
     except Exception:
         raise Http404()
 
+    if car["PRIV"] == "FF":
+        priv = "Передний привод"
+    elif car["PRIV"] == "FR":
+        priv = "Задний привод"
+    else:
+        priv = "Полный привод"
+
     return CarCard(
         id=car["ID"],
         mark=car["MARKA_NAME"],
@@ -81,6 +95,11 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
         mileage=car["MILEAGE"],
         price=car["FINISH"],
         images=[image[:-3] for image in car["IMAGES"].split("#")],
+        kuzov=car["KUZOV"],
+        kpp="Механика" if car["KPP_TYPE"] == 1 else "Автомат",
+        eng_v=str(float(car["ENG_V"]) / 1000),
+        priv=priv,
+        color=car["COLOR"],
     )
 
 

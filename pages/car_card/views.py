@@ -18,6 +18,10 @@ class CarCardView(TemplateView):
         context["name"] = self.country
 
         context["car"] = get_car_by_id(self.country, car_id)
+        context["country"] = self.country
+
+        print(context["car"])
+
         print(context["car"])
 
         return context
