@@ -16,7 +16,21 @@ urlpatterns = [
         SettingsIntegrationView.as_view(),
         name="settings_integration",
     ),
-    path("catalog-japan/<str:id>/", CarCardView.as_view(), name="car-card"),
+    path(
+        "catalog-japan/<str:id>/",
+        CarCardView.as_view(country="Япония"),
+        name="car-card-japan",
+    ),
+    path(
+        "catalog-korea/<str:id>/",
+        CarCardView.as_view(country="Корея"),
+        name="car-card=korea",
+    ),
+    path(
+        "catalog-china/<str:id>/",
+        CarCardView.as_view(country="Китай"),
+        name="car-card-china",
+    ),
     path("catalog-japan/", CatalogJapanView.as_view(), name="catalog-japan-page"),
     path("catalog-korea/", CatalogKoreaView.as_view(), name="catalog-korea-page"),
     path("catalog-china/", CatalogChinaView.as_view(), name="catalog-china-page"),
