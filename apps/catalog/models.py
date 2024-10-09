@@ -60,6 +60,8 @@ class BaseFilter(CountryRelatedMixin):
         max_length=50,
         verbose_name="статус",
         help_text="строго равен значению",
+        blank=True,
+        null=True,
     )
     finish = models.PositiveIntegerField(
         verbose_name="финиш",

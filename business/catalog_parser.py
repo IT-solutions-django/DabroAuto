@@ -31,7 +31,7 @@ class CarCard:
 
 
 def update_catalog_meta():
-    tables = ("stats", "main")
+    tables = ("stats", "main", "china")
     for table in tables:
         base_filters = get_base_filters(table)
         upload_and_save_marks_and_models(table, base_filters.values())
@@ -65,7 +65,6 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
         [f"id+=+'{car_id}'"],
         "0,1",
     )
-    print(query)
     data = fetch_by_query(query)
 
     try:
@@ -279,7 +278,6 @@ def get_base_filters(table_name: str):
         "YEAR": f"YEAR+>=+{base_filers.year}",
         "ENG_V": f"ENG_V+>+{base_filers.eng_v}",
         "MILEAGE": f"MILEAGE+<=+{base_filers.mileage}",
-        "STATUS": f"STATUS+=+'{base_filers.status}'",
         "FINISH": f"FINISH+>+{base_filers.finish}",
         "KPP_TYPE": f"KPP_TYPE+IN+(+'{ "',+'".join(kpp_types)}'+)",
     }
@@ -289,4 +287,12 @@ def get_base_filters(table_name: str):
                 "AUCTION_DATE": f"AUCTION_DATE+>=+'{max_auction_date.date()}'",
             }
         )
+
+    if base_filers.status is not None:
+        result.update(
+            {
+                "STATUS": f"STATUS+=+'{base_filers.status}'",
+            }
+        )
+
     return result
