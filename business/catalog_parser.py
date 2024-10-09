@@ -1,15 +1,16 @@
 from dataclasses import dataclass
 from typing import Iterable
 from bs4 import BeautifulSoup
+import random
 
 import requests
 from django.db import transaction
 
+from apps.car.models import Car
 from apps.catalog.models import (
     BaseFilter,
     CarMark,
     CarModel,
-    CarColor,
     Country,
     CarColorTag,
 )
@@ -18,6 +19,7 @@ import datetime
 
 @dataclass
 class CarCard:
+    id: str
     mark: str
     model: str
     grade: str
@@ -34,6 +36,30 @@ def update_catalog_meta():
         upload_and_save_marks_and_models(table, base_filters.values())
 
 
+def get_popular_cars(country_manufacturing: str, count_cars: int):
+    cars = Car.objects.filter(
+        country_manufacturing__name=country_manufacturing, is_popular=True
+    )
+
+    clear_data = [
+        CarCard(
+            id=str(car.id),
+            mark=car.brand.name,
+            model=car.model.name,
+            grade=car.specification,
+            year=car.year_manufactured,
+            mileage=car.mileage,
+            price=car.price,
+            images=[im.image.name for im in car.image.all()],
+        )
+        for car in cars
+    ]
+
+    random.shuffle(clear_data)
+
+    return clear_data[:count_cars]
+
+
 def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int):
     base_filters = get_base_filters(table_name)
     filters = connect_filters(filters, base_filters)
@@ -44,6 +70,7 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
     data = fetch_by_query(query)
     clear_data = [
         CarCard(
+            id=car["ID"],
             mark=car["MARKA_NAME"],
             model=car["MODEL_NAME"],
             grade=car["GRADE"],

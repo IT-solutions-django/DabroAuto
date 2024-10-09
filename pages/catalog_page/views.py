@@ -6,11 +6,12 @@ from django.views import View
 from django.views.generic import FormView
 
 from apps.catalog.models import CarModel
-from business.catalog_parser import get_cars_info
+from business.catalog_parser import get_cars_info, get_popular_cars
 from pages.catalog_page.forms import CarSearchForm
 from utils.pagination import get_page_range
 
 CARS_PER_PAGE = 10
+COUNT_POPULAR_CARS = 4
 
 
 class CatalogJapanView(FormView):
@@ -20,6 +21,7 @@ class CatalogJapanView(FormView):
     template_name = "catalog_page/index.html"
     success_url = "/"
     cars_per_page = CARS_PER_PAGE
+    count_popular_cars = COUNT_POPULAR_CARS
 
     def form_valid(self, form, *args, **kwargs):
         """
@@ -53,6 +55,9 @@ class CatalogJapanView(FormView):
             self.request.GET.get("page", "1"),
             self.cars_per_page,
         )
+
+        context["popular_cars"] = get_popular_cars("Япония", self.count_popular_cars)
+
         context["cars_info"] = cars_info
         context["pages_count"] = pages_count
 
@@ -79,6 +84,7 @@ class CatalogChinaView(FormView):
     template_name = "catalog_page/index.html"
     success_url = "/"
     cars_per_page = CARS_PER_PAGE
+    count_popular_cars = COUNT_POPULAR_CARS
 
     def form_valid(self, form, *args, **kwargs):
         """
@@ -114,6 +120,8 @@ class CatalogChinaView(FormView):
         )
         context["cars_info"] = cars_info
         context["pages_count"] = pages_count
+
+        context["popular_cars"] = get_popular_cars("Китай", self.count_popular_cars)
 
         current_page = int(self.request.GET.get("page", 1))
         context["current_page"] = current_page
