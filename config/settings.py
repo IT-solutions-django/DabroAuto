@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "apps.image",
     "apps.clip",
     "apps.catalog",
+    "apps.telegram_sender",
     # Pages
     "pages.home",
     "pages.admin_settings_integration",
