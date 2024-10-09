@@ -5,7 +5,7 @@ from business.parse_currency_rate import update_currency_rate
 from business.sending_mail import send_email
 from business.update_clip import update_clip
 from business.update_review import update_review
-from business.telegram_integration import get_new_chat_ids
+from business.telegram_integration import get_new_chat_ids, telegram_send_mail_for_all
 
 
 @shared_task
@@ -36,3 +36,8 @@ def update_currency_rate_task():
 @shared_task
 def telegram_chats_update_task():
     get_new_chat_ids()
+
+
+@shared_task
+def telegram_send_mail_for_all_task(text: str):
+    telegram_send_mail_for_all(text)
