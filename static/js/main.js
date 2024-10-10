@@ -79,6 +79,8 @@ const swiper1 = new Swiper('.clips_swiper', {
   slidesPerView: 'auto',
   spaceBetween: 16,
   loop: true,
+  centeredSlides: true,
+  centeredSlidesBounds: true,
   breakpoints: {
     0: {
       spaceBetween: 8,
