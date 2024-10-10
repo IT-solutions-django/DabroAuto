@@ -182,10 +182,12 @@ def connect_filters(filters: dict, base_filters: dict):
     mileage_to = filters.get("mileage_to") or None
     kpp_type = filters.get("kpp_type") or None
 
+    excluded_priv = base_filters.get("PRIV") and "," + base_filters["PRIV"][13:-1]
+
     if priv in ("FF", "FR"):
         priv = f"PRIV+=+'{priv}'"
     elif priv == "NOT":
-        priv = "PRIV+NOT+IN+('FF',+'FR')"
+        priv = f"PRIV+NOT+IN+('FF',+'FR'{excluded_priv or ''})"
 
     result = [
         mark_name and f"MARKA_NAME+=+'{mark_name}'",
@@ -215,6 +217,9 @@ def connect_filters(filters: dict, base_filters: dict):
 
     if kpp_type:
         del base_filters["KPP_TYPE"]
+
+    if priv and base_filters.get("PRIV"):
+        del base_filters["PRIV"]
 
     result.extend(base_filters.values())
 
@@ -314,6 +319,13 @@ def get_base_filters(table_name: str):
         result.update(
             {
                 "STATUS": f"STATUS+=+'{base_filers.status}'",
+            }
+        )
+
+    if base_filers.priv:
+        result.update(
+            {
+                "PRIV": f"PRIV+NOT+IN+(+'{ "',+'".join(base_filers.priv)}'+)",
             }
         )
 
