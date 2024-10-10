@@ -111,7 +111,7 @@ class HomeView(FormView):
             ("china", get_car_brand_id_or_none("HAVAL", "Китай")),
             ("china", get_car_brand_id_or_none("JAC", "Китай")),
             ("korea", get_car_brand_id_or_none("DAEVOO", "Корея")),
-            ("japan", get_car_brand_id_or_none("BMW", "Япония")),
+            ("china", get_car_brand_id_or_none("FAW", "Китай")),
         ]
 
         return context
