@@ -2665,4 +2665,23 @@ body:has(.modal_.show) .modal_back {
   object-fit: cover;
 }
 
+.marquee img {
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+.marquee, a {
+  margin-inline: 20px;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+.marquee img:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  /* Hover effekti */
+}
+
 /*# sourceMappingURL=index.css.map */
