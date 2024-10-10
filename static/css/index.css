@@ -2672,7 +2672,7 @@ body:has(.modal_.show) .modal_back {
   transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 
-.marquee, a {
+.marquee a {
   margin-inline: 20px;
   transition: transform 0.3s ease;
   transition: transform 0.3s ease, -webkit-transform 0.3s ease;
