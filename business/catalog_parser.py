@@ -89,6 +89,8 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
     else:
         priv = "Полный привод"
 
+    color_tag = CarColorTag.objects.filter(name=car["COLOR"]).first()
+
     return CarCard(
         id=car["ID"],
         mark=car["MARKA_NAME"],
@@ -102,7 +104,7 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
         kpp="Механика" if car["KPP_TYPE"] == 1 else "Автомат",
         eng_v=str(float(car["ENG_V"]) / 1000),
         priv=priv,
-        color=car["COLOR"],
+        color=color_tag.color.name if color_tag is not None else car["COLOR"],
     )
 
 
