@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.views.generic import FormView
 
 from apps.car.models import Car
+from apps.catalog.models import CarMark
 from apps.clip.models import Clip
 from apps.review.models import Review, ReviewLocation
 from apps.service_info.models import (
@@ -97,4 +98,29 @@ class HomeView(FormView):
         context["reviews"] = Review.objects.all().select_related("author", "location")
         context["review_locations"] = ReviewLocation.objects.all()
 
+        context["brands_ids_to_logos"] = [
+            ("catalog-japan", get_car_brand_id_or_none("BMW", "Япония")),
+            ("catalog-japan", get_car_brand_id_or_none("TOYOTA", "Япония")),
+            ("catalog-japan", get_car_brand_id_or_none("AUDI", "Япония")),
+            ("catalog-china", get_car_brand_id_or_none("KIA", "Китай")),
+            ("catalog-japan", get_car_brand_id_or_none("MERCEDES BENZ", "Япония")),
+            ("catalog-japan", get_car_brand_id_or_none("HYUNDAI", "Япония")),
+            ("catalog-china", get_car_brand_id_or_none("CHERY", "Китай")),
+            ("catalog-china", get_car_brand_id_or_none("CHEVROLET", "Китай")),
+            ("catalog-japan", get_car_brand_id_or_none("RENAULT", "Япония")),
+            ("catalog-china", get_car_brand_id_or_none("HAVAL", "Китай")),
+            ("catalog-china", get_car_brand_id_or_none("JAC", "Китай")),
+            ("catalog-korea", get_car_brand_id_or_none("DAEVOO", "Корея")),
+            ("catalog-japan", get_car_brand_id_or_none("BMW", "Япония")),
+        ]
+
         return context
+
+
+def get_car_brand_id_or_none(name: str, country_manufacturing: str):
+    try:
+        return CarMark.objects.get(
+            name=name, country_manufacturing__name=country_manufacturing
+        ).id
+    except Exception:
+        return None
