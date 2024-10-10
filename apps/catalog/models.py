@@ -133,10 +133,20 @@ class CarModel(models.Model):
         unique_together = ("name", "mark")
 
 
-class CarColor(NameMixin):
+class CarColor(CountryRelatedMixin):
+    name = models.CharField(
+        max_length=255,
+        verbose_name="название",
+        help_text="максимальная длина 255 символов",
+    )
+
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = "цвет автомобиля"
         verbose_name_plural = "цвета автомобиля"
+        unique_together = ("name", "country_manufacturing")
 
 
 class CarColorTag(models.Model):
