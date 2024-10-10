@@ -99,19 +99,19 @@ class HomeView(FormView):
         context["review_locations"] = ReviewLocation.objects.all()
 
         context["brands_ids_to_logos"] = [
-            ("catalog-japan", get_car_brand_id_or_none("BMW", "Япония")),
-            ("catalog-japan", get_car_brand_id_or_none("TOYOTA", "Япония")),
-            ("catalog-japan", get_car_brand_id_or_none("AUDI", "Япония")),
-            ("catalog-china", get_car_brand_id_or_none("KIA", "Китай")),
-            ("catalog-japan", get_car_brand_id_or_none("MERCEDES BENZ", "Япония")),
-            ("catalog-japan", get_car_brand_id_or_none("HYUNDAI", "Япония")),
-            ("catalog-china", get_car_brand_id_or_none("CHERY", "Китай")),
-            ("catalog-china", get_car_brand_id_or_none("CHEVROLET", "Китай")),
-            ("catalog-japan", get_car_brand_id_or_none("RENAULT", "Япония")),
-            ("catalog-china", get_car_brand_id_or_none("HAVAL", "Китай")),
-            ("catalog-china", get_car_brand_id_or_none("JAC", "Китай")),
-            ("catalog-korea", get_car_brand_id_or_none("DAEVOO", "Корея")),
-            ("catalog-japan", get_car_brand_id_or_none("BMW", "Япония")),
+            ("japan", get_car_brand_id_or_none("BMW", "Япония")),
+            ("japan", get_car_brand_id_or_none("TOYOTA", "Япония")),
+            ("japan", get_car_brand_id_or_none("AUDI", "Япония")),
+            ("china", get_car_brand_id_or_none("KIA", "Китай")),
+            ("japan", get_car_brand_id_or_none("MERCEDES BENZ", "Япония")),
+            ("japan", get_car_brand_id_or_none("HYUNDAI", "Япония")),
+            ("china", get_car_brand_id_or_none("CHERY", "Китай")),
+            ("china", get_car_brand_id_or_none("CHEVROLET", "Китай")),
+            ("japan", get_car_brand_id_or_none("RENAULT", "Япония")),
+            ("china", get_car_brand_id_or_none("HAVAL", "Китай")),
+            ("china", get_car_brand_id_or_none("JAC", "Китай")),
+            ("korea", get_car_brand_id_or_none("DAEVOO", "Корея")),
+            ("japan", get_car_brand_id_or_none("BMW", "Япония")),
         ]
 
         return context
