@@ -26,10 +26,12 @@ INSTALLED_APPS = [
     "apps.image",
     "apps.clip",
     "apps.catalog",
+    "apps.telegram_sender",
     # Pages
     "pages.home",
     "pages.admin_settings_integration",
     "pages.catalog_page",
+    "pages.car_card",
     # Prom Apps
     "custom_commands",
     "tasks",
@@ -133,3 +135,5 @@ EMAIL_TO_GETTING_INFO = "kirypleshkov@mail.ru"
 CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
 CELERY_TIMEZONE = "Asia/Barnaul"
+
+TELEGRAM_BOT_API_KEY = os.getenv("TELEGRAM_BOT_API_KEY")

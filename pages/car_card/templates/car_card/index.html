@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container" style="display: flex; padding: 20px;">
+        <div class="info" style="flex: 1; padding: 20px; background-color: #fff; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin-right: 20px;">
+
+            <h2 style="color: #333;">{{ car.mark }} {{ car.model }} ({{ car.grade }})</h2>
+            <p style="color: #666;">Цена: {{ car.price }} руб.</p>
+            <p style="color: #666;">Год выпуска: {{ car.year }}</p>
+            <p style="color: #666;">Кузов: {{ car.kuzov }}</p>
+            <p style="color: #666;">Страна: {{ country }}</p>
+            <p style="color: #666;">КПП: {{ car.kpp }}</p>
+            <p style="color: #666;">Объем двигателя: {{ car.eng_v }} л</p>
+            <p style="color: #666;">Привод: {{ car.priv }}</p>
+            <p style="color: #666;">Цвет: {{ car.color }}</p>
+            <p style="color: #666;">Пробег: {{ car.mileage }} км</p>
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+
+        </div>
+        <div class="photos" style="flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center;">
+            {% for image in car.images %}
+                <img src="{{  image }}" alt="{{ car.brand }} {{ car.model }}" class="car-photo" style="max-width: 100%; height: auto; margin-bottom: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

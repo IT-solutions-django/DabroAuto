@@ -1,0 +1,304 @@
+[
+    {
+        "specification": "Toyota Corolla 2020",
+        "year_manufactured": 2020,
+        "mileage": 12000,
+        "price": 20000,
+        "brand": "Toyota",
+        "model": "Corolla",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Япония"
+    },
+    {
+        "specification": "Honda Civic 2019",
+        "year_manufactured": 2019,
+        "mileage": 15000,
+        "price": 22000,
+        "brand": "Honda",
+        "model": "Civic",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Япония"
+    },
+    {
+        "specification": "Nissan Leaf 2021",
+        "year_manufactured": 2021,
+        "mileage": 8000,
+        "price": 30000,
+        "brand": "Nissan",
+        "model": "Leaf",
+        "engine_type": "Электрический",
+        "country_manufacturing": "Япония"
+    },
+    {
+        "specification": "Mazda 3 2020",
+        "year_manufactured": 2020,
+        "mileage": 10000,
+        "price": 24000,
+        "brand": "Mazda",
+        "model": "3",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Япония"
+    },
+    {
+        "specification": "Subaru Impreza 2021",
+        "year_manufactured": 2021,
+        "mileage": 5000,
+        "price": 26000,
+        "brand": "Subaru",
+        "model": "Impreza",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Япония"
+    },
+    {
+        "specification": "Mitsubishi Outlander 2020",
+        "year_manufactured": 2020,
+        "mileage": 12000,
+        "price": 28000,
+        "brand": "Mitsubishi",
+        "model": "Outlander",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Япония"
+    },
+    {
+        "specification": "Toyota RAV4 2021",
+        "year_manufactured": 2021,
+        "mileage": 3000,
+        "price": 32000,
+        "brand": "Toyota",
+        "model": "RAV4",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Япония"
+    },
+    {
+        "specification": "Honda CR-V 2020",
+        "year_manufactured": 2020,
+        "mileage": 15000,
+        "price": 29000,
+        "brand": "Honda",
+        "model": "CR-V",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Япония"
+    },
+    {
+        "specification": "Nissan Qashqai 2021",
+        "year_manufactured": 2021,
+        "mileage": 4000,
+        "price": 27000,
+        "brand": "Nissan",
+        "model": "Qashqai",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Япония"
+    },
+    {
+        "specification": "Suzuki Vitara 2020",
+        "year_manufactured": 2020,
+        "mileage": 11000,
+        "price": 23000,
+        "brand": "Suzuki",
+        "model": "Vitara",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Япония"
+    },
+    {
+        "specification": "Geely Emgrand 2021",
+        "year_manufactured": 2021,
+        "mileage": 10000,
+        "price": 15000,
+        "brand": "Geely",
+        "model": "Emgrand",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Китай"
+    },
+    {
+        "specification": "BYD Han 2022",
+        "year_manufactured": 2022,
+        "mileage": 5000,
+        "price": 30000,
+        "brand": "BYD",
+        "model": "Han",
+        "engine_type": "Электрический",
+        "country_manufacturing": "Китай"
+    },
+    {
+        "specification": "SAIC MG ZS 2021",
+        "year_manufactured": 2021,
+        "mileage": 7000,
+        "price": 20000,
+        "brand": "MG",
+        "model": "ZS",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Китай"
+    },
+    {
+        "specification": "NIO ES6 2022",
+        "year_manufactured": 2022,
+        "mileage": 3000,
+        "price": 60000,
+        "brand": "NIO",
+        "model": "ES6",
+        "engine_type": "Электрический",
+        "country_manufacturing": "Китай"
+    },
+    {
+        "specification": "Changan CS75 2021",
+        "year_manufactured": 2021,
+        "mileage": 8000,
+        "price": 22000,
+        "brand": "Changan",
+        "model": "CS75",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Китай"
+    },
+    {
+        "specification": "Great Wall Haval H6 2020",
+        "year_manufactured": 2020,
+        "mileage": 12000,
+        "price": 25000,
+        "brand": "Great Wall",
+        "model": "Haval H6",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Китай"
+    },
+    {
+        "specification": "Xpeng P7 2022",
+        "year_manufactured": 2022,
+        "mileage": 4000,
+        "price": 55000,
+        "brand": "Xpeng",
+        "model": "P7",
+        "engine_type": "Электрический",
+        "country_manufacturing": "Китай"
+    },
+    {
+        "specification": "Li Auto L9 2022",
+        "year_manufactured": 2022,
+        "mileage": 2000,
+        "price": 70000,
+        "brand": "Li Auto",
+        "model": "L9",
+        "engine_type": "Гибридный",
+        "country_manufacturing": "Китай"
+    },
+    {
+        "specification": "Dongfeng Fengon 2021",
+        "year_manufactured": 2021,
+        "mileage": 6000,
+        "price": 18000,
+        "brand": "Dongfeng",
+        "model": "Fengon",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Китай"
+    },
+    {
+        "specification": "Haval F7 2020",
+        "year_manufactured": 2020,
+        "mileage": 15000,
+        "price": 23000,
+        "brand": "Great Wall",
+        "model": "Haval F7",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Китай"
+    },
+    {
+        "specification": "Hyundai Sonata 2021",
+        "year_manufactured": 2021,
+        "mileage": 8000,
+        "price": 25000,
+        "brand": "Hyundai",
+        "model": "Sonata",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Корея"
+    },
+    {
+        "specification": "Kia K5 2022",
+        "year_manufactured": 2022,
+        "mileage": 3000,
+        "price": 24000,
+        "brand": "Kia",
+        "model": "K5",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Корея"
+    },
+    {
+        "specification": "Genesis G70 2020",
+        "year_manufactured": 2020,
+        "mileage": 12000,
+        "price": 35000,
+        "brand": "Genesis",
+        "model": "G70",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Корея"
+    },
+    {
+        "specification": "Kia Sportage 2021",
+        "year_manufactured": 2021,
+        "mileage": 5000,
+        "price": 28000,
+        "brand": "Kia",
+        "model": "Sportage",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Корея"
+    },
+    {
+        "specification": "Hyundai Tucson 2022",
+        "year_manufactured": 2022,
+        "mileage": 2000,
+        "price": 30000,
+        "brand": "Hyundai",
+        "model": "Tucson",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Корея"
+    },
+    {
+        "specification": "Kia Seltos 2021",
+        "year_manufactured": 2021,
+        "mileage": 7000,
+        "price": 23000,
+        "brand": "Kia",
+        "model": "Seltos",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Корея"
+    },
+    {
+        "specification": "Hyundai Elantra 2020",
+        "year_manufactured": 2020,
+        "mileage": 15000,
+        "price": 22000,
+        "brand": "Hyundai",
+        "model": "Elantra",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Корея"
+    },
+    {
+        "specification": "Genesis GV80 2021",
+        "year_manufactured": 2021,
+        "mileage": 4000,
+        "price": 60000,
+        "brand": "Genesis",
+        "model": "GV80",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Корея"
+    },
+    {
+        "specification": "Kia Forte 2021",
+        "year_manufactured": 2021,
+        "mileage": 6000,
+        "price": 21000,
+        "brand": "Kia",
+        "model": "Forte",
+        "engine_type": "Бензин",
+        "country_manufacturing": "Корея"
+    },
+    {
+        "specification": "Hyundai Ioniq 5 2022",
+        "year_manufactured": 2022,
+        "mileage": 1000,
+        "price": 45000,
+        "brand": "Hyundai",
+        "model": "Ioniq 5",
+        "engine_type": "Электрический",
+        "country_manufacturing": "Корея"
+    }
+]
+
+

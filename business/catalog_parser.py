@@ -1,22 +1,26 @@
 from dataclasses import dataclass
-from typing import Iterable
+from typing import Iterable, Optional
 from bs4 import BeautifulSoup
+import random
 
 import requests
 from django.db import transaction
+from django.http import Http404
 
+from apps.car.models import Car
 from apps.catalog.models import (
     BaseFilter,
     CarMark,
     CarModel,
-    CarColor,
     Country,
+    CarColorTag,
 )
 import datetime
 
 
 @dataclass
 class CarCard:
+    id: str
     mark: str
     model: str
     grade: str
@@ -24,13 +28,106 @@ class CarCard:
     mileage: int
     images: list[str]
     price: int
+    kuzov: Optional[str] = None
+    kpp: Optional[str] = None
+    eng_v: Optional[str] = None
+    priv: Optional[str] = None
+    color: Optional[str] = None
 
 
 def update_catalog_meta():
-    table_name = "stats"
-    base_filters = get_base_filters(table_name)
-    upload_and_save_marks_and_models(table_name, base_filters.values())
-    upload_and_save_colors(table_name, base_filters.values())
+    tables = ("stats", "main", "china")
+    for table in tables:
+        base_filters = get_base_filters(table)
+        upload_and_save_marks_and_models(table, base_filters.values())
+
+
+def get_car_by_id(country_manufacturing: str, car_id: str):
+    try:
+        car = Car.objects.get(
+            id=car_id, country_manufacturing__name=country_manufacturing
+        )
+    except Exception:
+        car = None
+
+    if car is not None:
+        return CarCard(
+            id=str(car.id),
+            mark=car.brand.name,
+            model=car.model.name,
+            grade=car.specification,
+            year=car.year_manufactured,
+            mileage=car.mileage,
+            price=car.price,
+            images=["/media/" + im.image.name for im in car.image.all()],
+            kuzov=car.kuzov,
+            kpp=car.kpp,
+            eng_v=car.eng_v,
+            priv=car.priv,
+            color=car.color,
+        )
+
+    country = Country.objects.get(name=country_manufacturing)
+
+    query = get_sql_query(
+        "*",
+        country.table_name,
+        [f"id+=+'{car_id}'"],
+        "0,1",
+    )
+    data = fetch_by_query(query)
+
+    try:
+        car = data[0]
+    except Exception:
+        raise Http404()
+
+    if car["PRIV"] == "FF":
+        priv = "Передний привод"
+    elif car["PRIV"] == "FR":
+        priv = "Задний привод"
+    else:
+        priv = "Полный привод"
+
+    return CarCard(
+        id=car["ID"],
+        mark=car["MARKA_NAME"],
+        model=car["MODEL_NAME"],
+        grade=car["GRADE"],
+        year=car["YEAR"],
+        mileage=car["MILEAGE"],
+        price=car["FINISH"],
+        images=[image for image in car["IMAGES"].split("#")],
+        kuzov=car["KUZOV"],
+        kpp="Механика" if car["KPP_TYPE"] == 1 else "Автомат",
+        eng_v=str(float(car["ENG_V"]) / 1000),
+        priv=priv,
+        color=car["COLOR"],
+    )
+
+
+def get_popular_cars(country_manufacturing: str, count_cars: int):
+    cars = Car.objects.filter(
+        country_manufacturing__name=country_manufacturing, is_popular=True
+    )
+
+    clear_data = [
+        CarCard(
+            id=str(car.id),
+            mark=car.brand.name,
+            model=car.model.name,
+            grade=car.specification,
+            year=car.year_manufactured,
+            mileage=car.mileage,
+            price=car.price,
+            images=[im.image.name for im in car.image.all()],
+        )
+        for car in cars
+    ]
+
+    random.shuffle(clear_data)
+
+    return clear_data[:count_cars]
 
 
 def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int):
@@ -43,6 +140,7 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
     data = fetch_by_query(query)
     clear_data = [
         CarCard(
+            id=car["ID"],
             mark=car["MARKA_NAME"],
             model=car["MODEL_NAME"],
             grade=car["GRADE"],
@@ -75,7 +173,7 @@ def connect_filters(filters: dict, base_filters: dict):
     mark_name = get_model_data_or_none(filters.get("mark"), CarMark)
     model_name = get_model_data_or_none(filters.get("model"), CarModel)
     priv = filters.get("priv") or None
-    color = get_model_data_or_none(filters.get("color"), CarColor)
+    colors = get_color_data_or_none(filters.get("color")) or None
     year_from = filters.get("year_from") or None
     year_to = filters.get("year_to") or None
     eng_v_from = filters.get("eng_v_from") or None
@@ -93,7 +191,7 @@ def connect_filters(filters: dict, base_filters: dict):
         mark_name and f"MARKA_NAME+=+'{mark_name}'",
         model_name and f"MODEL_NAME+=+'{model_name}'",
         priv,
-        color and f"COLOR+=+'{color}'",
+        colors and f"COLOR+IN+(+'{ "',+'".join(colors)}'+)",
         year_from and f"YEAR+>=+{year_from}",
         year_to and f"YEAR+<=+{year_to}",
         eng_v_from and f"ENG_V+>=+{eng_v_from}",
@@ -132,25 +230,20 @@ def get_model_data_or_none(id: str | None, model):
         return None
 
 
-@transaction.atomic
-def upload_and_save_colors(table_name: str, base_filters: Iterable[str]):
-    CarColor.objects.all().delete()
-    country_manufacturing = Country.objects.get(table_name=table_name)
-    fields = "DISTINCT+COLOR"
-
-    for line in full_data_fetch(fields, table_name, base_filters):
-        if not line.get("COLOR"):
-            continue
-        CarColor.objects.create(
-            name=line["COLOR"], country_manufacturing=country_manufacturing
-        )
+def get_color_data_or_none(id: str | None):
+    try:
+        tags = CarColorTag.objects.filter(color_id=id)
+        return [tag.name for tag in tags]
+    except:
+        return None
 
 
 @transaction.atomic
 def upload_and_save_marks_and_models(table_name: str, base_filters: Iterable[str]):
-    CarMark.objects.all().delete()
-    CarModel.objects.all().delete()
     country_manufacturing = Country.objects.get(table_name=table_name)
+    CarMark.objects.filter(country_manufacturing=country_manufacturing).delete()
+    CarModel.objects.filter(mark__country_manufacturing=country_manufacturing).delete()
+
     fields = "DISTINCT+MODEL_NAME,+MARKA_NAME"
 
     for line in full_data_fetch(fields, table_name, base_filters):
@@ -207,7 +300,6 @@ def get_base_filters(table_name: str):
         "YEAR": f"YEAR+>=+{base_filers.year}",
         "ENG_V": f"ENG_V+>+{base_filers.eng_v}",
         "MILEAGE": f"MILEAGE+<=+{base_filers.mileage}",
-        "STATUS": f"STATUS+=+'{base_filers.status}'",
         "FINISH": f"FINISH+>+{base_filers.finish}",
         "KPP_TYPE": f"KPP_TYPE+IN+(+'{ "',+'".join(kpp_types)}'+)",
     }
@@ -215,6 +307,13 @@ def get_base_filters(table_name: str):
         result.update(
             {
                 "AUCTION_DATE": f"AUCTION_DATE+>=+'{max_auction_date.date()}'",
+            }
+        )
+
+    if base_filers.status is not None:
+        result.update(
+            {
+                "STATUS": f"STATUS+=+'{base_filers.status}'",
             }
         )
 

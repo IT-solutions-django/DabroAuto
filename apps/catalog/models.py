@@ -60,6 +60,8 @@ class BaseFilter(CountryRelatedMixin):
         max_length=50,
         verbose_name="статус",
         help_text="строго равен значению",
+        blank=True,
+        null=True,
     )
     finish = models.PositiveIntegerField(
         verbose_name="финиш",
@@ -85,10 +87,20 @@ class BaseFilter(CountryRelatedMixin):
         return self.country_manufacturing.name
 
 
-class CarMark(NameMixin, CountryRelatedMixin):
+class CarMark(CountryRelatedMixin):
+    name = models.CharField(
+        max_length=255,
+        verbose_name="название",
+        help_text="максимальная длина 255 символов",
+    )
+
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = "марка автомобиля"
         verbose_name_plural = "марки автомобиля"
+        unique_together = ("name", "country_manufacturing")
 
 
 class CarModel(models.Model):
@@ -109,6 +121,7 @@ class CarModel(models.Model):
     class Meta:
         verbose_name = "модель автомобиля"
         verbose_name_plural = "модели автомобиля"
+        unique_together = ("name", "mark")
 
 
 class CarColor(NameMixin):
@@ -117,14 +130,23 @@ class CarColor(NameMixin):
         verbose_name_plural = "цвета автомобиля"
 
 
-class CarColorTag(NameMixin, CountryRelatedMixin):
+class CarColorTag(models.Model):
+    name = models.CharField(
+        max_length=255,
+        verbose_name="название",
+        help_text="максимальная длина 255 символов",
+    )
     color = models.ForeignKey(
         CarColor, on_delete=models.CASCADE, related_name="tags", verbose_name="цвет"
     )
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = "тег цвета автомобиля"
         verbose_name_plural = "теги цвета автомобиля"
+        unique_together = ("name", "color")
 
 
 class CurrencyRate(NameMixin, UpdatedAtMixin):
