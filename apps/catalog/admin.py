@@ -47,6 +47,7 @@ class CarColorTagInline(admin.TabularInline):
 @admin.register(CarColor)
 class CarColorAdmin(admin.ModelAdmin):
     search_fields = ("name",)
+    list_display = ("name", "country_manufacturing")
     inlines = (CarColorTagInline,)
 
 

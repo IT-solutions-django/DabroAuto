@@ -57,6 +57,15 @@ var swiper = new Swiper(".mySwiper", {
     },
   });
 
+$(function() {
+  $('.marquee').marquee({
+    duration: 20000,
+    gap: 0,
+    startVisible: true,
+    duplicated: true
+  });
+});
+
 
 const track = document.querySelector('.logo-track');
 const logos = document.querySelectorAll('.logo-track img');
@@ -79,6 +88,8 @@ const swiper1 = new Swiper('.clips_swiper', {
   slidesPerView: 'auto',
   spaceBetween: 16,
   loop: true,
+  centeredSlides: true,
+  centeredSlidesBounds: true,
   breakpoints: {
     0: {
       spaceBetween: 8,

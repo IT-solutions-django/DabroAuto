@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.views.generic import FormView
 
 from apps.car.models import Car
+from apps.catalog.models import CarMark
 from apps.clip.models import Clip
 from apps.review.models import Review, ReviewLocation
 from apps.service_info.models import (
@@ -29,13 +30,13 @@ class HomeView(FormView):
         """
         message = form.save()
         send_email_task.delay(
-            "Обратная связь от сайта Правый руль",
+            "Обратная связь с сайта Правый руль",
             f"Автор: {message.name}\n"
             f"Номер телефона: {message.phone_number}\n"
             f"Содержание: {message.content}",
         )
         telegram_send_mail_for_all_task.delay(
-            "Обратная связь от сайта Правый руль\n"
+            "Обратная связь с сайта Правый руль\n"
             f"Автор: {message.name}\n"
             f"Номер телефона: {message.phone_number}\n"
             f"Содержание: {message.content}",
@@ -97,4 +98,29 @@ class HomeView(FormView):
         context["reviews"] = Review.objects.all().select_related("author", "location")
         context["review_locations"] = ReviewLocation.objects.all()
 
+        context["brands_ids_to_logos"] = [
+            ("japan", get_car_brand_id_or_none("BMW", "Япония")),
+            ("japan", get_car_brand_id_or_none("TOYOTA", "Япония")),
+            ("japan", get_car_brand_id_or_none("AUDI", "Япония")),
+            ("china", get_car_brand_id_or_none("KIA", "Китай")),
+            ("japan", get_car_brand_id_or_none("MERCEDES BENZ", "Япония")),
+            ("japan", get_car_brand_id_or_none("HYUNDAI", "Япония")),
+            ("china", get_car_brand_id_or_none("CHERY", "Китай")),
+            ("china", get_car_brand_id_or_none("CHEVROLET", "Китай")),
+            ("japan", get_car_brand_id_or_none("RENAULT", "Япония")),
+            ("china", get_car_brand_id_or_none("HAVAL", "Китай")),
+            ("china", get_car_brand_id_or_none("JAC", "Китай")),
+            ("korea", get_car_brand_id_or_none("DAEVOO", "Корея")),
+            ("china", get_car_brand_id_or_none("FAW", "Китай")),
+        ]
+
         return context
+
+
+def get_car_brand_id_or_none(name: str, country_manufacturing: str):
+    try:
+        return CarMark.objects.get(
+            name=name, country_manufacturing__name=country_manufacturing
+        ).id
+    except Exception:
+        return None

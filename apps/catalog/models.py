@@ -41,6 +41,8 @@ class BaseFilter(CountryRelatedMixin):
         models.CharField(max_length=20),
         verbose_name="марки автомобиля",
         help_text="исключаем эти марки",
+        blank=True,
+        null=True,
     )
     year = models.PositiveIntegerField(
         verbose_name="год выпуска",
@@ -60,6 +62,13 @@ class BaseFilter(CountryRelatedMixin):
         max_length=50,
         verbose_name="статус",
         help_text="строго равен значению",
+        blank=True,
+        null=True,
+    )
+    priv = ArrayField(
+        models.CharField(max_length=20),
+        verbose_name="привод автомобиля",
+        help_text="исключаем эти приводы",
         blank=True,
         null=True,
     )
@@ -124,10 +133,20 @@ class CarModel(models.Model):
         unique_together = ("name", "mark")
 
 
-class CarColor(NameMixin):
+class CarColor(CountryRelatedMixin):
+    name = models.CharField(
+        max_length=255,
+        verbose_name="название",
+        help_text="максимальная длина 255 символов",
+    )
+
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = "цвет автомобиля"
         verbose_name_plural = "цвета автомобиля"
+        unique_together = ("name", "country_manufacturing")
 
 
 class CarColorTag(models.Model):

@@ -1117,7 +1117,6 @@ header .header_menu .contact_info .phone_inf a {
 .clips .clips_swiper .swiper-wrapper {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
-          justify-content: center;
 }
 
 .subscribe {
@@ -2172,7 +2171,6 @@ body:has(.modal_.show) .modal_back {
   .clips .clips_swiper .swiper-wrapper {
     -webkit-box-pack: start;
         -ms-flex-pack: start;
-            justify-content: flex-start;
   }
   .clips .title h2 {
     font-size: 40px;
@@ -2665,6 +2663,25 @@ body:has(.modal_.show) .modal_back {
 
 .swiper-slide img {
   object-fit: cover;
+}
+
+.marquee img {
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+.marquee a {
+  margin-inline: 20px;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+.marquee img:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  /* Hover effekti */
 }
 
 /*# sourceMappingURL=index.css.map */

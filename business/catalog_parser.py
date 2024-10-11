@@ -89,6 +89,8 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
     else:
         priv = "Полный привод"
 
+    color_tag = CarColorTag.objects.filter(name=car["COLOR"]).first()
+
     return CarCard(
         id=car["ID"],
         mark=car["MARKA_NAME"],
@@ -102,7 +104,7 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
         kpp="Механика" if car["KPP_TYPE"] == 1 else "Автомат",
         eng_v=str(float(car["ENG_V"]) / 1000),
         priv=priv,
-        color=car["COLOR"],
+        color=color_tag.color.name if color_tag is not None else car["COLOR"],
     )
 
 
@@ -182,10 +184,12 @@ def connect_filters(filters: dict, base_filters: dict):
     mileage_to = filters.get("mileage_to") or None
     kpp_type = filters.get("kpp_type") or None
 
+    excluded_priv = base_filters.get("PRIV") and "," + base_filters["PRIV"][13:-1]
+
     if priv in ("FF", "FR"):
         priv = f"PRIV+=+'{priv}'"
     elif priv == "NOT":
-        priv = "PRIV+NOT+IN+('FF',+'FR')"
+        priv = f"PRIV+NOT+IN+('FF',+'FR'{excluded_priv or ''})"
 
     result = [
         mark_name and f"MARKA_NAME+=+'{mark_name}'",
@@ -215,6 +219,9 @@ def connect_filters(filters: dict, base_filters: dict):
 
     if kpp_type:
         del base_filters["KPP_TYPE"]
+
+    if priv and base_filters.get("PRIV"):
+        del base_filters["PRIV"]
 
     result.extend(base_filters.values())
 
@@ -314,6 +321,13 @@ def get_base_filters(table_name: str):
         result.update(
             {
                 "STATUS": f"STATUS+=+'{base_filers.status}'",
+            }
+        )
+
+    if base_filers.priv:
+        result.update(
+            {
+                "PRIV": f"PRIV+NOT+IN+(+'{ "',+'".join(base_filers.priv)}'+)",
             }
         )
 
