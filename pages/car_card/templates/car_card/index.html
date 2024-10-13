@@ -7,7 +7,9 @@
             <h2 style="color: #333;">{{ car.mark }} {{ car.model }} ({{ car.grade }})</h2>
             <p style="color: #666;">Цена: {{ car.price }} руб.</p>
             <p style="color: #666;">Год выпуска: {{ car.year }}</p>
-            <p style="color: #666;">Кузов: {{ car.kuzov }}</p>
+            {% if car.kuzov %}
+                 <p style="color: #666;">Кузов: {{ car.kuzov }}</p>
+            {% endif %}
             <p style="color: #666;">Страна: {{ country }}</p>
             <p style="color: #666;">КПП: {{ car.kpp }}</p>
             <p style="color: #666;">Объем двигателя: {{ car.eng_v }} л</p>
