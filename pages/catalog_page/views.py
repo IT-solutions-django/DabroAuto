@@ -8,6 +8,7 @@ from django.views.generic import FormView
 from apps.catalog.models import CarModel
 from business.catalog_parser import get_cars_info, get_popular_cars
 from pages.catalog_page.forms import CarSearchForm
+from pages.home.forms import QuestionnaireForm
 from utils.pagination import get_page_range
 
 CARS_PER_PAGE = 12
@@ -66,6 +67,8 @@ class CatalogJapanView(FormView):
 
         # Определяем диапазон страниц для отображения
         context["page_range"] = get_page_range(current_page, pages_count)
+
+        context["questionnaire_form"] = QuestionnaireForm
 
         return context
 

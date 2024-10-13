@@ -142,21 +142,27 @@
                     </div>
                 {% endfor %}
             </div>
-
-
-            <div class="pagination">
-                {% for page in page_range %}
-                    {% if page == "..." %}
-                        <span>...</span>
-                    {% elif page == current_page %}
-                        <span style="color: red; font-weight: bold;">{{ page }}</span>  <!-- Выделяем текущую страницу -->
-                    {% else %}
-                        <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ page }}">{{ page }}</a>
-                    {% endif %}
-                {% endfor %}
+            <div class="pagination-elements">
+                <button class="view_more">Показать еще</button>
+                <div class="pagination">
+                    {% for page in page_range %}
+                        {% if page == "..." %}
+                            <span>...</span>
+                        {% elif page == current_page %}
+                            <span class="current-page">{{ page }}</span>  <!-- Выделяем текущую страницу -->
+                        {% else %}
+                            <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ page }}">{{ page }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
+
         </div>
     </section>
+    {% with form=questionnaire_form %}
+        {% include 'home/questionnaire_form.html' %}
+    {% endwith %}
+    {% include 'home/social_media.html' %}
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
