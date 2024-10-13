@@ -6,6 +6,7 @@ from django.views import View
 from django.views.generic import FormView
 
 from apps.catalog.models import CarModel
+from apps.service_info.models import ContactInformation, SocialMedia
 from business.catalog_parser import get_cars_info, get_popular_cars
 from pages.catalog_page.forms import CarSearchForm
 from pages.home.forms import QuestionnaireForm
@@ -69,6 +70,27 @@ class CatalogJapanView(FormView):
         context["page_range"] = get_page_range(current_page, pages_count)
 
         context["questionnaire_form"] = QuestionnaireForm
+
+        context["phone_number_main"] = ContactInformation.objects.get(
+            name="Основной номер телефона",
+        ).content
+
+        context["tg_url"] = SocialMedia.objects.get(name="Телеграм-канал").url
+        context["vk_url"] = SocialMedia.objects.get(name="VK").url
+        context["inst_url"] = SocialMedia.objects.get(name="Instagram").url
+
+        context["phone_number"] = ContactInformation.objects.get(
+            name="Номер телефона",
+        ).content
+        context["whatsapp"] = ContactInformation.objects.get(
+            name="WhatsApp",
+        ).content
+        context["whatsapp_url"] = (
+            f"https://wa.me/{''.join(i for i in context["whatsapp"] if i.isdigit())}"
+        )
+        context["address"] = ContactInformation.objects.get(
+            name="Адрес",
+        ).content
 
         return context
 

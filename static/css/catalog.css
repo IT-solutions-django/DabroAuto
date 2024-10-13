@@ -235,3 +235,19 @@
   color: white;
   height: max-content;
 }
+
+.select2-container--default .select2-selection--single {
+    background-color: #f0f0f0; /* Цвет фона */
+    border: 1px solid #ccc; /* Цвет границы */
+    border-radius: 4px; /* Скругление углов */
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #333; /* Цвет текста */
+    line-height: 28px; /* Высота строки */
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 28px; /* Высота стрелки */
+    right: 10px; /* Положение стрелки */
+}

@@ -61,7 +61,9 @@ MILEAGE = [
 
 
 class CarSearchForm(forms.Form):
-    mark = forms.ChoiceField(required=False)
+    mark = forms.ChoiceField(
+        required=False, widget=forms.Select(attrs={"class": "custom-select"})
+    )
     year_from = forms.ChoiceField(required=False)
     year_to = forms.ChoiceField(required=False)
     eng_v_from = forms.ChoiceField(required=False)
