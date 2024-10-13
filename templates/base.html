@@ -1,11 +1,111 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <title>{{title}}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'libs/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    {% block css %}{% endblock %}
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+    <div class="wrapper">
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <a href="#"><img src="{% static 'img/logo.svg' %}" alt=""></a>
+                </div>
+                <div class="header_menu">
+                    <div class="logo_menu">
+                        <div class="logo">
+                            <a href="#"><img src="{% static 'img/logo.svg' %}" alt=""></a>
+                        </div>
+                        <div class="menu_child">
+                            <ul>
+                                <li><a href="#">Авто из Кореи</a></li>
+                                <li><a href="#">Авто из Китая</a></li>
+                                <li><a href="#">Авто из Японии</a></li>
+                                <li><a href="#">Контакты</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="contact_info">
+                        <div class="phone_inf">
+                            <a href="#">{{ phone_number_main }}</a>
+                        </div>
+                        <div class="mesengers">
+                            <a href="{{ tg_url }}" target="_blank"><img src="{% static 'img/cta_button.svg' %}" alt=""></a>
+                            <a href="{{ whatsapp_url }}" target="_blank"><img src="{% static 'img/cta_button1.svg' %}" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hamburger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="5" width="18" height="1.5" rx="0.75" fill="white"/>
+                        <rect x="3" y="11" width="18" height="1.5" rx="0.75" fill="white"/>
+                        <rect x="3" y="17" width="18" height="1.5" rx="0.75" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        {% block content %}{% endblock %}
+
+        <footer>
+            <div class="footer_top">
+                <div class="container">
+                    <div class="footer_row">
+                        <div class="footer_left">
+                            <a href="#" class="brand_logo">
+                                <img src="{% static 'img/logo.svg' %}" alt="">
+                            </a>
+                            <div class="footer_links">
+                                <ul>
+                                    <li>Каталог</li>
+                                    <li><a href="#">Авто из Кореи</a></li>
+                                    <li><a href="#">Авто из Китая</a></li>
+                                    <li><a href="#">Авто из Японии</a></li>
+                                </ul>
+                                <ul>
+                                    <li>Компания</li>
+                                    <li><a href="#">О компании</a></li>
+                                    <li><a href="#">Доставка</a></li>
+                                    <li><a href="#">Отзывы</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="footer_contact">
+                            <p>Звонок по России бесплатный</p>
+                            <a href="tel:+{{ phone_number }}">{{ phone_number }}</a>
+                            <div class="social">
+                                <a href="{{ tg_url }}" target="_blank"><img src="{% static 'img/ico-tg2.svg' %}" alt=""></a>
+                                <a href="{{ whatsapp_url }}" target="_blank"><img src="{% static 'img/ico-whatsapp.svg' %}" alt=""></a>
+                                <a href="{{ vk_url }}" target="_blank"><img src="{% static 'img/ico-wk2.svg' %}" alt=""></a>
+                                <a href="{{ inst_url }}" target="_blank"><img src="{% static 'img/ico-insta2.svg' %}" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer_bottom">
+                <div class="container">
+                    <p>© 2024 ООО «Правый руль» Автомобили под заказ из Кореи, Китая и Японии</p>
+                    <p><a href="#">Политика конфиденциальности</a></p>
+                </div>
+            </div>
+        </footer>
+    </div>
 </body>
+
+
+
+{% block scripts %}{% endblock %}
+<script src="{% static 'libs/imask.js' %}"></script>
+<script src="{% static 'libs/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'libs/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/jquery.marquee/1.4.0/jquery.marquee.min.js"></script>
 </html>

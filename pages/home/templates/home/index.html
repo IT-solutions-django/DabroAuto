@@ -1,52 +1,7 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="static/fonts/fonts.css">
-<link rel="stylesheet" href="static/libs/swiper-bundle.min.css" />
-<link href="static/libs/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="static/css/index.css">
-
-<div class="wrapper">
-    <header>
-        <div class="container">
-            <div class="logo">
-                <a href="#"><img src="static/img/logo.svg" alt=""></a>
-            </div>
-            <div class="header_menu">
-                <div class="logo_menu">
-                    <div class="logo">
-                        <a href="#"><img src="static/img/logo.svg" alt=""></a>
-                    </div>
-                    <div class="menu_child">
-                        <ul>
-                            <li><a href="#">Авто из Кореи</a></li>
-                            <li><a href="#">Авто из Китая</a></li>
-                            <li><a href="#">Авто из Японии</a></li>
-                            <li><a href="#">Контакты</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="contact_info">
-                    <div class="phone_inf">
-                        <a href="#">{{ phone_number_main }}</a>
-                    </div>
-                    <div class="mesengers">
-                        <a href="{{ tg_url }}" target="_blank"><img src="static/img/cta_button.svg" alt=""></a>
-                        <a href="{{ whatsapp_url }}" target="_blank"><img src="static/img/cta_button1.svg" alt=""></a>
-                    </div>
-                </div>
-            </div>
-            <div class="hamburger">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="5" width="18" height="1.5" rx="0.75" fill="white"/>
-                    <rect x="3" y="11" width="18" height="1.5" rx="0.75" fill="white"/>
-                    <rect x="3" y="17" width="18" height="1.5" rx="0.75" fill="white"/>
-                </svg>
-            </div>
-        </div>
-    </header>
     <section class="hero">
         <div class="container">
             <div class="hero_title">
@@ -65,7 +20,7 @@
                         <p>довольных клиентов</p>
                     </div>
                     <div class="item">
-                        <h3><img src="static/img/star.png" alt="">{{ average_review }}</h3>
+                        <h3><img src="{% static 'img/star.png' %}" alt="">{{ average_review }}</h3>
                     </div>
                 </div>
                 <div class="card_discoint">
@@ -104,13 +59,13 @@
                         </div>
                         <div class="right_sliders">
                             <div class="title">
-                                <h2>Популярные авто <br><span> из Кореи</span> <img src="static/img/flag.svg" alt=""></h2>
+                                <h2>Популярные авто <br><span> из Кореи</span> <img src="{% static 'img/flag.svg' %}" alt=""></h2>
                                 <div class="swiper_buttons">
                                     <div class="swiper_prev">
-                                        <img src="static/img/prev.svg" alt="">
+                                        <img src="{% static 'img/prev.svg' %}" alt="">
                                     </div>
                                     <div class="swiper_next">
-                                        <img src="static/img/prev.svg" alt="">
+                                        <img src="{% static 'img/prev.svg' %}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -159,13 +114,13 @@
                     <div class="popular_cars_block">
                         <div class="right_sliders">
                             <div class="title">
-                                <h2>Популярные авто <br><span> из Китая</span> <img src="static/img/flag3.svg" alt=""></h2>
+                                <h2>Популярные авто <br><span> из Китая</span> <img src="{% static 'img/flag3.svg' %}" alt=""></h2>
                                 <div class="swiper_buttons">
                                     <div class="swiper_prev">
-                                        <img src="static/img/prev.svg" alt="">
+                                        <img src="{% static 'img/prev.svg' %}" alt="">
                                     </div>
                                     <div class="swiper_next">
-                                        <img src="static/img/prev.svg" alt="">
+                                        <img src="{% static 'img/prev.svg' %}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -266,13 +221,13 @@
                         </div>
                         <div class="right_sliders">
                             <div class="title">
-                                <h2>Популярные авто <br><span> из Японии</span> <img src="static/img/flag2.png" alt=""></h2>
+                                <h2>Популярные авто <br><span> из Японии</span> <img src="{% static 'img/flag2.png' %}" alt=""></h2>
                                 <div class="swiper_buttons">
                                     <div class="swiper_prev">
-                                        <img src="static/img/prev.svg" alt="">
+                                        <img src="{% static 'img/prev.svg' %}" alt="">
                                     </div>
                                     <div class="swiper_next">
-                                        <img src="static/img/prev.svg" alt="">
+                                        <img src="{% static 'img/prev.svg' %}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -325,43 +280,43 @@
                 <div class="logo-carousel">
                     <div class='marquee'>
                         <a href="{{ brands_ids_to_logos.0.0 }}/?mark={{ brands_ids_to_logos.0.1 }}">
-                            <img src="static/img/brand1.png" alt="Logo 1">
+                            <img src="{% static 'img/brand1.png' %}" alt="Logo 1">
                         </a>
                         <a href="{{ brands_ids_to_logos.1.0 }}/?mark={{ brands_ids_to_logos.1.1 }}">
-                            <img src="static/img/brand2.png" alt="Logo 2">
+                            <img src="{% static 'img/brand2.png' %}" alt="Logo 2">
                         </a>
                         <a href="{{ brands_ids_to_logos.2.0 }}/?mark={{ brands_ids_to_logos.2.1 }}">
-                            <img src="static/img/brand3.png" alt="Logo 3">
+                            <img src="{% static 'img/brand3.png' %}" alt="Logo 3">
                         </a>
                         <a href="{{ brands_ids_to_logos.3.0 }}/?mark={{ brands_ids_to_logos.3.1 }}">
-                            <img src="static/img/brand4.png" alt="Logo 4">
+                            <img src="{% static 'img/brand4.png' %}" alt="Logo 4">
                         </a>
                         <a href="{{ brands_ids_to_logos.4.0 }}/?mark={{ brands_ids_to_logos.4.1 }}">
-                            <img src="static/img/brand5.png" alt="Logo 5">
+                            <img src="{% static 'img/brand5.png' %}" alt="Logo 5">
                         </a>
                         <a href="{{ brands_ids_to_logos.5.0 }}/?mark={{ brands_ids_to_logos.5.1 }}">
-                            <img src="static/img/brand6.png" alt="Logo 6">
+                            <img src="{% static 'img/brand6.png' %}" alt="Logo 6">
                         </a>
                         <a href="{{ brands_ids_to_logos.6.0 }}/?mark={{ brands_ids_to_logos.6.1 }}">
-                            <img src="static/img/brand7.png" alt="Logo 7">
+                            <img src="{% static 'img/brand7.png' %}" alt="Logo 7">
                         </a>
                         <a href="{{ brands_ids_to_logos.7.0 }}/?mark={{ brands_ids_to_logos.7.1 }}">
-                            <img src="static/img/brand8.png" alt="Logo 8">
+                            <img src="{% static 'img/brand8.png' %}" alt="Logo 8">
                         </a>
                         <a href="{{ brands_ids_to_logos.8.0 }}/?mark={{ brands_ids_to_logos.8.1 }}">
-                            <img src="static/img/brand9.png" alt="Logo 9">
+                            <img src="{% static 'img/brand9.png' %}" alt="Logo 9">
                         </a>
                         <a href="{{ brands_ids_to_logos.9.0 }}/?mark={{ brands_ids_to_logos.9.1 }}">
-                            <img src="static/img/brand10.png" alt="Logo 10">
+                            <img src="{% static 'img/brand10.png' %}" alt="Logo 10">
                         </a>
                         <a href="{{ brands_ids_to_logos.10.0 }}/?mark={{ brands_ids_to_logos.10.1 }}">
-                            <img src="static/img/brand11.png" alt="Logo 11">
+                            <img src="{% static 'img/brand11.png' %}" alt="Logo 11">
                         </a>
                         <a href="{{ brands_ids_to_logos.11.0 }}/?mark={{ brands_ids_to_logos.11.1 }}">
-                            <img src="static/img/brand12.png" alt="Logo 12">
+                            <img src="{% static 'img/brand12.png' %}" alt="Logo 12">
                         </a>
                         <a href="{{ brands_ids_to_logos.12.0 }}/?mark={{ brands_ids_to_logos.12.1 }}">
-                            <img src="static/img/brand13.png" alt="Logo 13">
+                            <img src="{% static 'img/brand13.png' %}" alt="Logo 13">
                         </a>
                     </div>
                 </div>
@@ -377,43 +332,43 @@
                </div>
                <div class="itesm_stages">
                     <div class="item">
-                        <img src="static/img/work1.png" alt="">
+                        <img src="{% static 'img/work1.png' %}" alt="">
                         <div>
                             <h3><span>{{ stages_of_work.0.name }}</span></h3>
                             <p><span>{{ stages_of_work.0.content }}</span></p>
                         </div>
-                        <img class="line_img" src="static/img/line1.svg" alt="">
+                        <img class="line_img" src="{% static 'img/line1.svg' %}" alt="">
                     </div>
                     <div class="item">
-                        <img src="static/img/work2.png" alt="">
+                        <img src="{% static 'img/work2.png' %}" alt="">
                         <div>
                             <h3><span>{{ stages_of_work.1.name }}</span></h3>
                             <p><span>{{ stages_of_work.1.content }}</span></p>
                         </div>
-                        <img class="line_img line_img2" src="static/img/line2.svg" alt="">
+                        <img class="line_img line_img2" src="{% static 'img/line2.svg' %}" alt="">
                     </div>
                     <div class="item">
-                        <img src="static/img/work3.png" alt="">
+                        <img src="{% static 'img/work3.png' %}" alt="">
                         <div>
                             <h3><span>{{ stages_of_work.2.name }}</span></h3>
                             <p><span>{{ stages_of_work.2.content }}</span></p>
                         </div>
-                        <img class="line_img" src="static/img/line2.svg" alt="">
+                        <img class="line_img" src="{% static 'img/line2.svg' %}" alt="">
                     </div>
                     <div class="item">
-                        <img src="static/img/work4.png" alt="">
+                        <img src="{% static 'img/work4.png' %}" alt="">
                         <div>
                             <h3><span>{{ stages_of_work.3.name }}</span></h3>
                             <p><span>{{ stages_of_work.3.content }}</span></p>
                         </div>
-                        <img class="line_img" src="static/img/line2.svg" alt="">
+                        <img class="line_img" src="{% static 'img/line2.svg' %}" alt="">
                     </div>
                </div>
                <div class="btns_stage">
                     <div class="btns_a">
                         <a href="#">Получить консультацию</a>
                     </div>
-                <a href="{{ whatsapp_url }}" target="_blank"><img src="static/img/w1.svg" alt=""></a>
+                <a href="{{ whatsapp_url }}" target="_blank"><img src="{% static 'img/w1.svg' %}" alt=""></a>
                </div>
               </div>
               <div class="save_discount">
@@ -440,11 +395,11 @@
                             <div class="btns_a">
                                 <a href="#">Получить консультацию</a>
                             </div>
-                        <a href="{{ whatsapp_url }}" target="_blank"><img src="static/img/w1.svg" alt=""></a>
+                        <a href="{{ whatsapp_url }}" target="_blank"><img src="{% static 'img/w1.svg' %}" alt=""></a>
                        </div>
                     </div>
                     <div class="img_abouts">
-                        <img src="static/img/abot.png" alt="">
+                        <img src="{% static 'img/abot.png' %}" alt="">
                     </div>
                 </div>
                 <div class="bottom_abouts">
@@ -457,15 +412,15 @@
                         <p>довольных клиентов</p>
                     </div>
                     <div class="items">
-                        <img src="static/img/class.png" alt="">
+                        <img src="{% static 'img/class.png' %}" alt="">
                         <p>Прозрачное ценообразование с <br> подробным разъяснением затрат на <br> каждом этапе</p>
                     </div>
                     <div class="items">
-                        <img src="static/img/doc.png" alt="">
+                        <img src="{% static 'img/doc.png' %}" alt="">
                         <p>Полное сопровождение и <br> предоставление фото/видео <br> отчета на протяжение всей сделки</p>
                     </div>
                     <div class="items">
-                        <img src="static/img/dog.png" alt="">
+                        <img src="{% static 'img/dog.png' %}" alt="">
                         <p>Проверенные <br> поставщики</p>
                     </div>
                 </div>
@@ -475,16 +430,16 @@
             <div class="">
                 <div class="logo-carousel">
                     <div class="logo-track">
-                        <img src="static/img/b1.svg" alt="Logo 1">
-                        <img src="static/img/b1.svg" alt="Logo 1">
-                        <img src="static/img/b1.svg" alt="Logo 1">
-                        <img src="static/img/b1.svg" alt="Logo 1">
-                        <img src="static/img/b1.svg" alt="Logo 1">
-                        <img src="static/img/b1.svg" alt="Logo 1">
-                        <img src="static/img/b1.svg" alt="Logo 1">
-                        <img src="static/img/b1.svg" alt="Logo 1">
-                        <img src="static/img/b1.svg" alt="Logo 1">
-                        <img src="static/img/b1.svg" alt="Logo 1">
+                        <img src="{% static 'img/b1.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b1.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b1.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b1.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b1.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b1.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b1.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b1.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b1.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b1.svg' %}" alt="Logo 1">
 
 
                     </div>
@@ -495,16 +450,16 @@
             <div class="">
                 <div class="logo-carousel">
                     <div class="logo-track">
-                        <img src="static/img/b2.svg" alt="Logo 1">
-                        <img src="static/img/b2.svg" alt="Logo 1">
-                        <img src="static/img/b2.svg" alt="Logo 1">
-                        <img src="static/img/b2.svg" alt="Logo 1">
-                        <img src="static/img/b2.svg" alt="Logo 1">
-                        <img src="static/img/b2.svg" alt="Logo 1">
-                        <img src="static/img/b2.svg" alt="Logo 1">
-                        <img src="static/img/b2.svg" alt="Logo 1">
-                        <img src="static/img/b2.svg" alt="Logo 1">
-                        <img src="static/img/b2.svg" alt="Logo 1">
+                        <img src="{% static 'img/b2.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b2.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b2.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b2.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b2.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b2.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b2.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b2.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b2.svg' %}" alt="Logo 1">
+                        <img src="{% static 'img/b2.svg' %}" alt="Logo 1">
 
 
                     </div>
@@ -515,13 +470,13 @@
             <div class="container">
                 <div class="section_top">
                     <div class="title">
-                        <h2>Отзывы <img src="static/img/star2.png" alt="">{{ average_review }}</h2>
+                        <h2>Отзывы <img src="{% static 'img/star2.png' %}" alt="">{{ average_review }}</h2>
                     </div>
                     <div class="comment_links">
                         {% for review_location in review_locations %}
                             <a href="{{ review_location.url }}" target="_blank">
                             {{ review_location.name }}
-                            <img src="static/img/arr_link.svg" alt="">
+                            <img src="{% static 'img/arr_link.svg' %}" alt="">
                         </a>
                         {% endfor %}
                     </div>
@@ -572,7 +527,7 @@
             <div class="container">
                 <div class="section_top">
                     <div class="title">
-                        <h2><img src="static/img/clip_logo.svg" alt="">Клипы</h2>
+                        <h2><img src="{% static 'img/clip_logo.svg' %}" alt="">Клипы</h2>
                     </div>
                     <a href="{{ vk_url }}" target="_blank" class="clips_link d-none d-sm-flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -626,144 +581,11 @@
                 </a>
             </div>
         </section>
-        <section class="subscribe">
-            <div class="container">
-                <div class="subscribe_row">
-                    <img src="static/img/subscribe_image.png" alt="" class="subscribe_image">
-                    <div class="subscribe_right">
-                        <div class="title">
-                            <h2><span>Подпишись</span> и не упусти свой автомобиль мечты</h2>
-                        </div>
-                        <a href="{{ tg_url }}" class="subscribe_item" target="_blank">
-                            <div class="subscribe_item_img">
-                                <img src="static/img/ico-tg.svg" alt="">
-                            </div>
-                            <div>
-                                Телеграм-канал
-                                <img src="static/img/arr_link.svg" alt="">
-                            </div>
-                        </a>
-                        <a href="{{ vk_url }}" class="subscribe_item" target="_blank">
-                            <div class="subscribe_item_img">
-                                <img src="static/img/ico-wk.svg" alt="">
-                            </div>
-                            <div>
-                                VK
-                                <img src="static/img/arr_link.svg" alt="">
-                            </div>
-                        </a>
-                        <a href="{{ inst_url }}" class="subscribe_item" target="_blank">
-                            <div class="subscribe_item_img">
-                                <img src="static/img/ico-insta.svg" alt="">
-                            </div>
-                            <div>
-                                Instagram
-                                <img src="static/img/arr_link.svg" alt="">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="contacts">
-            <div class="container">
-                <div class="contact_row">
-                    <div class="contact_left">
-                        <div class="title">
-                            <h2>Контактная информация
-                                <img src="static/img/contact_title_image.png" alt="">
-                            </h2>
-                        </div>
-                        <p class="section_description">Оставьте свою заявку и наш менеджер свяжется с Вами для уточнения деталей.</p>
-                        <div class="contact_item">
-                            <p>Звонок по России бесплатный</p>
-                            <a href="tel:+{{ phone_number }}">{{ phone_number }}</a>
-                        </div>
-                        <div class="contact_item" target="_blank">
-                            <p>WhatsApp</p>
-                            <a href="{{ whatsapp_url }}">{{ whatsapp }}</a>
-                        </div>
-                        <div class="contact_item">
-                            <p>Офис</p>
-                            <div>{{ address }}</div>
-                        </div>
-                    </div>
-                    <form class="contact_form" id="contactForm" method="post" action="">
-                        {% csrf_token %}
-                        <div class="form_group">
-                            <label>
-                                <p>Имя</p>
-                                {{ form.name }}
-                            </label>
-                            <label>
-                                <p>Телефон</p>
-                                {{ form.phone_number }}
-                            </label>
-                        </div>
-                        <div class="form_group">
-                            <label>
-                                <p>Уточните свой вопрос</p>
-                                {{ form.content }}
-                            </label>
-                        </div>
-                        <div class="form_group">
-                            <label>
-                                <span class="checkmark"></span>
-                                {{ form.privacy_policy_agreed }}
-                                <p>С <a href="#">правилами политики конфиденциальности</a> ознакомлен</p>
-                            </label>
-                        </div>
-                        <div class="form_group">
-                            <button type="submit" name="submit">Отправить</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
+
+        {% include 'home/social_media.html' %}
+        {% include 'home/questionnaire_form.html' %}
     </main>
-    <footer>
-        <div class="footer_top">
-            <div class="container">
-                <div class="footer_row">
-                    <div class="footer_left">
-                        <a href="#" class="brand_logo">
-                            <img src="static/img/logo.svg" alt="">
-                        </a>
-                        <div class="footer_links">
-                            <ul>
-                                <li>Каталог</li>
-                                <li><a href="#">Авто из Кореи</a></li>
-                                <li><a href="#">Авто из Китая</a></li>
-                                <li><a href="#">Авто из Японии</a></li>
-                            </ul>
-                            <ul>
-                                <li>Компания</li>
-                                <li><a href="#">О компании</a></li>
-                                <li><a href="#">Доставка</a></li>
-                                <li><a href="#">Отзывы</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="footer_contact">
-                        <p>Звонок по России бесплатный</p>
-                        <a href="tel:+{{ phone_number }}">{{ phone_number }}</a>
-                        <div class="social">
-                            <a href="{{ tg_url }}" target="_blank"><img src="static/img/ico-tg2.svg" alt=""></a>
-                            <a href="{{ whatsapp_url }}" target="_blank"><img src="static/img/ico-whatsapp.svg" alt=""></a>
-                            <a href="{{ vk_url }}" target="_blank"><img src="static/img/ico-wk2.svg" alt=""></a>
-                            <a href="{{ inst_url }}" target="_blank"><img src="static/img/ico-insta2.svg" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer_bottom">
-            <div class="container">
-                <p>© 2024 ООО «Правый руль» Автомобили под заказ из Кореи, Китая и Японии</p>
-                <p><a href="#">Политика конфиденциальности</a></p>
-            </div>
-        </div>
-    </footer>
+
 
     <div class="modal_">
         <div class="modal_content">
@@ -775,14 +597,14 @@
             <div class="modal_title">Экономия до <span>30%</span> от рынка авто в наличии</div>
             <div class="modal_row">
                 <div class="modal_left">
-                    <img src="static/img/modal1.png" alt="">
+                    <img src="{% static 'img/modal1.png' %}" alt="">
                     <p>Привезли мы</p>
                     <div class="price">2 585 000 руб.</div>
                 </div>
                 <div class="modal_right">
-                    <img src="static/img/modal2.png" alt="">
+                    <img src="{% static 'img/modal2.png' %}" alt="">
                     <p>В наличии на Дром Авто</p>
-                    <img src="static/img/modal_red_arrow.svg" alt="" class="modal_red_arrow">
+                    <img src="{% static 'img/modal_red_arrow.svg' %}" alt="" class="modal_red_arrow">
                     <div class="price d-block d-sm-none">3 550 000 руб.</div>
                 </div>
             </div>
@@ -791,42 +613,13 @@
                     Получить консультацию
                 </a>
                 <a href="#" class="social">
-                    <img src="static/img/ico-whatsapp.svg" alt="">
+                    <img src="{% static 'img/ico-whatsapp.svg' %}" alt="">
                 </a>
                 <a href="#" class="social">
-                    <img src="static/img/ico-tg2.svg" alt="">
+                    <img src="{% static 'img/ico-tg2.svg' %}" alt="">
                 </a>
             </div>
         </div>
     </div>
     <div class="modal_back"></div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-  $(document).ready(function () {
-      $('#contactForm').submit(function () {
-          $.ajax({
-              data: $(this).serialize(),
-              type: $(this).attr('method'),
-              url: "{% url 'home' %}",
-              success: function (response) {
-                  $('#contactForm').trigger('reset');
-                  alert("Ваше сообщение успешно доставлено!");
-              },
-              error: function (response) {
-                  const errors = JSON.parse(response.responseJSON.errors)
-                  console.log(errors)
-              }
-          });
-          return false;
-      });
-  })
-</script>
-
-
-<script src="static/libs/imask.js"></script>
-<script src="static/libs/swiper-bundle.min.js"></script>
-<script src="static/libs/bootstrap.bundle.min.js"></script>
-<script src="static/js/main.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.marquee/1.4.0/jquery.marquee.min.js"></script>
 {% endblock %}

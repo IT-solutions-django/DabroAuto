@@ -71,18 +71,21 @@ const track = document.querySelector('.logo-track');
 const logos = document.querySelectorAll('.logo-track img');
 
 // Duplicating logos for seamless scrolling
-track.innerHTML += track.innerHTML;
-
-track.style.width = `${logos.length * 200}px`; // Logolar kengligi (shu yerdagi raqamlarni logolar o'lchamiga qarab moslang)
+if (track?.innerHTML) {
+    track.innerHTML += track.innerHTML;
+    track.style.width = `${logos.length * 200}px`
+}
 
 
 const track2 = document.querySelector('.logo-track');
 const logos2 = document.querySelectorAll('.logo-track img');
 
 // Duplicating logos for seamless scrolling
-track2.innerHTML += track2.innerHTML;
+if (track2?.innerHTML) {
+    track2.innerHTML += track2.innerHTML;
+    track2.style.width = `${logos2.length * 200}px`
+}
 
-track2.style.width = `${logos2.length * 200}px`
 
 const swiper1 = new Swiper('.clips_swiper', {
   slidesPerView: 'auto',

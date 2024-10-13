@@ -1,0 +1,79 @@
+{% load static %}
+
+<section class="contacts">
+    <div class="container">
+        <div class="contact_row">
+            <div class="contact_left">
+                <div class="title">
+                    <h2>Контактная информация
+                        <img src="{% static 'img/contact_title_image.png' %}" alt="">
+                    </h2>
+                </div>
+                <p class="section_description">Оставьте свою заявку и наш менеджер свяжется с Вами для уточнения деталей.</p>
+                <div class="contact_item">
+                    <p>Звонок по России бесплатный</p>
+                    <a href="tel:+{{ phone_number }}">{{ phone_number }}</a>
+                </div>
+                <div class="contact_item" target="_blank">
+                    <p>WhatsApp</p>
+                    <a href="{{ whatsapp_url }}">{{ whatsapp }}</a>
+                </div>
+                <div class="contact_item">
+                    <p>Офис</p>
+                    <div>{{ address }}</div>
+                </div>
+            </div>
+            <form class="contact_form" id="contactForm" method="post" action="">
+                {% csrf_token %}
+                <div class="form_group">
+                    <label>
+                        <p>Имя</p>
+                        {{ form.name }}
+                    </label>
+                    <label>
+                        <p>Телефон</p>
+                        {{ form.phone_number }}
+                    </label>
+                </div>
+                <div class="form_group">
+                    <label>
+                        <p>Уточните свой вопрос</p>
+                        {{ form.content }}
+                    </label>
+                </div>
+                <div class="form_group">
+                    <label>
+                        <span class="checkmark"></span>
+                        {{ form.privacy_policy_agreed }}
+                        <p>С <a href="#">правилами политики конфиденциальности</a> ознакомлен</p>
+                    </label>
+                </div>
+                <div class="form_group">
+                    <button type="submit" name="submit">Отправить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#contactForm').submit(function () {
+            $.ajax({
+                data: $(this).serialize(),
+                type: $(this).attr('method'),
+                url: "{% url 'home' %}",
+                success: function (response) {
+                    $('#contactForm').trigger('reset');
+                    alert("Ваше сообщение успешно доставлено!");
+                },
+                error: function (response) {
+                    const errors = JSON.parse(response.responseJSON.errors)
+                    console.log(errors)
+                }
+            });
+            return false;
+        });
+    })
+</script>
+</section>
