@@ -1,0 +1,181 @@
+.catalog-routing {
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    color: #FFFFFF80;
+
+}
+
+.catalog-title {
+    font-family: Bebas-Neue, Arial, sans-serif;
+    padding-top: 40px;
+    padding-bottom: 24px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 40px;
+    color: #FFFFFF;
+    text-align: left;
+}
+
+.catalog-title img {
+    width: 34px;
+    height: 34px;
+    margin-top: -2px;
+}
+
+.search-form {
+    border-radius: 24px;
+    background-color: #081E36;
+    padding: 24px;
+}
+
+.popular_cars {
+    padding-block: 40px;
+}
+
+.catalog-content {
+  padding-top: 12px;
+  position: relative;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 16px;
+  justify-items: center
+}
+
+@media (min-width: 1076px) and (max-width: 1400px) {
+  .catalog-content {
+    position: relative;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 16px;
+    justify-items: center
+  }
+}
+
+@media (max-width: 1075px) {
+  .catalog-content {
+    position: relative;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 16px;
+    justify-items: center
+  }
+}
+
+.catalog-content .swiper-slide {
+  width: auto;
+}
+.catalog-content .items2 {
+  display: block;
+  padding: 16px 8px;
+  border-radius: 24px;
+  width: 338px !important;
+  position: relative;
+  z-index: 1;
+}
+.catalog-content .items2::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 99%;
+  top: 0;
+  left: 0;
+  background-color: #081E36;
+  z-index: -1;
+  border-radius: 24px;
+}
+
+.catalog-content .items2:hover .bottoms_als .red_btn {
+  background-color: #D51117;
+}
+.catalog-content .items2 img {
+  width: 100%;
+  border-radius: 14px;
+}
+.catalog-content .items2 .top_items {
+  margin-bottom: 16px;
+  margin-left: 8px;
+}
+.catalog-content .items2 .top_items h3 {
+  font-family: Bebas-Neue, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  color: #fff;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+.catalog-content .items2 .top_items p {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16.94px;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.5019607843);
+}
+.catalog-content .items2 .bottoms_als {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 16px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+.catalog-content .items2 .bottoms_als h4 {
+  font-family: Bebas-Neue, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #fff;
+}
+.catalog-content .items2 .bottoms_als .red_btn {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19.6px;
+  text-align: center;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1019607843);
+  padding: 12px 16px;
+  border-radius: 30px;
+  -webkit-transition: 0.3s all ease;
+  transition: 0.3s all ease;
+}
+.catalog-content .swiper_buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 24px;
+  margin: 0 0 12px 0;
+}
+.catalog-content .swiper_prev,
+.catalog-content .swiper_next {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transition: 0.3s all ease;
+  transition: 0.3s all ease;
+}
+.catalog-content .swiper-button-disabled {
+  cursor: auto;
+  opacity: 0.5;
+}
+
+@media only screen and (max-width: 768px) {
+    .catalog-content .items2 .bottoms_als .red_btn {
+        display: none;
+    }
+}

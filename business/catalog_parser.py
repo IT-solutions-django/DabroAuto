@@ -109,27 +109,15 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
 
 
 def get_popular_cars(country_manufacturing: str, count_cars: int):
-    cars = Car.objects.filter(
-        country_manufacturing__name=country_manufacturing, is_popular=True
+    cars = list(
+        Car.objects.filter(
+            country_manufacturing__name=country_manufacturing, is_popular=True
+        )
     )
 
-    clear_data = [
-        CarCard(
-            id=str(car.id),
-            mark=car.brand.name,
-            model=car.model.name,
-            grade=car.specification,
-            year=car.year_manufactured,
-            mileage=car.mileage,
-            price=car.price,
-            images=[im.image.name for im in car.image.all()],
-        )
-        for car in cars
-    ]
+    random.shuffle(cars)
 
-    random.shuffle(clear_data)
-
-    return clear_data[:count_cars]
+    return cars[:count_cars]
 
 
 def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int):

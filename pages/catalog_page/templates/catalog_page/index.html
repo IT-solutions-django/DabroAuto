@@ -1,74 +1,163 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
+{% endblock %}
 
 {% block content %}
-    <h1>{{ name }}</h1>
-    <form id="searchForm" method="post">
-        {% csrf_token %}
-        <div style="display: flex; gap: 20px">
-            {{ form.mark }}
-            <div style="display: flex">
-                {{ form.year_from }}
-                {{ form.year_to }}
+    <main>
+    <section>
+        <div class="container">
+            <div class="catalog-routing">
+                Главная •  Каталог •  Автомобили из {{ name }}
             </div>
-            <div style="display: flex">
-                {{ form.eng_v_from }}
-                {{ form.eng_v_to }}
+            <div class="catalog-title">
+                АВТОМОБИЛИ ИЗ {{ name }} <img src="/static/img/flag2.png" alt="">
             </div>
-            {{ form.priv }}
-        </div>
-        <div style="display: flex; gap: 20px; padding-top: 20px">
-            {{ form.model }}
-            <div style="display: flex">
-                {{ form.mileage_from }}
-                {{ form.mileage_to }}
-            </div>
-            {{ form.kpp_type }}
-            {{ form.color }}
-        </div>
-
-        <button style="margin-top: 20px" type="submit">Показать</button>
-    </form>
-
-    <h2>Популярные авто</h2>
-    <div style="display: flex">
-        {% for car in popular_cars %}
-            <a href="{{ request.path }}{{ car.id }}">
-                <div style="background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin: 10px; padding: 15px; width: 200px;">
-                    <h3 style="margin: 0;">{{ car.mark }} {{ car.model }} {{ car.grade }}</h3>
-                    <p style="margin: 5px 0;">{{ car.year }} • {{ car.mileage }} км</p>
-                    <img style="max-width: 100px; height: auto;" src="/media/{{ car.images.0 }}" alt="{{ car.mark }} {{ car.model }}">
-                    <h4 style="margin: 10px 0;">Цена: <span>{{ car.price }} ₽</span></h4>
+            <form id="searchForm" method="post" class="search-form">
+                {% csrf_token %}
+                <div style="display: flex; gap: 20px">
+                    {{ form.mark }}
+                    <div style="display: flex">
+                        {{ form.year_from }}
+                        {{ form.year_to }}
+                    </div>
+                    <div style="display: flex">
+                        {{ form.eng_v_from }}
+                        {{ form.eng_v_to }}
+                    </div>
+                    {{ form.priv }}
                 </div>
-            </a>
-        {% endfor %}
-    </div>
+                <div style="display: flex; gap: 20px; padding-top: 20px">
+                    {{ form.model }}
+                    <div style="display: flex">
+                        {{ form.mileage_from }}
+                        {{ form.mileage_to }}
+                    </div>
+                    {{ form.kpp_type }}
+                    {{ form.color }}
+                </div>
 
-    <h2>Авто</h2>
+                <button style="margin-top: 20px" type="submit">Показать</button>
+            </form>
 
 
-    <div id="carContainer">
-    {% for car in cars_info %}
-        <a href="{{ request.path }}{{ car.id }}">
-            <div style="background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin: 10px; padding: 15px; width: 200px;">
-                <h3 style="margin: 0;">{{ car.mark }} {{ car.model }} {{ car.grade }}</h3>
-                <p style="margin: 5px 0;">{{ car.year }} • {{ car.mileage }} км</p>
-                <img style="max-width: 100px; height: auto;" src="{{ car.images.0 }}" alt="{{ car.mark }} {{ car.model }}">
-                <h4 style="margin: 10px 0;">Цена: <span>{{ car.price }} ₽</span></h4>
+            <div class="popular_cars cars1">
+                <div class="popular_cars_block">
+                    <div class="left_sliders">
+                        <div class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                                {% for main_car_image in popular_cars.0.image.all %}
+                                    <div class="swiper-slide">
+                                    <a href="#" class="items_slid1">
+                                        <img class="main_card_img" src="{{ main_car_image.image.url }}" alt="">
+                                        <div class="info_tops">
+                                            <h4>{{ popular_cars.0.brand }} {{ popular_cars.0.model }} {{ popular_cars.0.specification }}</h4>
+                                            <p>{{ popular_cars.0.year_manufactured }} • {{ popular_cars.0.beautiful_mileage }} км</p>
+                                        </div>
+                                        <div class="bottom_inf">
+                                            <h3>{{ popular_cars.0.beautiful_price }} ₽</h3>
+                                            <div class="red_btn">Оставить заявку</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                    <div class="right_sliders">
+                        <div class="title">
+                            <h2><span>Популярные</span> авто <img src="{% static 'img/flag.svg' %}" alt=""></h2>
+                            <div class="swiper_buttons">
+                                <div class="swiper_prev">
+                                    <img src="{% static 'img/prev.svg' %}" alt="">
+                                </div>
+                                <div class="swiper_next">
+                                    <img src="{% static 'img/prev.svg' %}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper mySwiperl">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <a class="items_slid1">
+                                        <img class="main_card_img" src="{{ popular_cars.0.image.all.first.image.url }}" alt="">
+                                        <div class="info_tops">
+                                            <h4>{{ popular_cars.0.brand }} {{ popular_cars.0.model }} {{ popular_cars.0.specification }}</h4>
+                                            <p>{{ popular_cars.0.year_manufactured }} • {{ popular_cars.0.beautiful_mileage }} км</p>
+                                        </div>
+                                        <div class="bottom_inf">
+                                            <h3>{{ popular_cars.0.beautiful_price }} ₽</h3>
+                                            <div class="red_btn">Оставить заявку</div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                {% for car in popular_cars|slice:"1:" %}
+                                    <div class="swiper-slide">
+                                        <a href="#" class="items2">
+                                            <div class="top_items">
+                                                <h3>{{ car.brand }} {{ car.model }} {{ car.specification }}</h3>
+                                                <p>{{ car.year_manufactured }}• {{ car.beautiful_mileage }} км</p>
+                                            </div>
+                                            <div class="img_items">
+                                                <img class="main_card_img" src="{{ car.image.all.first.image.url }}" alt="">
+                                            </div>
+                                            <div class="bottoms_als">
+                                                <h4>{{ car.beautiful_price }} ₽</h4>
+                                                <div class="red_btn">Оставить заявку</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </a>
-    {% endfor %}
-    </div>
-    <div class="pagination">
-        {% for page in page_range %}
-            {% if page == "..." %}
-                <span>...</span>
-            {% elif page == current_page %}
-                <span style="color: red; font-weight: bold;">{{ page }}</span>  <!-- Выделяем текущую страницу -->
-            {% else %}
-                <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ page }}">{{ page }}</a>
-            {% endif %}
-        {% endfor %}
-    </div>
+
+
+            <select name="" id="">
+                <option value="1">Сначала недорогие</option>
+            </select>
+            <div id="carContainer" class="catalog-content">
+                {% for car in cars_info %}
+                    <div class="swiper-slide">
+                        <a href="{{ request.path }}{{ car.id }}" class="items2">
+                            <div class="top_items">
+                                <h3>{{ car.mark }} {{ car.model }} {{ car.grade }}</h3>
+                                <p>{{ car.year }} • {{ car.mileage }} км</p>
+                            </div>
+                            <div class="img_items">
+                                <img class="main_card_img" src="{{ car.images.0 }}" alt="">
+                            </div>
+                            <div class="bottoms_als">
+                                <h4>{{  car.price }} ₽</h4>
+                                <div class="red_btn">Оставить заявку</div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+            <div class="pagination">
+                {% for page in page_range %}
+                    {% if page == "..." %}
+                        <span>...</span>
+                    {% elif page == current_page %}
+                        <span style="color: red; font-weight: bold;">{{ page }}</span>  <!-- Выделяем текущую страницу -->
+                    {% else %}
+                        <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ page }}">{{ page }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {

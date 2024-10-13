@@ -10,8 +10,8 @@ from business.catalog_parser import get_cars_info, get_popular_cars
 from pages.catalog_page.forms import CarSearchForm
 from utils.pagination import get_page_range
 
-CARS_PER_PAGE = 10
-COUNT_POPULAR_CARS = 4
+CARS_PER_PAGE = 12
+COUNT_POPULAR_CARS = 5
 
 
 class CatalogJapanView(FormView):
@@ -47,7 +47,7 @@ class CatalogJapanView(FormView):
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(id=id, **kwargs)
         context["title"] = "Каталог"
-        context["name"] = "Япония"
+        context["name"] = "ЯПОНИИ"
 
         cars_info, pages_count = get_cars_info(
             "stats",
