@@ -81,7 +81,7 @@ $(document).ready(function () {
         $.ajax({
             url: `/models/?mark_id=${markId || -1}`,
             type: 'GET',
-            success: function(data) {
+            success: function (data) {
 
                 const selectedModel = $('#id_model').val();
                 console.log(selectedModel)
@@ -90,7 +90,7 @@ $(document).ready(function () {
                 $('#id_model').empty().append('<option value="" selected="">Модель авто</option>');
 
                 // Добавляем новые опции из данных
-                $.each(data, function(index, item) {
+                $.each(data, function (index, item) {
                     $('#id_model').append('<option value="' + item.id + '">' + item.name + '</option>');
                 });
 
@@ -102,11 +102,12 @@ $(document).ready(function () {
                 }
 
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Ошибка AJAX:', error);
             }
         });
     }
+
     function updateClearButton() {
         const newParams = $('#searchForm').serialize().split('&').filter(e => e.split('=')[0] != 'csrfmiddlewaretoken');
         const is_visible = newParams.some(e => e.split('=')[1])
@@ -114,6 +115,27 @@ $(document).ready(function () {
             $(".search-form a").css("visibility", "visible");
         } else {
             $(".search-form a").css("visibility", "hidden");
+        }
+    }
+
+    const images = Array.from(document.getElementsByClassName("check_img"))
+    const placeholderImage = '/static/img/no_photo.jpg'
+
+    images.forEach(img => {
+        // Проверяем, загружено ли изображение
+        if (img.complete) {
+            checkImageSize(img);
+        } else {
+            img.addEventListener('load', () => checkImageSize(img));
+            img.addEventListener('error', () => {
+                img.src = placeholderImage; // Заменяем на изображение заглушку
+            });
+        }
+    });
+
+    function checkImageSize(img) {
+        if (img.naturalWidth <= 1 || img.naturalHeight <= 1) {
+            img.src = placeholderImage; // Заменяем на изображение заглушку
         }
     }
 })
