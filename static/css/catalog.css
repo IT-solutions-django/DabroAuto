@@ -29,6 +29,64 @@
     padding: 24px;
 }
 
+.search-form select {
+  width: 320px;
+  height: 51px;
+  padding-left: 16px;
+  border-radius: 32px;
+  background: #20344A;
+  outline: none;
+  cursor: pointer;
+  color: #FFFFFF80;
+  border: none;
+  border-right: 16px solid transparent
+}
+
+.search-form .two-parts {
+  display: flex;
+}
+
+.search-form .two-parts select {
+  width: 158px;
+}
+
+.search-form .two-parts select:first-child {
+  border-radius: 32px 0 0 32px;
+}
+
+.search-form .two-parts select:last-child {
+  border-radius: 0 32px 32px 0;
+}
+
+.search-form .two-parts span {
+  background: #20344A;
+  color: #FFFFFF40;
+  font-size: 20px;
+  width: 4px;
+  display: flex;
+  align-items: center;
+  padding-bottom: 4px;
+}
+
+.search-form button {
+  width: 190px;
+  height: 44px;
+  border-radius: 30px;
+  background: #FFFFFF1A;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19.6px;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  margin-top: 24px;
+}
+
+
 .popular_cars {
     padding-block: 40px;
 }
@@ -233,20 +291,4 @@
 
   color: white;
   height: max-content;
-}
-
-.select2-container--default .select2-selection--single {
-    background-color: #f0f0f0; /* Цвет фона */
-    border: 1px solid #ccc; /* Цвет границы */
-    border-radius: 4px; /* Скругление углов */
-}
-
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    color: #333; /* Цвет текста */
-    line-height: 28px; /* Высота строки */
-}
-
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 28px; /* Высота стрелки */
-    right: 10px; /* Положение стрелки */
 }

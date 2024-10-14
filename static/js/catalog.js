@@ -1,5 +1,107 @@
-$(document).ready(function() {
-    $('.custom-select').select2({
-        minimumResultsForSearch: Infinity,
+$(document).ready(function () {
+
+    updateModels()
+
+    $('#searchForm').submit(function () {
+
+        $.ajax({
+            data: $(this).serialize(),
+            type: $(this).attr('method'),
+            url: $(location).attr('href'),
+            success: function (response) {
+                const newParams = $('#searchForm').serialize().split('&').filter(e => e.split('=')[0] != 'csrfmiddlewaretoken');
+                const url = new URL(window.location.href);
+                newParams.forEach(e => url.searchParams.set(e.split('=')[0], e.split('=')[1]))
+                url.searchParams.set('page', '1')
+
+                window.history.pushState({}, '', url);
+
+                const cars = response.cars_info; // Получаем массив автомобилей
+                let carsHtml = ''; // Переменная для хранения HTML-кода
+
+                // Генерируем HTML-код для каждого автомобиля
+                cars.forEach(car => {
+                    carsHtml += `
+                        <div class="swiper-slide">
+                            <a href="{{ request.path }}${car.id}" class="items2">
+                                <div class="top_items">
+                                    <h3>${car.mark} ${car.model} ${car.grade}</h3>
+                                    <p>${car.year} • ${car.mileage} км</p>
+                                </div>
+                                <div class="img_items">
+                                    <img class="main_card_img" src="${car.images[0]}" alt="">
+                                </div>
+                                <div class="bottoms_als">
+                                    <h4>${car.price} ₽</h4>
+                                    <div class="red_btn">Оставить заявку</div>
+                                </div>
+                            </a>
+                        </div>
+                    `;
+                });
+
+                // Обновляем контейнер с автомобилями
+                $('#carContainer').html(carsHtml);
+
+                const pageRange = response.page_range; // Новый диапазон страниц
+                const currentPage = 1; // Текущая страница
+                console.log(pageRange)
+
+                // Генерируем HTML-код для пагинации
+                let paginationHtml = '';
+                for (const page of pageRange) {
+                    if (page === "...") {
+                        paginationHtml += `<span>...</span>`;
+                    } else if (page === currentPage) {
+                        paginationHtml += `<span class="current-page">${page}</span>`; // Выделяем текущую страницу
+                    } else {
+                        url.searchParams.set('page', `${page}`)
+                        paginationHtml += `<a href="?${url.searchParams.toString()}">${page}</a>`;
+                    }
+                }
+
+                // Обновляем контейнер с пагинацией
+                $('.pagination').html(paginationHtml);
+            },
+            error: function (response) {
+                const errors = JSON.parse(response.responseJSON.errors)
+                console.log(errors)
+            }
+        });
+        return false;
     });
-});
+
+    $("[name='mark']").change(updateModels);
+
+    function updateModels() {
+        const markId = $("[name='mark']").val();
+        $.ajax({
+            url: `/models/?mark_id=${markId || -1}`,
+            type: 'GET',
+            success: function(data) {
+
+                const selectedModel = $('#id_model').val();
+                console.log(selectedModel)
+
+                // Очищаем текущий список моделей и добавляем первую опцию
+                $('#id_model').empty().append('<option value="" selected="">Модель авто</option>');
+
+                // Добавляем новые опции из данных
+                $.each(data, function(index, item) {
+                    $('#id_model').append('<option value="' + item.id + '">' + item.name + '</option>');
+                });
+
+                // Устанавливаем выбранную модель, если она присутствует в обновленных данных
+                if (data.some(item => Number(item.id) === Number(selectedModel))) {
+                    $('#id_model').val(selectedModel);
+                } else {
+                    $('#id_model').val(''); // Если модели нет, выбираем "Модель авто"
+                }
+
+            },
+            error: function(xhr, status, error) {
+                console.error('Ошибка AJAX:', error);
+            }
+        });
+    }
+})
