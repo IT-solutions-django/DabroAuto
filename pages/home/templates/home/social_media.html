@@ -1,0 +1,41 @@
+{% load static %}
+
+<section class="subscribe">
+    <div class="container">
+        <div class="subscribe_row">
+            <img src="{% static 'img/subscribe_image.png' %}" alt="" class="subscribe_image">
+            <div class="subscribe_right">
+                <div class="title">
+                    <h2><span>Подпишись</span> и не упусти свой автомобиль мечты</h2>
+                </div>
+                <a href="{{ tg_url }}" class="subscribe_item" target="_blank">
+                    <div class="subscribe_item_img">
+                        <img src="{% static 'img/ico-tg.svg' %}" alt="">
+                    </div>
+                    <div>
+                        Телеграм-канал
+                        <img src="{% static 'img/arr_link.svg' %}" alt="">
+                    </div>
+                </a>
+                <a href="{{ vk_url }}" class="subscribe_item" target="_blank">
+                    <div class="subscribe_item_img">
+                        <img src="{% static 'img/ico-wk.svg' %}" alt="">
+                    </div>
+                    <div>
+                        VK
+                        <img src="{% static 'img/arr_link.svg' %}" alt="">
+                    </div>
+                </a>
+                <a href="{{ inst_url }}" class="subscribe_item" target="_blank">
+                    <div class="subscribe_item_img">
+                        <img src="{% static 'img/ico-insta.svg' %}" alt="">
+                    </div>
+                    <div>
+                        Instagram
+                        <img src="{% static 'img/arr_link.svg' %}" alt="">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

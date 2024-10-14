@@ -1,26 +1,84 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/card.css' %}">
+{% endblock %}
 
 {% block content %}
-    <div class="container" style="display: flex; padding: 20px;">
-        <div class="info" style="flex: 1; padding: 20px; background-color: #fff; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin-right: 20px;">
-
-            <h2 style="color: #333;">{{ car.mark }} {{ car.model }} ({{ car.grade }})</h2>
-            <p style="color: #666;">Цена: {{ car.price }} руб.</p>
-            <p style="color: #666;">Год выпуска: {{ car.year }}</p>
-            <p style="color: #666;">Кузов: {{ car.kuzov }}</p>
-            <p style="color: #666;">Страна: {{ country }}</p>
-            <p style="color: #666;">КПП: {{ car.kpp }}</p>
-            <p style="color: #666;">Объем двигателя: {{ car.eng_v }} л</p>
-            <p style="color: #666;">Привод: {{ car.priv }}</p>
-            <p style="color: #666;">Цвет: {{ car.color }}</p>
-            <p style="color: #666;">Пробег: {{ car.mileage }} км</p>
-            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-
+<main>
+<section>
+    <div class="container">
+        <div class="card-routing">
+            Главная • Каталог • Автомобили из {{ name }}
         </div>
-        <div class="photos" style="flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center;">
-            {% for image in car.images %}
-                <img src="{{  image }}" alt="{{ car.brand }} {{ car.model }}" class="car-photo" style="max-width: 100%; height: auto; margin-bottom: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-            {% endfor %}
+        <div class="content">
+            <div class="car-info">
+                <div class="title">{{ car.mark }} {{ car.model }} ({{ car.grade }}</div>
+                <div class="price">{{ car.price }} ₽</div>
+
+                <div class="info_questionary">
+                    <div class="btns_stage">
+                        <div class="btns_a">
+                            <a href="#">Оставить заявку</a>
+                        </div>
+                        <a href="{{ whatsapp_url }}" target="_blank"><img src="{% static 'img/w1.svg' %}" alt=""></a>
+                    </div>
+                    <div class="economy">Экономия до 30% от рынка авто в наличии <img src="{% static 'img/info.svg' %}" alt=""></div>
+                </div>
+
+                <table class="info_table">
+                    <tbody>
+                        <tr>
+                            <td>Год выпуска:</td>
+                            <td><span>{{ car.year }} г.</span></td>
+                        </tr>
+                        {% if car.kuzov %}
+                        <tr>
+                            <td>Кузов:</td>
+                            <td><span>{{ car.kuzov }}</span></td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td>Страна:</td>
+                            <td><span>{{ country }}</span></td>
+                        </tr>
+                        <tr>
+                            <td>КПП:</td>
+                            <td><span>{{ car.kpp }}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Объем двигателя:</td>
+                            <td><span>{{ car.eng_v }} л.</span></td>
+                        </tr>
+                        <tr>
+                            <td>Привод:</td>
+                            <td><span>{{ car.priv }}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Цвет:</td>
+                            <td><span>{{ car.color }}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Пробег:</td>
+                            <td><span>{{ car.mileage }} км</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+            <div class="photos" style="flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center;">
+                {% for image in car.images|slice:"1:2" %}
+                    <img src="{{  image }}" alt="{{ car.brand }} {{ car.model }}" class="car-photo" style="max-width: 100%; height: auto; margin-bottom: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                {% endfor %}
+            </div>
         </div>
+
+        {% with form=questionnaire_form %}
+            {% include 'home/questionnaire_form.html' %}
+        {% endwith %}
     </div>
+</section>
+</main>
 {% endblock %}

@@ -40,7 +40,7 @@ class BaseFilter(CountryRelatedMixin):
     marka_name = ArrayField(
         models.CharField(max_length=20),
         verbose_name="марки автомобиля",
-        help_text="исключаем эти марки",
+        help_text="исключаем эти марки, несколько значений разделяются запятой",
         blank=True,
         null=True,
     )
@@ -68,7 +68,7 @@ class BaseFilter(CountryRelatedMixin):
     priv = ArrayField(
         models.CharField(max_length=20),
         verbose_name="привод автомобиля",
-        help_text="исключаем эти приводы",
+        help_text="исключаем эти приводы, несколько значений разделяются запятой",
         blank=True,
         null=True,
     )
@@ -79,7 +79,7 @@ class BaseFilter(CountryRelatedMixin):
     kpp_type = ArrayField(
         models.PositiveIntegerField(),
         verbose_name="типы КПП",
-        help_text="исключаем эти типы",
+        help_text="исключаем эти типы, несколько значений разделяются запятой",
     )
     auction_date = models.PositiveIntegerField(
         verbose_name="дата аукциона",
