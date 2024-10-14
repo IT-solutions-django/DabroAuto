@@ -58,11 +58,15 @@
 
             </div>
             <div class="photos" style="flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center;">
-                {% for image in car.images %}
+                {% for image in car.images|slice:"1:2" %}
                     <img src="{{  image }}" alt="{{ car.brand }} {{ car.model }}" class="car-photo" style="max-width: 100%; height: auto; margin-bottom: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
                 {% endfor %}
             </div>
         </div>
+
+        {% with form=questionnaire_form %}
+            {% include 'home/questionnaire_form.html' %}
+        {% endwith %}
     </div>
 </section>
 </main>

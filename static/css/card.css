@@ -9,6 +9,7 @@
   display: grid;
   grid-template-columns: 0.4fr 0.6fr;
   padding-top: 40px;
+  padding-bottom: 120px;
 }
 
 .car-info {
@@ -79,6 +80,7 @@
 .car-info .info_text {
   display: grid;
   grid-template-columns: 5fr 7fr;
+  padding-top: 8px;
 }
 
 .car-info .info_text .title {
