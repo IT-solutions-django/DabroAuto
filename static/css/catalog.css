@@ -95,6 +95,29 @@
   visibility: hidden;
 }
 
+.order-select {
+  width: 205px;
+  height: 44px;
+  border-radius: 30px;
+  background: #FFFFFF1A;
+
+  padding-left: 16px;
+
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19.6px;
+  color: #FFFFFF;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  outline: none;
+  border-right: 16px solid transparent;
+  cursor: pointer;
+}
 
 .popular_cars {
     padding-block: 40px;

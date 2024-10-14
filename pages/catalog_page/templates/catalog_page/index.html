@@ -55,7 +55,7 @@
                             <div class="swiper-wrapper">
                                 {% for main_car_image in popular_cars.0.image.all %}
                                     <div class="swiper-slide">
-                                    <a href="#" class="items_slid1">
+                                    <a href="{{ request.path }}{{ popular_cars.0.id }}" class="items_slid1">
                                         <img class="main_card_img" src="{{ main_car_image.image.url }}" alt="">
                                         <div class="info_tops">
                                             <h4>{{ popular_cars.0.brand }} {{ popular_cars.0.model }} {{ popular_cars.0.specification }}</h4>
@@ -87,7 +87,7 @@
                         <div class="swiper mySwiperl">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
-                                    <a class="items_slid1">
+                                    <a href="{{ request.path }}{{ popular_cars.0.id }}" class="items_slid1">
                                         <img class="main_card_img" src="{{ popular_cars.0.image.all.first.image.url }}" alt="">
                                         <div class="info_tops">
                                             <h4>{{ popular_cars.0.brand }} {{ popular_cars.0.model }} {{ popular_cars.0.specification }}</h4>
@@ -102,7 +102,7 @@
 
                                 {% for car in popular_cars|slice:"1:" %}
                                     <div class="swiper-slide">
-                                        <a href="#" class="items2">
+                                        <a href="{{ request.path }}{{ car.id }}" class="items2">
                                             <div class="top_items">
                                                 <h3>{{ car.brand }} {{ car.model }} {{ car.specification }}</h3>
                                                 <p>{{ car.year_manufactured }}• {{ car.beautiful_mileage }} км</p>
@@ -125,7 +125,7 @@
             </div>
 
 
-            <select name="" id="">
+            <select class="order-select" name="" id="">
                 <option value="1">Сначала недорогие</option>
             </select>
             <div id="carContainer" class="catalog-content">
