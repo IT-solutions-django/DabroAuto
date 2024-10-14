@@ -16,21 +16,25 @@ CARS_PER_PAGE = 12
 COUNT_POPULAR_CARS = 5
 
 
-class CatalogJapanView(FormView):
-    """View для отображения каталога Японских автомобилей"""
+class CatalogView(FormView):
+    """View для отображения каталога автомобилей"""
 
     form_class = CarSearchForm
     template_name = "catalog_page/index.html"
     success_url = "/"
     cars_per_page = CARS_PER_PAGE
     count_popular_cars = COUNT_POPULAR_CARS
+    country = None
+    name = None
+    table_name = None
+    logo = None
 
     def form_valid(self, form, *args, **kwargs):
         """
         Если форма валидна, вернем код 200
         """
         cars_info, pages_count = get_cars_info(
-            "stats",
+            self.table_name,
             form.data,
             "1",
             self.cars_per_page,
@@ -49,16 +53,18 @@ class CatalogJapanView(FormView):
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(id=id, **kwargs)
         context["title"] = "Каталог"
-        context["name"] = "Японии"
+        context["name"] = self.name
 
         cars_info, pages_count = get_cars_info(
-            "stats",
+            self.table_name,
             self.request.GET,
             self.request.GET.get("page", "1"),
             self.cars_per_page,
         )
 
-        context["popular_cars"] = get_popular_cars("Япония", self.count_popular_cars)
+        context["popular_cars"] = get_popular_cars(
+            self.country, self.count_popular_cars
+        )
 
         context["cars_info"] = cars_info
         context["pages_count"] = pages_count
@@ -70,6 +76,8 @@ class CatalogJapanView(FormView):
         context["page_range"] = get_page_range(current_page, pages_count)
 
         context["questionnaire_form"] = QuestionnaireForm
+
+        context["logo"] = self.logo
 
         context["phone_number_main"] = ContactInformation.objects.get(
             name="Основной номер телефона",
@@ -96,131 +104,7 @@ class CatalogJapanView(FormView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs["country"] = "stats"
-        kwargs["initial"] = self.request.GET
-
-        return kwargs
-
-
-class CatalogKoreaView(FormView):
-    """View для отображения каталога Корейских автомобилей"""
-
-    form_class = CarSearchForm
-    template_name = "catalog_page/index.html"
-    success_url = "/"
-    cars_per_page = CARS_PER_PAGE
-    count_popular_cars = COUNT_POPULAR_CARS
-
-    def form_valid(self, form, *args, **kwargs):
-        """
-        Если форма валидна, вернем код 200
-        """
-        cars_info, pages_count = get_cars_info(
-            "main",
-            form.data,
-            "1",
-            self.cars_per_page,
-        )
-        cars = [asdict(car) for car in cars_info]
-        page_range = get_page_range(1, pages_count)
-        return JsonResponse({"cars_info": cars, "page_range": page_range}, status=200)
-
-    def form_invalid(self, form):
-        """
-        Если форма невалидна, возвращаем код 400 с ошибками.
-        """
-        errors = form.errors.as_json()
-        return JsonResponse({"errors": errors}, status=400)
-
-    def get_context_data(self, **kwargs) -> dict[str, Any]:
-        context = super().get_context_data(id=id, **kwargs)
-        context["title"] = "Каталог"
-        context["name"] = "Корея"
-
-        cars_info, pages_count = get_cars_info(
-            "main",
-            self.request.GET,
-            self.request.GET.get("page", "1"),
-            self.cars_per_page,
-        )
-        context["cars_info"] = cars_info
-        context["pages_count"] = pages_count
-
-        context["popular_cars"] = get_popular_cars("Корея", self.count_popular_cars)
-
-        current_page = int(self.request.GET.get("page", 1))
-        context["current_page"] = current_page
-
-        # Определяем диапазон страниц для отображения
-        context["page_range"] = get_page_range(current_page, pages_count)
-
-        return context
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["country"] = "main"
-        kwargs["initial"] = self.request.GET
-
-        return kwargs
-
-
-class CatalogChinaView(FormView):
-    """View для отображения каталога Китайских автомобилей"""
-
-    form_class = CarSearchForm
-    template_name = "catalog_page/index.html"
-    success_url = "/"
-    cars_per_page = CARS_PER_PAGE
-    count_popular_cars = COUNT_POPULAR_CARS
-
-    def form_valid(self, form, *args, **kwargs):
-        """
-        Если форма валидна, вернем код 200
-        """
-        cars_info, pages_count = get_cars_info(
-            "china",
-            form.data,
-            "1",
-            self.cars_per_page,
-        )
-        cars = [asdict(car) for car in cars_info]
-        page_range = get_page_range(1, pages_count)
-        return JsonResponse({"cars_info": cars, "page_range": page_range}, status=200)
-
-    def form_invalid(self, form):
-        """
-        Если форма невалидна, возвращаем код 400 с ошибками.
-        """
-        errors = form.errors.as_json()
-        return JsonResponse({"errors": errors}, status=400)
-
-    def get_context_data(self, **kwargs) -> dict[str, Any]:
-        context = super().get_context_data(id=id, **kwargs)
-        context["title"] = "Каталог"
-        context["name"] = "Китай"
-
-        cars_info, pages_count = get_cars_info(
-            "china",
-            self.request.GET,
-            self.request.GET.get("page", "1"),
-            self.cars_per_page,
-        )
-        context["cars_info"] = cars_info
-        context["pages_count"] = pages_count
-
-        context["popular_cars"] = get_popular_cars("Китай", self.count_popular_cars)
-
-        current_page = int(self.request.GET.get("page", 1))
-        context["current_page"] = current_page
-
-        # Определяем диапазон страниц для отображения
-        context["page_range"] = get_page_range(current_page, pages_count)
-
-        return context
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["country"] = "china"
+        kwargs["country"] = self.table_name
         kwargs["initial"] = self.request.GET
 
         return kwargs
