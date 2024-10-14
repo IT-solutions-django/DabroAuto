@@ -77,32 +77,24 @@
   gap: 8px;
 }
 
-.car-info .info_text {
-  display: grid;
-  grid-template-columns: 5fr 7fr;
+.info_table {
+  width: 100%;
+  border-collapse: collapse;
   padding-top: 8px;
 }
 
-.car-info .info_text .title {
+.info_table td {
   font-family: Inter;
   font-size: 16px;
   font-weight: 400;
   line-height: 19.36px;
   color: #FFFFFF80;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  border: 1px solid transparent;
+  padding: 6px;
 }
 
-.car-info .info_text .cont {
-  font-family: Inter;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 19.36px;
-  text-align: left;
+.info_table td span {
+  display: block;
+  min-height: 19.35px;
   color: #FFFFFF;
-
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 }

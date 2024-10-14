@@ -49,7 +49,7 @@ class CatalogJapanView(FormView):
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(id=id, **kwargs)
         context["title"] = "Каталог"
-        context["name"] = "ЯПОНИИ"
+        context["name"] = "Японии"
 
         cars_info, pages_count = get_cars_info(
             "stats",

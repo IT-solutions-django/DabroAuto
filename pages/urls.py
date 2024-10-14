@@ -18,17 +18,17 @@ urlpatterns = [
     ),
     path(
         "japan/<str:id>/",
-        CarCardView.as_view(country="Япония"),
+        CarCardView.as_view(country="Япония", title="Японии"),
         name="car-card-japan",
     ),
     path(
         "korea/<str:id>/",
-        CarCardView.as_view(country="Корея"),
+        CarCardView.as_view(country="Корея", title="Кореи"),
         name="car-card=korea",
     ),
     path(
         "china/<str:id>/",
-        CarCardView.as_view(country="Китай"),
+        CarCardView.as_view(country="Китай", title="Китая"),
         name="car-card-china",
     ),
     path("japan/", CatalogJapanView.as_view(), name="japan-page"),

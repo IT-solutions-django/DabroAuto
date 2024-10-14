@@ -27,33 +27,44 @@
                     <div class="economy">Экономия до 30% от рынка авто в наличии <img src="{% static 'img/info.svg' %}" alt=""></div>
                 </div>
 
-                <div class="info_text">
-                    <div class="title">
-                        <p>Год выпуска:</p>
+                <table class="info_table">
+                    <tbody>
+                        <tr>
+                            <td>Год выпуска:</td>
+                            <td><span>{{ car.year }} г.</span></td>
+                        </tr>
                         {% if car.kuzov %}
-                            <p >Кузов:</p>
+                        <tr>
+                            <td>Кузов:</td>
+                            <td><span>{{ car.kuzov }}</span></td>
+                        </tr>
                         {% endif %}
-                        <p>Страна:</p>
-                        <p>КПП:</p>
-                        <p>Объем двигателя:</p>
-                        <p>Привод:</p>
-                        <p>Цвет:</p>
-                        <p >Пробег:</p>
-                    </div>
-                    <div class="cont">
-                        <p>{{ car.year }} г.</p>
-                        {% if car.kuzov %}
-                            <p>{{ car.kuzov }}</p>
-                        {% endif %}
-                        <p>{{ country }}</p>
-                        <p>{{ car.kpp }}</p>
-                        <p>{{ car.eng_v }} л.</p>
-                        <p>{{ car.priv }}</p>
-                        <p>{{ car.color }}</p>
-                        <p>{{ car.mileage }} км</p>
-                    </div>
-
-                </div>
+                        <tr>
+                            <td>Страна:</td>
+                            <td><span>{{ country }}</span></td>
+                        </tr>
+                        <tr>
+                            <td>КПП:</td>
+                            <td><span>{{ car.kpp }}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Объем двигателя:</td>
+                            <td><span>{{ car.eng_v }} л.</span></td>
+                        </tr>
+                        <tr>
+                            <td>Привод:</td>
+                            <td><span>{{ car.priv }}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Цвет:</td>
+                            <td><span>{{ car.color }}</span></td>
+                        </tr>
+                        <tr>
+                            <td>Пробег:</td>
+                            <td><span>{{ car.mileage }} км</span></td>
+                        </tr>
+                    </tbody>
+                </table>
 
 
             </div>
