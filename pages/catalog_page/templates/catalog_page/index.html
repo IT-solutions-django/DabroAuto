@@ -42,7 +42,10 @@
                     {{ form.color }}
                 </div>
 
-                <button type="submit">Показать</button>
+                <div style="display: flex; gap: 20px; padding-top: 24px; align-items: center">
+                    <button type="submit">Показать</button>
+                    <a href="{{ request.path }}">Сбросить</a>
+                </div>
             </form>
 
             <div class="popular_cars cars1">
