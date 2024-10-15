@@ -134,8 +134,8 @@ const setField = (field, value, text) => {
     let button = dropdown.querySelector('.catalog__filter-select--btn');
 
     console.log(button)
-
-    if (value !== "") {
+    console.log(value)
+    if (value !== "" && value !== 'None') {
         button.style.color = '#FFFFFF'
     } else {
         button.style.color = '#FFFFFF80'
