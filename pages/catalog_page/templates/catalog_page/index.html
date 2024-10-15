@@ -275,7 +275,11 @@
                         <a href="{{ request.path }}{{ car.id }}" class="items2">
                             <div class="top_items">
                                 <h3>{{ car.mark }} {{ car.model }}</h3>
-                                <p>{{ car.year }} • {{ car.mileage|beautify_number }} км • {{ car.eng_v }} л.</p>
+                                {% if name == 'Японии' %}
+                                    <p>{{ car.year }} • {{ car.mileage|beautify_number }} км • {{ car.eng_v }} л. • {{ car.rate }}</p>
+                                {% else %}
+                                    <p>{{ car.year }} • {{ car.mileage|beautify_number }} км • {{ car.eng_v }} л.</p>
+                                {% endif %}
                             </div>
                             <div class="img_items">
                                 <img class="main_card_img check_img" src="{{ car.images.0 }}" alt="">

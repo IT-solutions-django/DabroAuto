@@ -36,6 +36,7 @@ class CarCard:
     eng_v: Optional[str] = None
     priv: Optional[str] = None
     color: Optional[str] = None
+    rate: Optional[str] = None
 
 
 def update_catalog_meta():
@@ -165,6 +166,7 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
                 )[0]
             ),
             images=[image[:-3] for image in car["IMAGES"].split("#")],
+            rate=car["RATE"],
         )
         for car in data
     ]
