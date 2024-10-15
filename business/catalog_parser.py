@@ -14,8 +14,11 @@ from apps.catalog.models import (
     CarModel,
     Country,
     CarColorTag,
+    CurrencyRate,
 )
 import datetime
+
+from business.calculate_car_price import get_config, calc_price
 
 
 @dataclass
@@ -91,6 +94,14 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
 
     color_tag = CarColorTag.objects.filter(name=car["COLOR"]).first()
 
+    config = get_config()
+    curr = {
+        "jpy": float(CurrencyRate.objects.get(name="Иена").course),
+        "eur": float(CurrencyRate.objects.get(name="Евро").course),
+        "cny": float(CurrencyRate.objects.get(name="Юань").course),
+        "kor": float(CurrencyRate.objects.get(name="Вона").course),
+    }
+
     return CarCard(
         id=car["ID"],
         mark=car["MARKA_NAME"],
@@ -98,7 +109,9 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
         grade=car["GRADE"],
         year=car["YEAR"],
         mileage=car["MILEAGE"],
-        price=car["FINISH"],
+        price=calc_price(
+            car["FINISH"], curr, car["YEAR"], car["ENG_V"], country.table_name, config
+        )[0],
         images=[image for image in car["IMAGES"].split("#")],
         kuzov=car["KUZOV"],
         kpp="Механика" if car["KPP_TYPE"] == 1 else "Автомат",
@@ -128,6 +141,15 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
     )
     print(query)
     data = fetch_by_query(query)
+
+    config = get_config()
+    curr = {
+        "jpy": float(CurrencyRate.objects.get(name="Иена").course),
+        "eur": float(CurrencyRate.objects.get(name="Евро").course),
+        "cny": float(CurrencyRate.objects.get(name="Юань").course),
+        "kor": float(CurrencyRate.objects.get(name="Вона").course),
+    }
+
     clear_data = [
         CarCard(
             id=car["ID"],
@@ -136,7 +158,12 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
             grade=car["GRADE"],
             year=car["YEAR"],
             mileage=car["MILEAGE"],
-            price=car["FINISH"],
+            eng_v=str(float(car["ENG_V"]) / 1000),
+            price=int(
+                calc_price(
+                    car["FINISH"], curr, car["YEAR"], car["ENG_V"], table_name, config
+                )[0]
+            ),
             images=[image[:-3] for image in car["IMAGES"].split("#")],
         )
         for car in data
@@ -171,6 +198,7 @@ def connect_filters(filters: dict, base_filters: dict):
     mileage_from = filters.get("mileage_from") or None
     mileage_to = filters.get("mileage_to") or None
     kpp_type = filters.get("kpp_type") or None
+    rate = filters.get("rate") or None
 
     excluded_priv = base_filters.get("PRIV") and "," + base_filters["PRIV"][13:-1]
 
@@ -191,6 +219,7 @@ def connect_filters(filters: dict, base_filters: dict):
         mileage_from and f"MILEAGE+>=+{mileage_from}",
         mileage_to and f"MILEAGE+<=+{mileage_to}",
         kpp_type and f"KPP_TYPE+=+'{kpp_type}'",
+        rate and f"RATE+IN+(+'{ rate }'+)",
     ]
 
     if mark_name is not None:
@@ -210,6 +239,9 @@ def connect_filters(filters: dict, base_filters: dict):
 
     if priv and base_filters.get("PRIV"):
         del base_filters["PRIV"]
+
+    if rate:
+        del base_filters["RATE"]
 
     result.extend(base_filters.values())
 
@@ -316,6 +348,13 @@ def get_base_filters(table_name: str):
         result.update(
             {
                 "PRIV": f"PRIV+NOT+IN+(+'{ "',+'".join(base_filers.priv)}'+)",
+            }
+        )
+
+    if base_filers.rate:
+        result.update(
+            {
+                "RATE": f"RATE+IN+(+'{ "',+'".join(base_filers.rate)}'+)",
             }
         )
 

@@ -299,6 +299,8 @@ header .header_menu .contact_info .phone_inf a {
   bottom: 21px;
 }
 .popular_cars .popular_cars_block .items_slid1 img {
+  height: 443px;
+  object-fit: cover;
   border-radius: 28px;
   width: 100%;
 }
@@ -427,6 +429,8 @@ header .header_menu .contact_info .phone_inf a {
   background-color: #D51117;
 }
 .popular_cars .popular_cars_block .right_sliders .items2 img {
+  height: 190px;
+  object-fit: cover;
   width: 100%;
   border-radius: 14px;
 }
@@ -442,6 +446,8 @@ header .header_menu .contact_info .phone_inf a {
   text-align: left;
   color: #fff;
   margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .popular_cars .popular_cars_block .right_sliders .items2 .top_items p {
   font-family: Inter;
@@ -450,6 +456,8 @@ header .header_menu .contact_info .phone_inf a {
   line-height: 16.94px;
   text-align: left;
   color: rgba(255, 255, 255, 0.5019607843);
+  white-space: nowrap;
+  overflow: hidden;
 }
 .popular_cars .popular_cars_block .right_sliders .items2 .bottoms_als {
   display: -webkit-box;

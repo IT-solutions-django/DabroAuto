@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load tags %}
 {% load static %}
 
 {% block css %}
@@ -14,8 +15,8 @@
         </div>
         <div class="content">
             <div class="car-info">
-                <div class="title">{{ car.mark }} {{ car.model }} ({{ car.grade }}</div>
-                <div class="price">{{ car.price }} ₽</div>
+                <div class="title">{{ car.mark }} {{ car.model }} {{ car.grade }}</div>
+                <div class="price">{{ car.price|beautify_number }} ₽</div>
 
                 <div class="info_questionary">
                     <div class="btns_stage">
@@ -34,10 +35,10 @@
                             <td><span>{{ car.year }} г.</span></td>
                         </tr>
                         {% if car.kuzov %}
-                        <tr>
-                            <td>Кузов:</td>
-                            <td><span>{{ car.kuzov }}</span></td>
-                        </tr>
+                            <tr>
+                                <td>Кузов:</td>
+                                <td><span>{{ car.kuzov }}</span></td>
+                            </tr>
                         {% endif %}
                         <tr>
                             <td>Страна:</td>
@@ -55,13 +56,15 @@
                             <td>Привод:</td>
                             <td><span>{{ car.priv }}</span></td>
                         </tr>
-                        <tr>
-                            <td>Цвет:</td>
-                            <td><span>{{ car.color }}</span></td>
-                        </tr>
+                        {% if car.color %}
+                            <tr>
+                                <td>Цвет:</td>
+                                <td><span>{{ car.color }}</span></td>
+                            </tr>
+                        {% endif %}
                         <tr>
                             <td>Пробег:</td>
-                            <td><span>{{ car.mileage }} км</span></td>
+                            <td><span>{{ car.mileage|beautify_number }} км</span></td>
                         </tr>
                     </tbody>
                 </table>

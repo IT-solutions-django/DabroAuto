@@ -79,11 +79,18 @@ class BaseFilter(CountryRelatedMixin):
     kpp_type = ArrayField(
         models.PositiveIntegerField(),
         verbose_name="типы КПП",
-        help_text="исключаем эти типы, несколько значений разделяются запятой",
+        help_text="берем только эти типы, несколько значений разделяются запятой",
     )
     auction_date = models.PositiveIntegerField(
         verbose_name="дата аукциона",
         help_text="за какой период от текущей даты (дней)",
+        blank=True,
+        null=True,
+    )
+    rate = ArrayField(
+        models.CharField(max_length=20),
+        verbose_name="рейтинг",
+        help_text="берем только эти оценки, несколько значений разделяются запятой",
         blank=True,
         null=True,
     )
