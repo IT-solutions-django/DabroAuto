@@ -35,10 +35,10 @@
                             <td><span>{{ car.year }} г.</span></td>
                         </tr>
                         {% if car.kuzov %}
-                        <tr>
-                            <td>Кузов:</td>
-                            <td><span>{{ car.kuzov }}</span></td>
-                        </tr>
+                            <tr>
+                                <td>Кузов:</td>
+                                <td><span>{{ car.kuzov }}</span></td>
+                            </tr>
                         {% endif %}
                         <tr>
                             <td>Страна:</td>
@@ -56,10 +56,12 @@
                             <td>Привод:</td>
                             <td><span>{{ car.priv }}</span></td>
                         </tr>
-                        <tr>
-                            <td>Цвет:</td>
-                            <td><span>{{ car.color }}</span></td>
-                        </tr>
+                        {% if car.color %}
+                            <tr>
+                                <td>Цвет:</td>
+                                <td><span>{{ car.color }}</span></td>
+                            </tr>
+                        {% endif %}
                         <tr>
                             <td>Пробег:</td>
                             <td><span>{{ car.mileage|beautify_number }} км</span></td>
