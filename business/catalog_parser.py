@@ -14,8 +14,11 @@ from apps.catalog.models import (
     CarModel,
     Country,
     CarColorTag,
+    CurrencyRate,
 )
 import datetime
+
+from business.calculate_car_price import get_config, calc_price
 
 
 @dataclass
@@ -91,6 +94,14 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
 
     color_tag = CarColorTag.objects.filter(name=car["COLOR"]).first()
 
+    config = get_config()
+    curr = {
+        "jpy": float(CurrencyRate.objects.get(name="Иена").course),
+        "eur": float(CurrencyRate.objects.get(name="Евро").course),
+        "cny": float(CurrencyRate.objects.get(name="Юань").course),
+        "kor": float(CurrencyRate.objects.get(name="Вона").course),
+    }
+
     return CarCard(
         id=car["ID"],
         mark=car["MARKA_NAME"],
@@ -98,7 +109,9 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
         grade=car["GRADE"],
         year=car["YEAR"],
         mileage=car["MILEAGE"],
-        price=car["FINISH"],
+        price=calc_price(
+            car["FINISH"], curr, car["YEAR"], car["ENG_V"], country.table_name, config
+        )[0],
         images=[image for image in car["IMAGES"].split("#")],
         kuzov=car["KUZOV"],
         kpp="Механика" if car["KPP_TYPE"] == 1 else "Автомат",
@@ -128,6 +141,15 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
     )
     print(query)
     data = fetch_by_query(query)
+
+    config = get_config()
+    curr = {
+        "jpy": float(CurrencyRate.objects.get(name="Иена").course),
+        "eur": float(CurrencyRate.objects.get(name="Евро").course),
+        "cny": float(CurrencyRate.objects.get(name="Юань").course),
+        "kor": float(CurrencyRate.objects.get(name="Вона").course),
+    }
+
     clear_data = [
         CarCard(
             id=car["ID"],
@@ -136,7 +158,11 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
             grade=car["GRADE"],
             year=car["YEAR"],
             mileage=car["MILEAGE"],
-            price=car["FINISH"],
+            price=int(
+                calc_price(
+                    car["FINISH"], curr, car["YEAR"], car["ENG_V"], table_name, config
+                )[0]
+            ),
             images=[image[:-3] for image in car["IMAGES"].split("#")],
         )
         for car in data

@@ -60,6 +60,9 @@ def get_config():
 
 def calc_price(price, currency, year, volume, table, conf):
     try:
+        price = int(price)
+        year = int(year)
+        volume = int(volume)
 
         commission = conf["table_settings"][table]["commission"]
         one_rub = currency[conf["table_settings"][table]["currency"]]
