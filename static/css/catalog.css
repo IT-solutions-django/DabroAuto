@@ -29,33 +29,92 @@
     padding: 24px;
 }
 
-.search-form select {
+.search-form .btn {
   width: 320px;
   height: 51px;
-  padding-left: 16px;
+  padding: 16px;
   border-radius: 32px;
   background: #20344A;
   outline: none;
   cursor: pointer;
   color: #FFFFFF80;
   border: none;
-  border-right: 16px solid transparent
+  text-align: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-form .btn:active {
+  background: #233c54;
+  border: none;
+}
+
+.dropdown-toggle::after {
+  margin-top: 2px;
+}
+
+.search-form .left-selector {
+  width: 158px;
+  border-radius: 32px 0 0 32px;
+}
+
+.search-form .right-selector {
+  width: 158px;
+  border-radius: 0 32px 32px 0;
 }
 
 .search-form .two-parts {
   display: flex;
 }
 
-.search-form .two-parts select {
-  width: 158px;
+.search-form select {
+  display: none;
 }
 
-.search-form .two-parts select:first-child {
-  border-radius: 32px 0 0 32px;
+.search-form .dropdown-menu {
+  padding: 8px ;
+  border-radius: 12px;
+  background: #20344A;
+  box-shadow: 0px 4px 24px 0px #0000001F;
+  max-height: 300px;
+  overflow-y: auto;
+  width: 100%;
+  z-index: 2;
 }
 
-.search-form .two-parts select:last-child {
-  border-radius: 0 32px 32px 0;
+.search-form .dropdown-menu::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+.search-form .dropdown-menu::-webkit-scrollbar-track {
+    background: #1A2939;
+}
+
+.search-form .dropdown-menu::-webkit-scrollbar-thumb {
+    border-radius: 99990px;
+    background-color: #6e6658;
+}
+
+
+.search-form .dropdown-menu button {
+  padding: 4px 12px 4px 12px;
+  border-radius: 12px;
+  color: #FFFFFF;
+}
+
+.search-form .dropdown-menu button:hover {
+  background: #1A2939;
+}
+
+.font-weight-bold {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.36px;
+  color: #FFFFFF;
 }
 
 .search-form .two-parts span {
@@ -68,7 +127,7 @@
   padding-bottom: 4px;
 }
 
-.search-form button {
+.search-form .submit {
   width: 190px;
   height: 44px;
   border-radius: 30px;
