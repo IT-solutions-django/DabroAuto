@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load tags %}
 {% load static %}
 
 {% block css %}
@@ -134,13 +135,13 @@
                         <a href="{{ request.path }}{{ car.id }}" class="items2">
                             <div class="top_items">
                                 <h3>{{ car.mark }} {{ car.model }} {{ car.grade }}</h3>
-                                <p>{{ car.year }} • {{ car.mileage }} км</p>
+                                <p>{{ car.year }} • {{ car.mileage|beautify_number }} км</p>
                             </div>
                             <div class="img_items">
                                 <img class="main_card_img check_img" src="{{ car.images.0 }}" alt="">
                             </div>
                             <div class="bottoms_als">
-                                <h4>{{  car.price }} ₽</h4>
+                                <h4>{{  car.price|beautify_number }} ₽</h4>
                                 <div class="red_btn">Оставить заявку</div>
                             </div>
                         </a>
