@@ -388,3 +388,74 @@
   height: max-content;
 }
 
+.ordering__filter-select .btn {
+  min-width: 205px;
+  height: 44px;
+  padding-inline: 16px;
+  border-radius: 30px;
+  background: #FFFFFF1A;
+  outline: none;
+  cursor: pointer;
+  color: #FFFFFF;
+
+  border: none;
+  text-align: left;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19.6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ordering__filter-select .btn:active {
+  background: rgba(255, 255, 255, 0.07);
+  border: none;
+}
+
+.dropdown-toggle::after {
+  margin-top: 2px;
+}
+
+.ordering__filter-select .dropdown-menu {
+  padding: 8px;
+  border-radius: 12px;
+  background: #1A2939;
+  box-shadow: 0px 4px 24px 0px #0000001F;
+  max-height: 300px;
+  overflow-y: auto;
+  width: max-content;
+  z-index: 2;
+}
+
+.ordering__filter-select .dropdown-menu::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+.ordering__filter-select .dropdown-menu::-webkit-scrollbar-track {
+    background: #1A2939;
+}
+
+.ordering__filter-select .dropdown-menu::-webkit-scrollbar-thumb {
+    border-radius: 99990px;
+    background-color: #6e6658;
+}
+
+.ordering__filter-select .dropdown-menu a {
+  padding: 4px 12px 4px 12px;
+  border-radius: 12px;
+  color: #FFFFFF;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.36px;
+  text-align: left;
+
+}
+
+.ordering__filter-select .dropdown-menu a:hover {
+  background-color: #20344A;
+}

@@ -1,9 +1,23 @@
+const orderingParams = [
+            ["new", "Сначала новые"],
+            ["old", "Сначала старые"],
+            ["low_eng_v", "С низким объемом"],
+            ["high_eng_v", "С высоким объемом"],
+            ["new_auc_date", "С наиболее свежей датой аукциона"],
+            ["old_auc_date", "С наиболее давней датой аукциона"],
+            ["high_rate", "С наибольшим рейтингом"],
+            ["low_rate", "С наименьшим рейтингом"],
+        ]
+
+
 $(document).ready(function () {
     updateModels()
 
     updateClearButton()
 
     connectSelects()
+
+    updateOrderingParam()
 
     $('#searchForm').submit(function () {
 
@@ -16,6 +30,7 @@ $(document).ready(function () {
                 const url = new URL(window.location.href);
                 newParams.forEach(e => url.searchParams.set(e.split('=')[0], e.split('=')[1]))
                 url.searchParams.set('page', '1')
+                url.searchParams.delete('ordering')
 
                 window.history.pushState({}, '', url);
 
@@ -49,7 +64,6 @@ $(document).ready(function () {
 
                 const pageRange = response.page_range; // Новый диапазон страниц
                 const currentPage = 1; // Текущая страница
-                console.log(pageRange)
 
                 // Генерируем HTML-код для пагинации
                 let paginationHtml = '';
@@ -66,6 +80,32 @@ $(document).ready(function () {
 
                 // Обновляем контейнер с пагинацией
                 $('.pagination').html(paginationHtml);
+
+
+                let dropdownHtml = ''; // Variable to store the HTML code for the dropdown items
+
+                orderingParams.forEach(param => {
+                    const key = param[0];
+                    const value = param[1];
+                    const currentParams = new URLSearchParams(window.location.search);
+
+                    currentParams.delete('page');
+                    currentParams.delete('ordering');
+
+                    currentParams.set('page', 1);
+                    currentParams.set('ordering', key);
+
+                    dropdownHtml += `
+                        <li>
+                            <a class="dropdown-item" href="?${currentParams.toString()}">${value}</a>
+                        </li>
+                    `;
+                });
+
+                // Update the dropdown menu
+                document.querySelector('.ordering__filter-select .dropdown-menu').innerHTML = dropdownHtml;
+
+                updateOrderingParam();
 
                 updateClearButton();
             },
@@ -109,6 +149,21 @@ $(document).ready(function () {
     }
 })
 
+const updateOrderingParam = () => {
+    const dropdown = document.getElementById("ordering-dropdown");
+    const button = dropdown.querySelector('.ordering__filter-select--btn');
+
+    const params = new URLSearchParams(document.location.search);
+    const currentText = orderingParams.find(e => e[0] ===  params.get("ordering"));
+
+    if (currentText !== undefined) {
+        button.textContent = currentText[1];
+    } else {
+        button.textContent = orderingParams[0][1];
+    }
+
+}
+
 const connectSelects = () => {
     const selects = Array.from(document.querySelectorAll(".search-form select"));
 
@@ -133,8 +188,6 @@ const setField = (field, value, text) => {
     // Выбор кнопки для изменения текста
     let button = dropdown.querySelector('.catalog__filter-select--btn');
 
-    console.log(button)
-    console.log(value)
     if (value !== "" && value !== 'None') {
         button.style.color = '#FFFFFF'
     } else {

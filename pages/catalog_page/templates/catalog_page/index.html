@@ -266,9 +266,16 @@
             </div>
 
 
-            <select class="order-select" name="" id="">
-                <option value="1">Сначала недорогие</option>
-            </select>
+            <div class="dropdown ordering__filter-select" id="ordering-dropdown">
+                <button class="btn btn-secondary dropdown-toggle ordering__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Сначала новые
+                </button>
+                <ul class="dropdown-menu">
+                    {% for ordering_param in ordering_params %}
+                        <li><a class="dropdown-item" href="?{% for key, value in request.GET.items %}{% if key != 'page' and key != 'ordering' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page=1&ordering={{ ordering_param.0 }}">{{ ordering_param.1 }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
             <div id="carContainer" class="catalog-content">
                 {% for car in cars_info %}
                     <div class="swiper-slide">
