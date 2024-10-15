@@ -89,6 +89,23 @@ class CarSearchForm(forms.Form):
         required=False,
     )
 
+    rate = forms.ChoiceField(
+        choices=[(None, "Рейтинг")]
+        + [
+            ("R", "R"),
+            ("RA", "RA"),
+            ("3", "3"),
+            ("3.5", "3.5"),
+            ("4", "4"),
+            ("4.", "4."),
+            ("4.5", "4.5"),
+            ("5", "5"),
+            ("6", "6"),
+            ("S", "S"),
+        ],
+        required=False,
+    )
+
     def __init__(self, *args, **kwargs):
         country_table_name = kwargs.pop("country", None)
         super().__init__(*args, **kwargs)

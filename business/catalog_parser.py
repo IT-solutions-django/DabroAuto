@@ -198,6 +198,7 @@ def connect_filters(filters: dict, base_filters: dict):
     mileage_from = filters.get("mileage_from") or None
     mileage_to = filters.get("mileage_to") or None
     kpp_type = filters.get("kpp_type") or None
+    rate = filters.get("rate") or None
 
     excluded_priv = base_filters.get("PRIV") and "," + base_filters["PRIV"][13:-1]
 
@@ -218,6 +219,7 @@ def connect_filters(filters: dict, base_filters: dict):
         mileage_from and f"MILEAGE+>=+{mileage_from}",
         mileage_to and f"MILEAGE+<=+{mileage_to}",
         kpp_type and f"KPP_TYPE+=+'{kpp_type}'",
+        rate and f"RATE+IN+(+'{ rate }'+)",
     ]
 
     if mark_name is not None:
@@ -237,6 +239,9 @@ def connect_filters(filters: dict, base_filters: dict):
 
     if priv and base_filters.get("PRIV"):
         del base_filters["PRIV"]
+
+    if rate:
+        del base_filters["RATE"]
 
     result.extend(base_filters.values())
 
@@ -349,7 +354,7 @@ def get_base_filters(table_name: str):
     if base_filers.rate:
         result.update(
             {
-                "PRIV": f"RATE+IN+(+'{ "',+'".join(base_filers.rate)}'+)",
+                "RATE": f"RATE+IN+(+'{ "',+'".join(base_filers.rate)}'+)",
             }
         )
 

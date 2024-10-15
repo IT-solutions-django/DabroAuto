@@ -84,7 +84,7 @@
                     </div>
                     <div class="dropdown catalog__filter-select" id="priv-dropdown">
                         <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Марка авто
+                            Привод
                         </button>
                         <ul class="dropdown-menu">
                             {% for choice in form.priv.field.choices %}
@@ -142,17 +142,45 @@
                         </ul>
                         {{ form.kpp_type }}
                     </div>
-                    <div class="dropdown catalog__filter-select" id="color-dropdown">
-                        <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Цвет
-                        </button>
-                        <ul class="dropdown-menu">
-                            {% for choice in form.color.field.choices %}
-                                <li><button type="button" onclick="setField('color', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
-                            {% endfor %}
-                        </ul>
-                        {{ form.color }}
-                    </div>
+                    {% if name == 'Японии' %}
+                        <div class="two-parts">
+                            <div class="dropdown catalog__filter-select" id="color-dropdown">
+                                <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn left-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Цвет
+                                </button>
+                                <ul class="dropdown-menu">
+                                    {% for choice in form.color.field.choices %}
+                                        <li><button type="button" onclick="setField('color', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                                    {% endfor %}
+                                </ul>
+                               {{ form.color }}
+                            </div>
+                            <span>|</span>
+                            <div class="dropdown catalog__filter-select" id="rate-dropdown">
+                                <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn right-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Рейтинг
+                                </button>
+                                <ul class="dropdown-menu">
+                                    {% for choice in form.rate.field.choices %}
+                                        <li><button type="button" onclick="setField('rate', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                                    {% endfor %}
+                                </ul>
+                               {{ form.rate }}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="dropdown catalog__filter-select" id="color-dropdown">
+                            <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Цвет
+                            </button>
+                            <ul class="dropdown-menu">
+                                {% for choice in form.color.field.choices %}
+                                    <li><button type="button" onclick="setField('color', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                                {% endfor %}
+                            </ul>
+                            {{ form.color }}
+                        </div>
+                    {% endif %}
                 </div>
 
                 <div style="display: flex; gap: 20px; padding-top: 24px; align-items: center">
