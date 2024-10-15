@@ -121,9 +121,9 @@ $(document).ready(function () {
         const newParams = $('#searchForm').serialize().split('&').filter(e => e.split('=')[0] != 'csrfmiddlewaretoken');
         const is_visible = newParams.some(e => e.split('=')[1])
         if (is_visible) {
-            $(".search-form a").css("visibility", "visible");
+            $(".search-form .form-buttons a").css("visibility", "visible");
         } else {
-            $(".search-form a").css("visibility", "hidden");
+            $(".search-form .form-buttons a").css("visibility", "hidden");
         }
     }
 
