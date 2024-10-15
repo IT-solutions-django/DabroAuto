@@ -158,6 +158,7 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
             grade=car["GRADE"],
             year=car["YEAR"],
             mileage=car["MILEAGE"],
+            eng_v=str(float(car["ENG_V"]) / 1000),
             price=int(
                 calc_price(
                     car["FINISH"], curr, car["YEAR"], car["ENG_V"], table_name, config

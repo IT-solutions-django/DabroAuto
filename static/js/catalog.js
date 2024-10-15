@@ -28,8 +28,8 @@ $(document).ready(function () {
                         <div class="swiper-slide">
                             <a href="${ window.location.pathname }${car.id}" class="items2">
                                 <div class="top_items">
-                                    <h3>${car.mark} ${car.model} ${car.grade}</h3>
-                                    <p>${car.year} • ${Number(car.mileage).toLocaleString('ru-RU')} км</p>
+                                    <h3>${car.mark} ${car.model}</h3>
+                                    <p>${car.year} • ${Number(car.mileage).toLocaleString('ru-RU')} км  • ${car.eng_v} л.</p>
                                 </div>
                                 <div class="img_items">
                                     <img class="main_card_img" src="${car.images[0]}" alt="">
