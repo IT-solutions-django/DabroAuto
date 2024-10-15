@@ -346,4 +346,11 @@ def get_base_filters(table_name: str):
             }
         )
 
+    if base_filers.rate:
+        result.update(
+            {
+                "PRIV": f"RATE+IN+(+'{ "',+'".join(base_filers.rate)}'+)",
+            }
+        )
+
     return result
