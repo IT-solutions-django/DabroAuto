@@ -18,159 +18,131 @@
             </div>
             <form id="searchForm" method="post" class="search-form">
                 {% csrf_token %}
-                <div style="display: flex; gap: 20px">
-                    <div class="dropdown catalog__filter-select" id="mark-dropdown">
-                        <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Марка авто
+                <div class="dropdown catalog__filter-select" id="mark-dropdown">
+                    <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Марка авто
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for choice in form.mark.field.choices %}
+                            <li><button type="button" onclick="setField('mark', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                        {% endfor %}
+                    </ul>
+                    {{ form.mark }}
+                </div>
+
+                <div class="two-parts">
+                    <div class="dropdown catalog__filter-select" id="year_from-dropdown">
+                        <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn left-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Год от
                         </button>
                         <ul class="dropdown-menu">
-                            {% for choice in form.mark.field.choices %}
-                                <li><button type="button" onclick="setField('mark', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                            {% for choice in form.year_from.field.choices %}
+                                <li><button type="button" onclick="setField('year_from', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
                             {% endfor %}
                         </ul>
-                        {{ form.mark }}
+                        {{ form.year_from }}
                     </div>
-
-                    <div class="two-parts">
-                        <div class="dropdown catalog__filter-select" id="year_from-dropdown">
-                            <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn left-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Год от
-                            </button>
-                            <ul class="dropdown-menu">
-                                {% for choice in form.year_from.field.choices %}
-                                    <li><button type="button" onclick="setField('year_from', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
-                                {% endfor %}
-                            </ul>
-                            {{ form.year_from }}
-                        </div>
-                        <span>|</span>
-                        <div class="dropdown catalog__filter-select" id="year_to-dropdown">
-                            <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn right-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                до
-                            </button>
-                            <ul class="dropdown-menu">
-                                {% for choice in form.year_to.field.choices %}
-                                    <li><button type="button" onclick="setField('year_to', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
-                                {% endfor %}
-                            </ul>
-                            {{ form.year_to }}
-                        </div>
-
-                    </div>
-                    <div class="two-parts">
-                        <div class="dropdown catalog__filter-select" id="eng_v_from-dropdown">
-                            <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn left-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Объем от
-                            </button>
-                            <ul class="dropdown-menu">
-                                {% for choice in form.eng_v_from.field.choices %}
-                                    <li><button type="button" onclick="setField('eng_v_from', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
-                                {% endfor %}
-                            </ul>
-                           {{ form.eng_v_from }}
-                        </div>
-                        <span>|</span>
-                        <div class="dropdown catalog__filter-select" id="eng_v_to-dropdown">
-                            <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn right-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                до
-                            </button>
-                            <ul class="dropdown-menu">
-                                {% for choice in form.eng_v_to.field.choices %}
-                                    <li><button type="button" onclick="setField('eng_v_to', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
-                                {% endfor %}
-                            </ul>
-                           {{ form.eng_v_to }}
-                        </div>
-                    </div>
-                    <div class="dropdown catalog__filter-select" id="priv-dropdown">
-                        <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Привод
+                    <span>|</span>
+                    <div class="dropdown catalog__filter-select" id="year_to-dropdown">
+                        <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn right-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            до
                         </button>
                         <ul class="dropdown-menu">
-                            {% for choice in form.priv.field.choices %}
-                                <li><button type="button" onclick="setField('priv', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                            {% for choice in form.year_to.field.choices %}
+                                <li><button type="button" onclick="setField('year_to', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
                             {% endfor %}
                         </ul>
-                        {{ form.priv }}
+                        {{ form.year_to }}
+                    </div>
+
+                </div>
+                <div class="two-parts">
+                    <div class="dropdown catalog__filter-select" id="eng_v_from-dropdown">
+                        <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn left-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Объем от
+                        </button>
+                        <ul class="dropdown-menu">
+                            {% for choice in form.eng_v_from.field.choices %}
+                                <li><button type="button" onclick="setField('eng_v_from', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                            {% endfor %}
+                        </ul>
+                       {{ form.eng_v_from }}
+                    </div>
+                    <span>|</span>
+                    <div class="dropdown catalog__filter-select" id="eng_v_to-dropdown">
+                        <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn right-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            до
+                        </button>
+                        <ul class="dropdown-menu">
+                            {% for choice in form.eng_v_to.field.choices %}
+                                <li><button type="button" onclick="setField('eng_v_to', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                            {% endfor %}
+                        </ul>
+                       {{ form.eng_v_to }}
                     </div>
                 </div>
-                <div style="display: flex; gap: 20px; padding-top: 20px">
-                    <div class="dropdown catalog__filter-select" id="model-dropdown">
-                        <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Модель авто
+                <div class="dropdown catalog__filter-select" id="priv-dropdown">
+                    <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Привод
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for choice in form.priv.field.choices %}
+                            <li><button type="button" onclick="setField('priv', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                        {% endfor %}
+                    </ul>
+                    {{ form.priv }}
+                </div>
+                <div class="dropdown catalog__filter-select" id="model-dropdown">
+                    <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Модель авто
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for choice in form.model.field.choices %}
+                            <li><button type="button" onclick="setField('model', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                        {% endfor %}
+                    </ul>
+                    {{ form.model }}
+                </div>
+                <div class="two-parts">
+                    <div class="dropdown catalog__filter-select" id="mileage_from-dropdown">
+                        <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn left-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Пробег от
                         </button>
                         <ul class="dropdown-menu">
-                            {% for choice in form.model.field.choices %}
-                                <li><button type="button" onclick="setField('model', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                            {% for choice in form.mileage_from.field.choices %}
+                                <li><button type="button" onclick="setField('mileage_from', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
                             {% endfor %}
                         </ul>
-                        {{ form.model }}
+                       {{ form.mileage_from }}
                     </div>
+                    <span>|</span>
+                    <div class="dropdown catalog__filter-select" id="mileage_to-dropdown">
+                        <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn right-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            до
+                        </button>
+                        <ul class="dropdown-menu">
+                            {% for choice in form.mileage_to.field.choices %}
+                                <li><button type="button" onclick="setField('mileage_to', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                            {% endfor %}
+                        </ul>
+                       {{ form.mileage_to }}
+                    </div>
+                </div>
+                <div class="dropdown catalog__filter-select" id="kpp_type-dropdown">
+                    <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Тип КПП
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for choice in form.kpp_type.field.choices %}
+                            <li><button type="button" onclick="setField('kpp_type', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                        {% endfor %}
+                    </ul>
+                    {{ form.kpp_type }}
+                </div>
+                {% if name == 'Японии' %}
                     <div class="two-parts">
-                        <div class="dropdown catalog__filter-select" id="mileage_from-dropdown">
-                            <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn left-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Пробег от
-                            </button>
-                            <ul class="dropdown-menu">
-                                {% for choice in form.mileage_from.field.choices %}
-                                    <li><button type="button" onclick="setField('mileage_from', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
-                                {% endfor %}
-                            </ul>
-                           {{ form.mileage_from }}
-                        </div>
-                        <span>|</span>
-                        <div class="dropdown catalog__filter-select" id="mileage_to-dropdown">
-                            <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn right-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                до
-                            </button>
-                            <ul class="dropdown-menu">
-                                {% for choice in form.mileage_to.field.choices %}
-                                    <li><button type="button" onclick="setField('mileage_to', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
-                                {% endfor %}
-                            </ul>
-                           {{ form.mileage_to }}
-                        </div>
-                    </div>
-                    <div class="dropdown catalog__filter-select" id="kpp_type-dropdown">
-                        <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Тип КПП
-                        </button>
-                        <ul class="dropdown-menu">
-                            {% for choice in form.kpp_type.field.choices %}
-                                <li><button type="button" onclick="setField('kpp_type', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
-                            {% endfor %}
-                        </ul>
-                        {{ form.kpp_type }}
-                    </div>
-                    {% if name == 'Японии' %}
-                        <div class="two-parts">
-                            <div class="dropdown catalog__filter-select" id="color-dropdown">
-                                <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn left-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Цвет
-                                </button>
-                                <ul class="dropdown-menu">
-                                    {% for choice in form.color.field.choices %}
-                                        <li><button type="button" onclick="setField('color', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
-                                    {% endfor %}
-                                </ul>
-                               {{ form.color }}
-                            </div>
-                            <span>|</span>
-                            <div class="dropdown catalog__filter-select" id="rate-dropdown">
-                                <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn right-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Рейтинг
-                                </button>
-                                <ul class="dropdown-menu">
-                                    {% for choice in form.rate.field.choices %}
-                                        <li><button type="button" onclick="setField('rate', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
-                                    {% endfor %}
-                                </ul>
-                               {{ form.rate }}
-                            </div>
-                        </div>
-                    {% else %}
                         <div class="dropdown catalog__filter-select" id="color-dropdown">
-                            <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn left-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Цвет
                             </button>
                             <ul class="dropdown-menu">
@@ -178,12 +150,36 @@
                                     <li><button type="button" onclick="setField('color', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
                                 {% endfor %}
                             </ul>
-                            {{ form.color }}
+                           {{ form.color }}
                         </div>
-                    {% endif %}
-                </div>
+                        <span>|</span>
+                        <div class="dropdown catalog__filter-select" id="rate-dropdown">
+                            <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn right-selector" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Рейтинг
+                            </button>
+                            <ul class="dropdown-menu">
+                                {% for choice in form.rate.field.choices %}
+                                    <li><button type="button" onclick="setField('rate', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                                {% endfor %}
+                            </ul>
+                           {{ form.rate }}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="dropdown catalog__filter-select" id="color-dropdown">
+                        <button class="btn btn-secondary dropdown-toggle catalog__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Цвет
+                        </button>
+                        <ul class="dropdown-menu">
+                            {% for choice in form.color.field.choices %}
+                                <li><button type="button" onclick="setField('color', '{{choice.0}}', '{{choice.1}}')" class="dropdown-item" href="#">{{choice.1}}</button></li>
+                            {% endfor %}
+                        </ul>
+                        {{ form.color }}
+                    </div>
+                {% endif %}
 
-                <div style="display: flex; gap: 20px; padding-top: 24px; align-items: center">
+                <div class="form-buttons">
                     <button class="submit" type="submit">Показать</button>
                     <a href="{{ request.path }}">Сбросить</a>
                 </div>
