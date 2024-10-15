@@ -23,18 +23,19 @@ $(document).ready(function () {
 
                 // Генерируем HTML-код для каждого автомобиля
                 cars.forEach(car => {
+
                     carsHtml += `
                         <div class="swiper-slide">
-                            <a href="{{ request.path }}${car.id}" class="items2">
+                            <a href="${ window.location.pathname }${car.id}" class="items2">
                                 <div class="top_items">
                                     <h3>${car.mark} ${car.model} ${car.grade}</h3>
-                                    <p>${car.year} • ${car.mileage} км</p>
+                                    <p>${car.year} • ${Number(car.mileage).toLocaleString('ru-RU')} км</p>
                                 </div>
                                 <div class="img_items">
                                     <img class="main_card_img" src="${car.images[0]}" alt="">
                                 </div>
                                 <div class="bottoms_als">
-                                    <h4>${car.price} ₽</h4>
+                                    <h4>${car.price.toLocaleString('ru-RU')} ₽</h4>
                                     <div class="red_btn">Оставить заявку</div>
                                 </div>
                             </a>
