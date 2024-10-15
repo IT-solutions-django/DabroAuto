@@ -115,7 +115,13 @@ const connectSelects = () => {
     selects.forEach(select => {
         const dropdown = document.getElementById(`${select.name}-dropdown`);
         const button = dropdown.querySelector('.catalog__filter-select--btn');
+        const value = select.value
         button.textContent = select.options[select.selectedIndex].text;
+        if (value !== "") {
+            button.style.color = '#FFFFFF'
+        } else {
+            button.style.color = '#FFFFFF80'
+        }
     })
 };
 
@@ -130,9 +136,9 @@ const setField = (field, value, text) => {
     console.log(button)
 
     if (value !== "") {
-        button.classList.add('font-weight-bold'); // Добавляем жирный шрифт для непустого значения
+        button.style.color = '#FFFFFF'
     } else {
-        button.classList.remove('font-weight-bold'); // Убираем жирный шрифт для пустого значения
+        button.style.color = '#FFFFFF80'
     }
 
     if (field === "mark") {

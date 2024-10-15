@@ -105,6 +105,10 @@
   color: #FFFFFF;
 }
 
+.search-form .dropdown-menu li:first-child button {
+  color: #FFFFFF80;
+}
+
 .search-form .dropdown-menu button:hover {
   background: #1A2939;
 }
