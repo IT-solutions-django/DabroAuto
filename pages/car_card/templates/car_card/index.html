@@ -18,13 +18,13 @@
         <p class="modal-gallery-text">
           {{car.year}}
           {% if car.mileage %}
-           • {{car.mileage}} км
+           • {{car.mileage|beautify_number}} км
           {% endif %}
           </p>
       </div>
-      <p class="modal-gallery-count--mobile">от {{car.price}} ₽</p>
+      <p class="modal-gallery-count--mobile">от {{car.price|beautify_number}} ₽</p>
       <div class="modal-gallery-info--section">
-        <p class="modal-gallery-count">от {{car.price}} ₽</p>
+        <p class="modal-gallery-count">от {{car.price|beautify_number}} ₽</p>
         <button class="modal-gallery-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Оставить заявку</button>
         <a href="{{ whatsapp_url }}" target="_blank" class="modal-gallery-link">
           <img src="{%static 'img/wthp_modal.svg' %}" alt="" class="modal-gallery-link--img">

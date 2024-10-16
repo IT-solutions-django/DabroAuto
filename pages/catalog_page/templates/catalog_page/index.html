@@ -32,7 +32,7 @@
             <form id="searchForm" method="post" class="search-form">
                 {% csrf_token %}
                 <div class="mobile-title">
-                    <button onclick="mobileFormCloseClick()"><img src="/static/img/close.svg" alt=""></button>
+                    <button type="button" onclick="mobileFormCloseClick()"><img src="/static/img/close.svg" alt=""></button>
                     <span>Параметры</span>
                     <a href="{{ request.path }}"><img src="/static/img/clear.svg" alt=""></a>
                 </div>
