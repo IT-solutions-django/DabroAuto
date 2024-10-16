@@ -242,17 +242,19 @@
 }
 
 .search-form .dropdown-menu::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+  width: 3px;
+  height: 3px;
 }
 
 .search-form .dropdown-menu::-webkit-scrollbar-track {
-    background: #1A2939;
+  margin-block: 6px;
+  background: #1A2939;
 }
 
 .search-form .dropdown-menu::-webkit-scrollbar-thumb {
-    border-radius: 99990px;
-    background-color: #6e6658;
+  border-radius: 99990px;
+  padding-block: 30px;
+  background-color: #6e6658;
 }
 
 
