@@ -39,6 +39,16 @@ class CarCard:
     rate: Optional[str] = None
 
 
+ORDERING = {
+    "new": "+ORDER+BY+YEAR+DESC",
+    "old": "+ORDER+BY+YEAR+ASC",
+    "low_eng_v": "+ORDER+BY+ENG_V+ASC",
+    "high_eng_v": "+ORDER+BY+ENG_V+DESC",
+    "new_auc_date": "+ORDER+BY+AUCTION_DATE+DESC",
+    "old_auc_date": "+ORDER+BY+AUCTION_DATE+ASC",
+}
+
+
 def update_catalog_meta():
     tables = ("stats", "main", "china")
     for table in tables:
@@ -136,9 +146,15 @@ def get_popular_cars(country_manufacturing: str, count_cars: int):
 
 def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int):
     base_filters = get_base_filters(table_name)
+    ordering = get_ordering(filters)
     filters = connect_filters(filters, base_filters)
+
     query = get_sql_query(
-        "*", table_name, filters, f"{cars_per_page * (int(page) - 1)},{cars_per_page}"
+        "*",
+        table_name,
+        filters,
+        f"{cars_per_page * (int(page) - 1)},{cars_per_page}",
+        ordering,
     )
     print(query)
     data = fetch_by_query(query)
@@ -175,6 +191,12 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
     pages_count = (int(cars_count) - 1) // cars_per_page + 1
 
     return clear_data, pages_count
+
+
+def get_ordering(filters: dict):
+    ordering = filters.get("ordering") or ""
+
+    return ORDERING.get(ordering, ORDERING["new"])
 
 
 def get_cars_count(table_name: str, filters: list[str]):
@@ -306,9 +328,13 @@ def fetch_by_query(sql_query: str):
 
 
 def get_sql_query(
-    fields: str, table_name: str, base_filters: Iterable[str], limit: str
+    fields: str,
+    table_name: str,
+    base_filters: Iterable[str],
+    limit: str,
+    ordering: str = "",
 ):
-    query = f"select+{fields}+from+{table_name}+WHERE+1+=+1+and+{'+and+'.join(base_filters)}+limit+{limit}"
+    query = f"select+{fields}+from+{table_name}+WHERE+1+=+1+and+{'+and+'.join(base_filters)}{ordering}+limit+{limit}"
     return query
 
 
