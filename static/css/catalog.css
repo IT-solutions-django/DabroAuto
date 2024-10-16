@@ -139,6 +139,42 @@
     justify-items: center;
     visibility: hidden;
   }
+
+  #mark-dropdown {
+    order: 0;
+  }
+
+  #model-dropdown {
+    order: 1;
+  }
+
+  #year-dropdown {
+    order: 2;
+  }
+
+  #mileage-dropdown {
+    order: 3;
+  }
+
+  #eng_v-dropdown {
+    order: 4;
+  }
+
+  #kpp_type-dropdown {
+    order: 5;
+  }
+
+  #priv-dropdown {
+    order: 6;
+  }
+
+  .color-group-dropdown {
+    order: 7;
+  }
+
+  .form-buttons {
+    order: 8;
+  }
 }
 
 .catalog__filter-select {
@@ -350,12 +386,23 @@
   }
 }
 
-@media (max-width: 1075px) {
+@media (min-width: 721px) and (max-width: 1075px) {
   .catalog-content {
     position: relative;
     display: grid;
     width: 100%;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 16px;
+    justify-items: center
+  }
+}
+
+@media (max-width: 720px) {
+  .catalog-content {
+    position: relative;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr;
     grid-gap: 16px;
     justify-items: center
   }
@@ -482,6 +529,15 @@
   padding-bottom: 140px;
   display: flex;
   justify-content: right;
+}
+
+@media only screen and (max-width: 768px) {
+  .pagination-elements {
+    padding-top: 16px;
+    padding-bottom: 140px;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .pagination {
