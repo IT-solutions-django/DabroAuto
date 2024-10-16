@@ -113,6 +113,9 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
         "kor": float(CurrencyRate.objects.get(name="Вона").course),
     }
 
+    images = [image for image in car["IMAGES"].split("#")]
+    images = [*images[1:], images[0]]
+
     return CarCard(
         id=car["ID"],
         mark=car["MARKA_NAME"],
@@ -123,7 +126,7 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
         price=calc_price(
             car["FINISH"], curr, car["YEAR"], car["ENG_V"], country.table_name, config
         )[0],
-        images=[image for image in car["IMAGES"].split("#")],
+        images=images,
         kuzov=car["KUZOV"],
         kpp="Механика" if car["KPP_TYPE"] == 1 else "Автомат",
         eng_v=str(float(car["ENG_V"]) / 1000),

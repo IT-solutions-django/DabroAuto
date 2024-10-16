@@ -136,7 +136,6 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
     height: 100%;
     display: none;
 }
@@ -323,10 +322,6 @@ padding-top: 120px;
     font-size: 32px;
     font-weight: 500;
     color: #191919;
-}
-
-.card__main {
-    margin-top: 24px;
 }
 
 .slider-controller-button {
@@ -815,4 +810,70 @@ padding-top: 120px;
     .modal-gallery-main {
         padding: 0;
     }
+}
+
+.card-box {
+    width: max-content;
+    height: 600px;
+}
+
+.main-slides>.gallery-slide {
+    display: none;
+    border-radius: 16px;
+    object-fit: contain;
+    height: 480px;
+    width: 640px;
+    position: relative;
+}
+
+
+.modal-gallery-slider {
+    height: 480px;
+    width: 640px;
+}
+
+.modal-gallery-main {
+    height: auto;
+    width: 640px;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+}
+
+.modal-thumbnail>.modal-thumbnail-slide {
+    width: auto;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.modal-gallery button {
+    border: none;
+    outline: none;
+}
+
+.modal-thumbnail-slide--active {
+    border: 2px solid transparent; /* Устанавливаем границу, но делаем её прозрачной */
+    border-image-source: linear-gradient(236.55deg, #0D2F68 18.06%, #D51117 96.56%); /* Синий цвет сверху слева, красный снизу справа */
+    border-image-slice: 1; /* Указываем, как обрезать градиент */
+    border-image-width: 2; /* Устанавливаем ширину границы */
+    border-image-outset: 0; /* Устанавливаем вынос границы */
+    border-image-repeat: stretch; /* Указываем, как повторять градиент */
+    border-radius: 10px; /* Добавляем закругление краев */
+}
+
+.modal-gallery-info {
+    background: #081E36;
+}
+
+.modal-gallery-info .modal-gallery-btn {
+    width: 149px;
+    height: 44px;
+    border-radius: 30px;
+    background: #D51117;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
