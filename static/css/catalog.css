@@ -53,6 +53,7 @@
   justify-content: space-between;
   padding: 16px;
   background: #011224;
+  width: 100%;
 }
 
 @media (max-width: 992px) {
@@ -126,16 +127,21 @@
     top: 0;
     border-radius: 0;
     width: 100%;
+    min-height: 100vh;
     grid-template-columns: 1fr;
     z-index: 5;
     padding: 0;
     place-self: center;
+    display: grid;
+    justify-items: center;
+    visibility: hidden;
   }
 }
 
 .catalog__filter-select {
   display: flex;
   justify-content: center;
+  width: max-content;
 }
 
 .search-form .btn {
@@ -177,6 +183,8 @@
 .search-form .two-parts {
   display: flex;
   justify-content: center;
+  height: max-content;
+  width: max-content;
 }
 
 .search-form select {
@@ -256,6 +264,22 @@
   align-items: center;
   border: none;
   outline: none;
+}
+
+@media (max-width: 992px) {
+  .search-form .submit {
+    width: 328px;
+    height: 44px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19.6px;
+    background: #D51117;
+  }
 }
 
 .search-form .form-buttons a {
@@ -524,6 +548,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+@media (max-width: 992px) {
+  #ordering-dropdown {
+    display: none;
+  }
 }
 
 .ordering__filter-select .btn.mobile {
