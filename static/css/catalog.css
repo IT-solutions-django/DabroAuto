@@ -684,3 +684,7 @@
 .ordering__filter-select .dropdown-menu a:hover {
   background-color: #20344A;
 }
+
+.rub {
+  font-size: 85%;
+}

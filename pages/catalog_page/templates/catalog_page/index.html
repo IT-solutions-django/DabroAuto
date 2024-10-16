@@ -217,7 +217,7 @@
                                             <p>{{ popular_cars.0.year_manufactured }} • {{ popular_cars.0.beautiful_mileage }} км • {{ popular_cars.0.eng_v }} л.</p>
                                         </div>
                                         <div class="bottom_inf">
-                                            <h3>{{ popular_cars.0.beautiful_price }} ₽</h3>
+                                            <h3>{{ popular_cars.0.beautiful_price }} <span class="rub">₽</span></h3>
                                             <div class="red_btn">Оставить заявку</div>
                                         </div>
                                     </a>
@@ -249,7 +249,7 @@
                                             <p>{{ popular_cars.0.year_manufactured }} • {{ popular_cars.0.beautiful_mileage }} км • {{ popular_cars.0.eng_v }} л.</p>
                                         </div>
                                         <div class="bottom_inf">
-                                            <h3>{{ popular_cars.0.beautiful_price }} ₽</h3>
+                                            <h3>{{ popular_cars.0.beautiful_price }} <span class="rub">₽</span></h3>
                                             <div class="red_btn">Оставить заявку</div>
                                         </div>
                                     </a>
@@ -266,7 +266,7 @@
                                                 <img class="main_card_img" src="{{ car.image.all.first.image.url }}" alt="">
                                             </div>
                                             <div class="bottoms_als">
-                                                <h4>{{ car.beautiful_price }} ₽</h4>
+                                                <h4>{{ car.beautiful_price }} <span class="rub">₽</span></h4>
                                                 <div class="red_btn">Оставить заявку</div>
                                             </div>
                                         </a>
@@ -306,7 +306,7 @@
                                 <img class="main_card_img check_img" src="{{ car.images.0 }}" alt="">
                             </div>
                             <div class="bottoms_als">
-                                <h4>{{  car.price|beautify_number }} ₽</h4>
+                                <h4>{{  car.price|beautify_number }} <span class="rub">₽</span></h4>
                                 <div class="red_btn">Оставить заявку</div>
                             </div>
                         </a>

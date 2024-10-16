@@ -22,9 +22,9 @@
           {% endif %}
           </p>
       </div>
-      <p class="modal-gallery-count--mobile">от {{car.price|beautify_number}} ₽</p>
+      <p class="modal-gallery-count--mobile">от {{car.price|beautify_number}} <span class="rub">₽</span></p>
       <div class="modal-gallery-info--section">
-        <p class="modal-gallery-count">от {{car.price|beautify_number}} ₽</p>
+        <p class="modal-gallery-count">от {{car.price|beautify_number}} <span class="rub">₽</span></p>
         <button class="modal-gallery-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Оставить заявку</button>
         <a href="{{ whatsapp_url }}" target="_blank" class="modal-gallery-link">
           <img src="{%static 'img/wthp_modal.svg' %}" alt="" class="modal-gallery-link--img">
@@ -52,7 +52,7 @@
         <div class="content">
             <div class="car-info">
                 <div class="title">{{ car.mark }} {{ car.model }} {{ car.grade }}</div>
-                <div class="price">{{ car.price|beautify_number }} ₽</div>
+                <div class="price">{{ car.price|beautify_number }} <span class="rub">₽</span></div>
 
                 <div class="info_questionary">
                     <div class="btns_stage">
