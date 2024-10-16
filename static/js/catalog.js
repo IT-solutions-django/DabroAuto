@@ -19,102 +19,16 @@ $(document).ready(function () {
 
     updateOrderingParam()
 
-    $('#searchForm').submit(function () {
+    $('#searchForm').submit(function (e) {
+        e.preventDefault()
+        const newParams = $('#searchForm').serialize().split('&').filter(e => e.split('=')[0] != 'csrfmiddlewaretoken');
+        const url = new URL(window.location.href);
+        newParams.forEach(e => url.searchParams.set(e.split('=')[0], e.split('=')[1]))
 
-        $.ajax({
-            data: $(this).serialize(),
-            type: $(this).attr('method'),
-            url: $(location).attr('href'),
-            success: function (response) {
-                const newParams = $('#searchForm').serialize().split('&').filter(e => e.split('=')[0] != 'csrfmiddlewaretoken');
-                const url = new URL(window.location.href);
-                newParams.forEach(e => url.searchParams.set(e.split('=')[0], e.split('=')[1]))
-                url.searchParams.set('page', '1')
-                url.searchParams.delete('ordering')
+        url.searchParams.set('page', '1')
 
-                window.history.pushState({}, '', url);
-
-                const cars = response.cars_info; // Получаем массив автомобилей
-                let carsHtml = ''; // Переменная для хранения HTML-кода
-
-                // Генерируем HTML-код для каждого автомобиля
-                cars.forEach(car => {
-                    const carRate = `${window.location.pathname}` == '/japan/' ? `• ${car.rate}` : ''
-                    carsHtml += `
-                        <div class="swiper-slide">
-                            <a href="${ window.location.pathname }${car.id}" class="items2">
-                                <div class="top_items">
-                                    <h3>${car.mark} ${car.model}</h3>
-                                    <p>${car.year} • ${Number(car.mileage).toLocaleString('ru-RU')} км  • ${car.eng_v} л. ${carRate}</p>
-                                </div>
-                                <div class="img_items">
-                                    <img class="main_card_img" src="${car.images[0]}" alt="">
-                                </div>
-                                <div class="bottoms_als">
-                                    <h4>${car.price.toLocaleString('ru-RU')} ₽</h4>
-                                    <div class="red_btn">Оставить заявку</div>
-                                </div>
-                            </a>
-                        </div>
-                    `;
-                });
-
-                // Обновляем контейнер с автомобилями
-                $('#carContainer').html(carsHtml);
-
-                const pageRange = response.page_range; // Новый диапазон страниц
-                const currentPage = 1; // Текущая страница
-
-                // Генерируем HTML-код для пагинации
-                let paginationHtml = '';
-                for (const page of pageRange) {
-                    if (page === "...") {
-                        paginationHtml += `<span>...</span>`;
-                    } else if (page === currentPage) {
-                        paginationHtml += `<span class="current-page">${page}</span>`; // Выделяем текущую страницу
-                    } else {
-                        url.searchParams.set('page', `${page}`)
-                        paginationHtml += `<a href="?${url.searchParams.toString()}">${page}</a>`;
-                    }
-                }
-
-                // Обновляем контейнер с пагинацией
-                $('.pagination').html(paginationHtml);
-
-
-                let dropdownHtml = ''; // Variable to store the HTML code for the dropdown items
-
-                orderingParams.forEach(param => {
-                    const key = param[0];
-                    const value = param[1];
-                    const currentParams = new URLSearchParams(window.location.search);
-
-                    currentParams.delete('page');
-                    currentParams.delete('ordering');
-
-                    currentParams.set('page', 1);
-                    currentParams.set('ordering', key);
-
-                    dropdownHtml += `
-                        <li>
-                            <a class="dropdown-item" href="?${currentParams.toString()}">${value}</a>
-                        </li>
-                    `;
-                });
-
-                // Update the dropdown menu
-                document.querySelector('.ordering__filter-select .dropdown-menu').innerHTML = dropdownHtml;
-
-                updateOrderingParam();
-
-                updateClearButton();
-            },
-            error: function (response) {
-                const errors = JSON.parse(response.responseJSON.errors)
-                console.log(errors)
-            }
-        });
-        return false;
+        window.history.pushState({}, '', url);
+        window.location.reload();
     });
 
     function updateClearButton() {
@@ -183,7 +97,7 @@ const connectSelects = () => {
 const setField = (field, value, text) => {
     let dropdown = document.getElementById(`${field}-dropdown`);
     var input = document.querySelector(`[name=${field}]`);
-    input.value = value;
+    input.value = value !== 'None' ? value : '';
 
     // Выбор кнопки для изменения текста
     let button = dropdown.querySelector('.catalog__filter-select--btn');
