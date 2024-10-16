@@ -1,6 +1,10 @@
 def get_page_range(current_page, total_pages):
     page_range = []
 
+    # Добавляем "Предыдущая", если это не первая страница
+    if current_page > 1:
+        page_range.append("Предыдущая")
+
     # Добавляем первую страницу
     if total_pages > 1:
         page_range.append(1)
@@ -20,5 +24,9 @@ def get_page_range(current_page, total_pages):
     # Добавляем последнюю страницу
     if total_pages > 1:
         page_range.append(total_pages)
+
+        # Добавляем "Следующая", если это не последняя страница
+    if current_page < total_pages:
+        page_range.append("Следующая")
 
     return page_range

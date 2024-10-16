@@ -1,3 +1,15 @@
+const orderingParams = [
+            ["new", "Сначала новые"],
+            ["old", "Сначала старые"],
+            ["low_eng_v", "С низким объемом"],
+            ["high_eng_v", "С высоким объемом"],
+            ["new_auc_date", "С наиболее свежей датой аукциона"],
+            ["old_auc_date", "С наиболее давней датой аукциона"],
+            ["high_rate", "С наибольшим рейтингом"],
+            ["low_rate", "С наименьшим рейтингом"],
+        ]
+
+
 $(document).ready(function () {
     updateModels()
 
@@ -5,85 +17,27 @@ $(document).ready(function () {
 
     connectSelects()
 
-    $('#searchForm').submit(function () {
+    updateOrderingParam()
 
-        $.ajax({
-            data: $(this).serialize(),
-            type: $(this).attr('method'),
-            url: $(location).attr('href'),
-            success: function (response) {
-                const newParams = $('#searchForm').serialize().split('&').filter(e => e.split('=')[0] != 'csrfmiddlewaretoken');
-                const url = new URL(window.location.href);
-                newParams.forEach(e => url.searchParams.set(e.split('=')[0], e.split('=')[1]))
-                url.searchParams.set('page', '1')
+    $('#searchForm').submit(function (e) {
+        e.preventDefault()
+        const newParams = $('#searchForm').serialize().split('&').filter(e => e.split('=')[0] != 'csrfmiddlewaretoken');
+        const url = new URL(window.location.href);
+        newParams.forEach(e => url.searchParams.set(e.split('=')[0], e.split('=')[1]))
 
-                window.history.pushState({}, '', url);
+        url.searchParams.set('page', '1')
 
-                const cars = response.cars_info; // Получаем массив автомобилей
-                let carsHtml = ''; // Переменная для хранения HTML-кода
-
-                // Генерируем HTML-код для каждого автомобиля
-                cars.forEach(car => {
-
-                    carsHtml += `
-                        <div class="swiper-slide">
-                            <a href="${ window.location.pathname }${car.id}" class="items2">
-                                <div class="top_items">
-                                    <h3>${car.mark} ${car.model}</h3>
-                                    <p>${car.year} • ${Number(car.mileage).toLocaleString('ru-RU')} км  • ${car.eng_v} л.</p>
-                                </div>
-                                <div class="img_items">
-                                    <img class="main_card_img" src="${car.images[0]}" alt="">
-                                </div>
-                                <div class="bottoms_als">
-                                    <h4>${car.price.toLocaleString('ru-RU')} ₽</h4>
-                                    <div class="red_btn">Оставить заявку</div>
-                                </div>
-                            </a>
-                        </div>
-                    `;
-                });
-
-                // Обновляем контейнер с автомобилями
-                $('#carContainer').html(carsHtml);
-
-                const pageRange = response.page_range; // Новый диапазон страниц
-                const currentPage = 1; // Текущая страница
-                console.log(pageRange)
-
-                // Генерируем HTML-код для пагинации
-                let paginationHtml = '';
-                for (const page of pageRange) {
-                    if (page === "...") {
-                        paginationHtml += `<span>...</span>`;
-                    } else if (page === currentPage) {
-                        paginationHtml += `<span class="current-page">${page}</span>`; // Выделяем текущую страницу
-                    } else {
-                        url.searchParams.set('page', `${page}`)
-                        paginationHtml += `<a href="?${url.searchParams.toString()}">${page}</a>`;
-                    }
-                }
-
-                // Обновляем контейнер с пагинацией
-                $('.pagination').html(paginationHtml);
-
-                updateClearButton();
-            },
-            error: function (response) {
-                const errors = JSON.parse(response.responseJSON.errors)
-                console.log(errors)
-            }
-        });
-        return false;
+        window.history.pushState({}, '', url);
+        window.location.reload();
     });
 
     function updateClearButton() {
         const newParams = $('#searchForm').serialize().split('&').filter(e => e.split('=')[0] != 'csrfmiddlewaretoken');
         const is_visible = newParams.some(e => e.split('=')[1])
         if (is_visible) {
-            $(".search-form a").css("visibility", "visible");
+            $(".search-form .form-buttons a").css("visibility", "visible");
         } else {
-            $(".search-form a").css("visibility", "hidden");
+            $(".search-form .form-buttons a").css("visibility", "hidden");
         }
     }
 
@@ -109,6 +63,21 @@ $(document).ready(function () {
     }
 })
 
+const updateOrderingParam = () => {
+    const dropdown = document.getElementById("ordering-dropdown");
+    const button = dropdown.querySelector('.ordering__filter-select--btn');
+
+    const params = new URLSearchParams(document.location.search);
+    const currentText = orderingParams.find(e => e[0] ===  params.get("ordering"));
+
+    if (currentText !== undefined) {
+        button.textContent = currentText[1];
+    } else {
+        button.textContent = orderingParams[0][1];
+    }
+
+}
+
 const connectSelects = () => {
     const selects = Array.from(document.querySelectorAll(".search-form select"));
 
@@ -128,13 +97,11 @@ const connectSelects = () => {
 const setField = (field, value, text) => {
     let dropdown = document.getElementById(`${field}-dropdown`);
     var input = document.querySelector(`[name=${field}]`);
-    input.value = value;
+    input.value = value !== 'None' ? value : '';
 
     // Выбор кнопки для изменения текста
     let button = dropdown.querySelector('.catalog__filter-select--btn');
 
-    console.log(button)
-    console.log(value)
     if (value !== "" && value !== 'None') {
         button.style.color = '#FFFFFF'
     } else {
@@ -193,3 +160,29 @@ function updateModels() {
         }
     });
 }
+
+
+const mobileFormOpenClick = () => {
+    const searchForm = document.querySelector(".search-form");
+
+    searchForm.style.visibility = 'visible'
+}
+
+const mobileFormCloseClick = () => {
+    const searchForm = document.querySelector(".search-form");
+
+    searchForm.style.visibility = 'hidden'
+}
+
+function checkScreenSize() {
+    const searchForm = document.querySelector(".search-form");
+    if (window.innerWidth <= 992) {
+        searchForm.style.visibility = 'hidden';
+    } else {
+        searchForm.style.visibility = 'visible';
+    }
+}
+
+checkScreenSize();
+
+window.addEventListener('resize', checkScreenSize);

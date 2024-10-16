@@ -100,6 +100,21 @@ class CatalogView(FormView):
             name="Адрес",
         ).content
 
+        context["ordering_params"] = [
+            ("new", "Сначала новые"),
+            ("old", "Сначала старые"),
+            ("low_eng_v", "С низким объемом"),
+            ("high_eng_v", "С высоким объемом"),
+        ]
+
+        if self.table_name == "stats":
+            context["ordering_params"].extend(
+                [
+                    ("new_auc_date", "С наиболее свежей датой аукциона"),
+                    ("old_auc_date", "С наиболее давней датой аукциона"),
+                ]
+            )
+
         return context
 
     def get_form_kwargs(self):

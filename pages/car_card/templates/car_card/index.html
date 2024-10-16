@@ -4,10 +4,46 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/card.css' %}">
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
 {% endblock %}
 
 {% block content %}
 <main>
+<section class="modal-gallery">
+  <div class="modal-gallery-main">
+    <div class="modal-gallery-slider"></div>
+    <div class="modal-gallery-info">
+      <div class="modal-gallery-info--section">
+        <h2 class="modal-gallery-title">{{ car.brand }} {{ car.model }}</h2>
+        <p class="modal-gallery-text">
+          {{car.year}}
+          {% if car.mileage %}
+           • {{car.mileage|beautify_number}} км
+          {% endif %}
+          </p>
+      </div>
+      <p class="modal-gallery-count--mobile">от {{car.price|beautify_number}} ₽</p>
+      <div class="modal-gallery-info--section">
+        <p class="modal-gallery-count">от {{car.price|beautify_number}} ₽</p>
+        <button class="modal-gallery-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Оставить заявку</button>
+        <a href="{{ whatsapp_url }}" target="_blank" class="modal-gallery-link">
+          <img src="{%static 'img/wthp_modal.svg' %}" alt="" class="modal-gallery-link--img">
+        </a>
+        <a href="{{ tg_url }}" target="_blank" class="modal-gallery-link">
+          <img src="{%static 'img/tg_modal.svg' %}" alt="" class="modal-gallery-link--img">
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="modal-thumbnail">
+
+  </div>
+
+    <button class="modal-gallery-btn--close"><img src="{% static 'img/close.svg' %}" alt=""></button>
+    <button class="modal-gallery-btn--control modal-gallery-btn--prev"></button>
+    <button class="modal-gallery-btn--control modal-gallery-btn--next"></button>
+
+</section>
 <section>
     <div class="container">
         <div class="card-routing">
@@ -71,11 +107,38 @@
 
 
             </div>
-            <div class="photos" style="flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center;">
-                {% for image in car.images|slice:"1:2" %}
-                    <img src="{{  image }}" alt="{{ car.brand }} {{ car.model }}" class="car-photo" style="max-width: 100%; height: auto; margin-bottom: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                {% endfor %}
-            </div>
+            <div class="card-box">
+                <div class="card__main">
+                     <div class="gallery">
+                         <div class="main-slides">
+                             {% for photo in car.images %}
+                             <img
+                                 src="{{photo}}"
+                                 alt="{{ car.brand }} {{ car.model }}"
+                                 class="gallery-slide slide-{{ forloop.counter0 }} gallery__Image"
+                                 data-large="{{photo}}"
+                                 style="cursor: pointer;"
+                             />
+                             {% endfor %}
+                             <p class="slides-counter">
+                                 <span class="curr-slide-count">0</span> /
+                                 <span class="all-slides-count">8</span>
+                             </p>
+
+                             <div class="previous-slide-button slider-controller-button">
+                                 <img class="slider-controller-button--img" src="{%static 'img/arrow-left.svg' %}" alt="" srcset="">
+                                 <img class="slider-controller-button--back" src="{%static 'img/Ellipse 57.png' %}" alt="" srcset="">
+
+                             </div>
+                             <div class="next-slide-button slider-controller-button">
+                                 <img class="slider-controller-button--img" src="{%static 'img/arrow-right.svg' %}" alt="" srcset="">
+                                 <img class="slider-controller-button--back" src="{%static 'img/Ellipse 56.png' %}" alt="" srcset="">
+                             </div>
+                         </div>
+                     </div>
+                    <div class="thumbnail-slides"></div>
+                </div>
+        </div>
         </div>
 
         {% with form=questionnaire_form %}
@@ -84,4 +147,9 @@
     </div>
 </section>
 </main>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{%static 'js/correct.js' %}"></script>
+    <script src="{%static 'js/card-slider.js' %}"></script>
 {% endblock %}
