@@ -30,6 +30,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 12px;
+  visibility: visible;
 }
 
 .form-buttons {
@@ -107,6 +108,7 @@
 @media (min-width: 1076px) and (max-width: 1400px) {
   .search-form {
     grid-template-columns: 1fr 1fr 1fr;
+    visibility: visible;
   }
 
   .form-buttons {
@@ -117,6 +119,7 @@
 @media (min-width: 993px) and (max-width: 1075px) {
   .search-form {
     grid-template-columns: 1fr 1fr;
+    visibility: visible;
   }
 }
 

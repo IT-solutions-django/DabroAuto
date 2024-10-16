@@ -246,3 +246,29 @@ function updateModels() {
         }
     });
 }
+
+
+const mobileFormOpenClick = () => {
+    const searchForm = document.querySelector(".search-form");
+
+    searchForm.style.visibility = 'visible'
+}
+
+const mobileFormCloseClick = () => {
+    const searchForm = document.querySelector(".search-form");
+
+    searchForm.style.visibility = 'hidden'
+}
+
+function checkScreenSize() {
+    const searchForm = document.querySelector(".search-form");
+    if (window.innerWidth <= 992) {
+        searchForm.style.visibility = 'hidden';
+    } else {
+        searchForm.style.visibility = 'visible';
+    }
+}
+
+checkScreenSize();
+
+window.addEventListener('resize', checkScreenSize);
