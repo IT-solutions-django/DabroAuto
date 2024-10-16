@@ -123,9 +123,16 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
         grade=car["GRADE"],
         year=car["YEAR"],
         mileage=car["MILEAGE"],
-        price=calc_price(
-            car["FINISH"], curr, car["YEAR"], car["ENG_V"], country.table_name, config
-        )[0],
+        price=int(
+            calc_price(
+                car["FINISH"],
+                curr,
+                car["YEAR"],
+                car["ENG_V"],
+                country.table_name,
+                config,
+            )[0]
+        ),
         images=images,
         kuzov=car["KUZOV"],
         kpp="Механика" if car["KPP_TYPE"] == 1 else "Автомат",

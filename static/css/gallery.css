@@ -877,3 +877,7 @@ padding-top: 120px;
     align-items: center;
     justify-content: center;
 }
+
+.modal-gallery {
+    background: #011224fa;
+}

@@ -17,11 +17,8 @@
         <h2 class="modal-gallery-title">{{ car.brand }} {{ car.model }}</h2>
         <p class="modal-gallery-text">
           {{car.year}}
-          {% if car.body_type %}
-           • {{car.body_type}}
-          {% endif %}
           {% if car.mileage %}
-           • {{car.mileage}}
+           • {{car.mileage}} км
           {% endif %}
           </p>
       </div>
@@ -29,16 +26,15 @@
       <div class="modal-gallery-info--section">
         <p class="modal-gallery-count">от {{car.price}} ₽</p>
         <button class="modal-gallery-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Оставить заявку</button>
-        <a href="" class="modal-gallery-link">
+        <a href="{{ whatsapp_url }}" target="_blank" class="modal-gallery-link">
           <img src="{%static 'img/wthp_modal.svg' %}" alt="" class="modal-gallery-link--img">
         </a>
-        <a href="" class="modal-gallery-link">
+        <a href="{{ tg_url }}" target="_blank" class="modal-gallery-link">
           <img src="{%static 'img/tg_modal.svg' %}" alt="" class="modal-gallery-link--img">
         </a>
       </div>
     </div>
   </div>
-
   <div class="modal-thumbnail">
 
   </div>
