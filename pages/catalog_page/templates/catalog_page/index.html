@@ -214,7 +214,7 @@
                                         <img class="main_card_img" src="{{ main_car_image.image.url }}" alt="">
                                         <div class="info_tops">
                                             <h4>{{ popular_cars.0.brand }} {{ popular_cars.0.model }}</h4>
-                                            <p>{{ popular_cars.0.year_manufactured }} • {{ popular_cars.0.beautiful_mileage }} км • {{ popular_cars.0.eng_v }} л.</p>
+                                            <p>{{ popular_cars.0.year_manufactured }} • {{ popular_cars.0.beautiful_mileage }} км • {{ popular_cars.0.beautiful_eng_v }} л.</p>
                                         </div>
                                         <div class="bottom_inf">
                                             <h3>{{ popular_cars.0.beautiful_price }} <span class="rub">₽</span></h3>
@@ -246,7 +246,7 @@
                                         <img class="main_card_img" src="{{ popular_cars.0.image.all.first.image.url }}" alt="">
                                         <div class="info_tops">
                                             <h4>{{ popular_cars.0.brand }} {{ popular_cars.0.model }}</h4>
-                                            <p>{{ popular_cars.0.year_manufactured }} • {{ popular_cars.0.beautiful_mileage }} км • {{ popular_cars.0.eng_v }} л.</p>
+                                            <p>{{ popular_cars.0.year_manufactured }} • {{ popular_cars.0.beautiful_mileage }} км • {{ popular_cars.0.beautiful_eng_v }} л.</p>
                                         </div>
                                         <div class="bottom_inf">
                                             <h3>{{ popular_cars.0.beautiful_price }} <span class="rub">₽</span></h3>
@@ -260,7 +260,7 @@
                                         <a href="{{ request.path }}{{ car.id }}" class="items2">
                                             <div class="top_items">
                                                 <h3>{{ car.brand }} {{ car.model }}</h3>
-                                                <p>{{ car.year_manufactured }} • {{ car.beautiful_mileage }} км • {{ car.eng_v }} л.</p>
+                                                <p>{{ car.year_manufactured }} • {{ car.beautiful_mileage }} км • {{ car.beautiful_eng_v }} л.</p>
                                             </div>
                                             <div class="img_items">
                                                 <img class="main_card_img" src="{{ car.image.all.first.image.url }}" alt="">
