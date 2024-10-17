@@ -7,6 +7,12 @@
         "brand": "Toyota",
         "model": "Corolla",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Япония"
     },
     {
@@ -17,6 +23,12 @@
         "brand": "Honda",
         "model": "Civic",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Япония"
     },
     {
@@ -27,6 +39,12 @@
         "brand": "Nissan",
         "model": "Leaf",
         "engine_type": "Электрический",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Япония"
     },
     {
@@ -37,6 +55,12 @@
         "brand": "Mazda",
         "model": "3",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Япония"
     },
     {
@@ -47,6 +71,12 @@
         "brand": "Subaru",
         "model": "Impreza",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Япония"
     },
     {
@@ -57,6 +87,12 @@
         "brand": "Mitsubishi",
         "model": "Outlander",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Япония"
     },
     {
@@ -67,6 +103,12 @@
         "brand": "Toyota",
         "model": "RAV4",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Япония"
     },
     {
@@ -77,6 +119,12 @@
         "brand": "Honda",
         "model": "CR-V",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Япония"
     },
     {
@@ -87,6 +135,12 @@
         "brand": "Nissan",
         "model": "Qashqai",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Япония"
     },
     {
@@ -97,6 +151,12 @@
         "brand": "Suzuki",
         "model": "Vitara",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Япония"
     },
     {
@@ -107,6 +167,12 @@
         "brand": "Geely",
         "model": "Emgrand",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Китай"
     },
     {
@@ -117,6 +183,12 @@
         "brand": "BYD",
         "model": "Han",
         "engine_type": "Электрический",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Китай"
     },
     {
@@ -127,6 +199,12 @@
         "brand": "MG",
         "model": "ZS",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Китай"
     },
     {
@@ -137,6 +215,12 @@
         "brand": "NIO",
         "model": "ES6",
         "engine_type": "Электрический",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Китай"
     },
     {
@@ -147,6 +231,12 @@
         "brand": "Changan",
         "model": "CS75",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Китай"
     },
     {
@@ -157,6 +247,12 @@
         "brand": "Great Wall",
         "model": "Haval H6",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Китай"
     },
     {
@@ -167,6 +263,12 @@
         "brand": "Xpeng",
         "model": "P7",
         "engine_type": "Электрический",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Китай"
     },
     {
@@ -177,6 +279,12 @@
         "brand": "Li Auto",
         "model": "L9",
         "engine_type": "Гибридный",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Китай"
     },
     {
@@ -187,6 +295,12 @@
         "brand": "Dongfeng",
         "model": "Fengon",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Китай"
     },
     {
@@ -197,6 +311,12 @@
         "brand": "Great Wall",
         "model": "Haval F7",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Китай"
     },
     {
@@ -207,6 +327,12 @@
         "brand": "Hyundai",
         "model": "Sonata",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Корея"
     },
     {
@@ -217,6 +343,12 @@
         "brand": "Kia",
         "model": "K5",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Корея"
     },
     {
@@ -227,6 +359,12 @@
         "brand": "Genesis",
         "model": "G70",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Корея"
     },
     {
@@ -237,6 +375,12 @@
         "brand": "Kia",
         "model": "Sportage",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Корея"
     },
     {
@@ -247,6 +391,12 @@
         "brand": "Hyundai",
         "model": "Tucson",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Корея"
     },
     {
@@ -257,6 +407,12 @@
         "brand": "Kia",
         "model": "Seltos",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Корея"
     },
     {
@@ -267,6 +423,12 @@
         "brand": "Hyundai",
         "model": "Elantra",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Корея"
     },
     {
@@ -277,6 +439,12 @@
         "brand": "Genesis",
         "model": "GV80",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Корея"
     },
     {
@@ -287,6 +455,12 @@
         "brand": "Kia",
         "model": "Forte",
         "engine_type": "Бензин",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Корея"
     },
     {
@@ -297,6 +471,12 @@
         "brand": "Hyundai",
         "model": "Ioniq 5",
         "engine_type": "Электрический",
+        "is_popular": false,
+        "kuzov": "Внедорожник",
+        "kpp": "Автомат",
+        "eng_v": 1.6,
+        "priv": "Полный",
+        "color": "Зеленый",
         "country_manufacturing": "Корея"
     }
 ]

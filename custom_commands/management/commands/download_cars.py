@@ -2,7 +2,16 @@ import json
 
 from django.core.management.base import BaseCommand, CommandError
 
-from apps.car.models import Car, CarBrand, CarModel, EngineType, CountryManufacturing
+from apps.car.models import (
+    Car,
+    CarBrand,
+    CarModel,
+    EngineType,
+    CountryManufacturing,
+    CarKPP,
+    CarPriv,
+)
+from apps.catalog.models import CarColor, Country
 
 
 class Command(BaseCommand):
@@ -27,6 +36,12 @@ class Command(BaseCommand):
                 country_manufacturing, _ = CountryManufacturing.objects.get_or_create(
                     name=car_data["country_manufacturing"]
                 )
+                color, _ = CarColor.objects.get_or_create(
+                    name="Зеленый",
+                    country_manufacturing=Country.objects.get(name="Япония"),
+                )
+                kpp, _ = CarKPP.objects.get_or_create(name=car_data["kpp"])
+                priv, _ = CarPriv.objects.get_or_create(name=car_data["priv"])
                 Car.objects.get_or_create(
                     specification=car_data["specification"],
                     year_manufactured=car_data["year_manufactured"],
@@ -35,6 +50,12 @@ class Command(BaseCommand):
                     brand=brand,
                     model=model,
                     engine_type=engine_type,
+                    is_popular=car_data["is_popular"],
+                    kuzov=car_data["kuzov"],
+                    kpp=kpp,
+                    eng_v=car_data["eng_v"],
+                    priv=priv,
+                    color=color,
                     country_manufacturing=country_manufacturing,
                 )
 

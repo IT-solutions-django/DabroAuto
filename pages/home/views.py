@@ -60,38 +60,49 @@ class HomeView(FormView):
 
         context["clips"] = Clip.objects.all()
 
-        context["phone_number_main"] = ContactInformation.objects.get(
-            name="Основной номер телефона",
-        ).content
-        context["years_on_market"] = InformationAboutCompany.objects.get(
-            block="Лет на рынке",
-        ).content
-        context["count_satisfied_customers"] = InformationAboutCompany.objects.get(
-            block="Довольных клиентов",
-        ).content
-        context["average_review"] = InformationAboutCompany.objects.get(
-            block="Средний рейтинг",
-        ).content
-        context["about_us"] = InformationAboutCompany.objects.get(
-            block="О нас",
-        ).content
+        context["phone_number_main"] = ContactInformation.objects.get_or_create(
+            name="Основной номер телефона", defaults={"content": "8 (800) 500-49-46"}
+        )[0].content
+        context["years_on_market"] = InformationAboutCompany.objects.get_or_create(
+            block="Лет на рынке", defaults={"content": "5"}
+        )[0].content
+        context["count_satisfied_customers"] = (
+            InformationAboutCompany.objects.get_or_create(
+                block="Довольных клиентов", defaults={"content": "4 000"}
+            )[0].content
+        )
+        context["average_review"] = InformationAboutCompany.objects.get_or_create(
+            block="Средний рейтинг", defaults={"content": "5.0"}
+        )[0].content
+        context["about_us"] = InformationAboutCompany.objects.get_or_create(
+            block="О нас", defaults={"content": "текст о нас"}
+        )[0].content
 
-        context["tg_url"] = SocialMedia.objects.get(name="Телеграм-канал").url
-        context["vk_url"] = SocialMedia.objects.get(name="VK").url
-        context["inst_url"] = SocialMedia.objects.get(name="Instagram").url
+        context["tg_url"] = SocialMedia.objects.get_or_create(
+            name="Телеграм-канал", defaults={"url": "https://t.me/batareyka25rus"}
+        )[0].url
+        context["vk_url"] = SocialMedia.objects.get_or_create(
+            name="VK",
+            defaults={
+                "url": "https://vk.com/batareyka25rus?ysclid=m2cvbntabv851406401"
+            },
+        )[0].url
+        context["inst_url"] = SocialMedia.objects.get_or_create(
+            name="Instagram", defaults={"url": "https://t.me/batareyka25rus"}
+        )[0].url
 
-        context["phone_number"] = ContactInformation.objects.get(
-            name="Номер телефона",
-        ).content
-        context["whatsapp"] = ContactInformation.objects.get(
-            name="WhatsApp",
-        ).content
+        context["phone_number"] = ContactInformation.objects.get_or_create(
+            name="Номер телефона", defaults={"content": "8 800 550 48 32"}
+        )[0].content
+        context["whatsapp"] = ContactInformation.objects.get_or_create(
+            name="WhatsApp", defaults={"content": "+7 (924) 420-24-32"}
+        )[0].content
+        context["address"] = ContactInformation.objects.get_or_create(
+            name="Адрес", defaults={"content": "г. Владивосток, ул. Тополевая 6"}
+        )[0].content
         context["whatsapp_url"] = (
             f"https://wa.me/{''.join(i for i in context["whatsapp"] if i.isdigit())}"
         )
-        context["address"] = ContactInformation.objects.get(
-            name="Адрес",
-        ).content
 
         context["review_locations"] = ReviewLocation.objects.all()
         context["stages_of_work"] = list(StagesOfWork.objects.all())
