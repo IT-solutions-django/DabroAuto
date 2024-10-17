@@ -14,7 +14,7 @@ from apps.service_info.models import (
     StagesOfWork,
 )
 from pages.home.forms import QuestionnaireForm
-from tasks.tasks import send_email_task, telegram_send_mail_for_all_task
+from tasks.tasks import telegram_send_mail_for_all_task
 
 
 class HomeView(FormView):
@@ -29,12 +29,6 @@ class HomeView(FormView):
         Если форма валидна, вернем код 200
         """
         message = form.save()
-        send_email_task.delay(
-            "Обратная связь с сайта Правый руль",
-            f"Автор: {message.name}\n"
-            f"Номер телефона: {message.phone_number}\n"
-            f"Содержание: {message.content}",
-        )
         telegram_send_mail_for_all_task.delay(
             "Обратная связь с сайта Правый руль\n"
             f"Автор: {message.name}\n"

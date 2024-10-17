@@ -57,13 +57,3 @@ services:
        - redis
      volumes:
        - ./media:/usr/src/app/media
-
-  postfix:
-    image: catatnight/postfix
-    container_name: car_seller_postfix
-    environment:
-      - maildomain=${EMAIL_DOMAIN}
-      - smtp_user=${EMAIL_HOST_USER}:${EMAIL_HOST_PASSWORD}
-    ports:
-      - "25:25"
-    restart: always

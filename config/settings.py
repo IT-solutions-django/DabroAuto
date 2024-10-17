@@ -125,16 +125,6 @@ CLIPS_PATH = os.path.join(BASE_DIR, "media", "clips")
 
 PROXY_URL = os.getenv("PROXY_URL")
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "postfix"
-EMAIL_PORT = 25
-EMAIL_USE_TLS = False
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
-DEFAULT_FROM_EMAIL = "kirypleshkov123@yandex.ru"
-
-EMAIL_TO_GETTING_INFO = "kirypleshkov@mail.ru"
-
 CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
 CELERY_TIMEZONE = "Asia/Barnaul"
