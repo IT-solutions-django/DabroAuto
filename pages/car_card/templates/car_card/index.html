@@ -10,34 +10,29 @@
 {% block content %}
 <main>
 <section class="modal-gallery">
-  <div class="modal-gallery-main">
-    <div class="modal-gallery-slider"></div>
-    <div class="modal-gallery-info">
-      <div class="modal-gallery-info--section">
-        <h2 class="modal-gallery-title">{{ car.brand }} {{ car.model }}</h2>
-        <p class="modal-gallery-text">
-          {{car.year}}
-          {% if car.mileage %}
-           • {{car.mileage|beautify_number}} км
-          {% endif %}
-          </p>
-      </div>
-      <p class="modal-gallery-count--mobile">от {{car.price|beautify_number}} <span class="rub">₽</span></p>
-      <div class="modal-gallery-info--section">
-        <p class="modal-gallery-count">от {{car.price|beautify_number}} <span class="rub">₽</span></p>
-        <button class="modal-gallery-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Оставить заявку</button>
-        <a href="{{ whatsapp_url }}" target="_blank" class="modal-gallery-link">
-          <img src="{%static 'img/wthp_modal.svg' %}" alt="" class="modal-gallery-link--img">
-        </a>
-        <a href="{{ tg_url }}" target="_blank" class="modal-gallery-link">
-          <img src="{%static 'img/tg_modal.svg' %}" alt="" class="modal-gallery-link--img">
-        </a>
-      </div>
+    <div class="modal-gallery-main">
+        <div class="modal-gallery-slider"></div>
+        <div class="modal-gallery-info">
+            <div class="modal-gallery-info--section">
+                <h2 class="modal-gallery-title">{{ car.brand }} {{ car.model }}</h2>
+                <p class="modal-gallery-text">
+                    {{car.year}}
+                    {% if car.mileage %}
+                        • {{car.mileage|beautify_number}} км
+                    {% endif %}
+                </p>
+            </div>
+            <p class="modal-gallery-count--mobile">{{car.price|beautify_number}} <span class="rub">₽</span></p>
+            <div class="modal-gallery-info--section">
+                <p class="modal-gallery-count">{{car.price|beautify_number}} <span class="rub">₽</span></p>
+                <button class="modal-gallery-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Оставить заявку</button>
+                <a href="{{ whatsapp_url }}" target="_blank" class="modal-gallery-link">
+                    <img src="{%static 'img/w1.svg' %}" alt="" class="modal-gallery-link--img">
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="modal-thumbnail">
-
-  </div>
+    <div class="modal-thumbnail"></div>
 
     <button class="modal-gallery-btn--close"><img src="{% static 'img/close.svg' %}" alt=""></button>
     <button class="modal-gallery-btn--control modal-gallery-btn--prev"></button>

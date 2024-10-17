@@ -1,11 +1,53 @@
+.modal-gallery-info .modal-gallery-btn {
+    width: 149px;
+    height: 44px;
+    border-radius: 30px;
+    background: #D51117;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-gallery {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background: #011224CC;
+    backdrop-filter: blur(40px);
+}
+
+.modal-gallery-main {
+    height: calc(100vh - 200px);
+    width: 1000px;
+    margin-top: 100px;
+    margin-inline: auto;
+    z-index: 1001;
+}
+
+.modal-gallery-slider {
+    height: calc(100% - 100px);
+    margin: auto;
+    position: relative;
+}
+
+.modal-thumbnail {
+    margin-top: 20px;
+    justify-content: center;
+    display: flex;
+    gap: 8px;
+}
+
 .modal-gallery-btn--control {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     outline: none;
     background-color: #FFFFFF33;
-    position: absolute;
-    transition: 0.5s;
+    position: fixed;
 }
 
 .modal-gallery-btn--control:hover {
@@ -14,14 +56,14 @@
 
 .modal-gallery-btn--next {
     top: 50%;
-    transform: translateY(-50%);
     right: 50px;
+    transform: translate(0, -50%);
 }
 
 .modal-gallery-btn--prev {
     top: 50%;
-    transform: translateY(-50%);
     left: 50px;
+    transform: translate(0, -50%);
 }
 
 .modal-gallery-btn--next::before {
@@ -30,8 +72,8 @@
     background-repeat: no-repeat;
     background-position: center center;
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 54%;
+    top: 51%;
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
@@ -43,20 +85,39 @@
     background-repeat: no-repeat;
     background-position: center center;
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 46%;
+    top: 51%;
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
 }
 
-.modal-thumbnail {
+.modal-gallery-btn--close {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    outline: none;
+    background-color: #FFFFFF33;
+    position: fixed;
+    top: 50px;
+    right: 50px;
+}
+
+.modal-gallery-btn--close:hover {
+    background-color: #FFFFFF80;
+}
+
+.modal-gallery-btn--close::before {
+    content: " ";
+    background-image: url('/static/img/cross.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
-    bottom: 50px;
-    display: flex;
-    gap: 8px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
 }
 
 .modal-thumbnail>.modal-thumbnail-slide {
@@ -78,9 +139,11 @@
 
 .modal-gallery-link {
     padding: 10px;
-    border-radius: 12px;
-    background-color: #0000001A;
-    transition: 0.5s;
+}
+
+.modal-gallery-link img {
+    width: 45px;
+    height: 45px;
 }
 
 .modal-gallery-link:hover {
@@ -95,40 +158,17 @@
 
 .modal-gallery-count {
     color: #FFFFFF;
-    font-size: 18px;
-    font-weight: 500;
+    font-family: Bebas Neue;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 24px;
+
 }
 
 .modal-gallery-text {
     font-size: 14px;
     color: #FFFFFF80;
     font-weight: 400;
-}
-
-.modal-gallery {
-    display: none;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
-}
-
-.modal-gallery-main {
-    width: 850px;
-    height: 667px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1001;
-}
-
-.modal-gallery-slide:first-of-type {
-    /* display: block; */
 }
 
 .modal-gallery-slide {
@@ -140,43 +180,8 @@
     display: none;
 }
 
-.modal-gallery-slider {
-    width: 850px;
-    height: 100%;
-    position: relative;
-}
-
-.modal-gallery-btn--close {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    outline: none;
-    background-color: #FFFFFF33;
-    position: absolute;
-    top: 50px;
-    right: 50px;
-    transition: 0.5s;
-}
-
-.modal-gallery-btn--close:hover {
-    background-color: #FFFFFF80;
-}
-
-.modal-gallery-btn--close::before {
-    content: " ";
-    background-image: url('/static/img/cross.svg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-}
-
 .modal-gallery-info {
-    background-color: #D9DBFF33;
+    background: #081E36;
     width: 100%;
     margin-top: 16px;
     padding: 16px;
@@ -532,20 +537,12 @@ padding-top: 120px;
     display: none;
 }
 
-.modal-gallery-btn--close {
-    top: 25px;
-}
-
 .recomindation__swiper {
     overflow: hidden;
 }
 
 .modal-gallery-count--mobile {
     display: none;
-}
-
-.modal-gallery-info {
-    background-color: #53545B;
 }
 
 .card {
@@ -611,9 +608,6 @@ padding-top: 120px;
         height: 600px;
     }
 
-    .modal-gallery-btn--control {
-        display: none;
-    }
 }
 
 @media (max-width : 992px) {
@@ -629,12 +623,6 @@ padding-top: 120px;
         padding: 0 16px;
     }
 
-
-    .modal-gallery-btn--close {
-        top: 15px;
-        right: 25px;
-    }
-
     .modal-thumbnail {
         overflow-y: scroll;
     }
@@ -644,7 +632,6 @@ padding-top: 120px;
     }
 
     .modal-gallery-slide {
-        width: 100%;
         position: relative;
     }
 
@@ -674,7 +661,7 @@ padding-top: 120px;
     }
 
     .modal-gallery-slider {
-        height: 476px;
+        height: 306px;
     }
 
     .modal-gallery-main {
@@ -684,6 +671,7 @@ padding-top: 120px;
 }
 
 @media (max-width : 576px) {
+
     .main-slides>.gallery-slide {
         height: 350px;
     }
@@ -746,21 +734,30 @@ padding-top: 120px;
         height: max-content;
         top: auto;
         bottom: -145px;
+        margin-top: 20px;
     }
 
     .modal-gallery-count {
         display: none;
     }
 
+    .modal-gallery-info .modal-gallery-btn {
+        width: 100%;
+    }
+
     .modal-gallery-btn {
         margin-left: 0;
-        margin-top: 12px;
+        /*margin-top: 12px;*/
+    }
+
+    .modal-gallery-link {
+        /*margin-top: 12px;*/
     }
 
     .modal-gallery-count--mobile {
         display: block;
-        margin-top: 16px;
-        font-size: 16px;
+        font-size: 20px;
+        font-weight: 700;
         color: #fff;
     }
 
@@ -768,8 +765,24 @@ padding-top: 120px;
         width: 100%;
     }
 
+    .modal-gallery-btn--control {
+        top: 27%;
+        width: 40px;
+        height: 40px;
+    }
+
+    .modal-gallery-btn--prev {
+        left: 10px;
+    }
+
+    .modal-gallery-btn--next {
+        right: 10px;
+    }
+
     .modal-gallery-btn--close {
         background-color: #234546;
+        top: 10px;
+        right: 10px;
         width: 40px;
         height: 40px;
     }
@@ -786,6 +799,7 @@ padding-top: 120px;
     }
 
     .modal-gallery-main {
+        margin-top: 70px;
         bottom: -125px;
     }
 
@@ -798,6 +812,10 @@ padding-top: 120px;
     .modal-thumbnail-slide {
         width: 74px;
         height: 60px;
+    }
+
+    .modal-gallery-btn--control {
+        top: 33%;
     }
 }
 
@@ -826,22 +844,6 @@ padding-top: 120px;
     position: relative;
 }
 
-
-.modal-gallery-slider {
-    height: 480px;
-    width: 640px;
-}
-
-.modal-gallery-main {
-    height: auto;
-    width: 640px;
-    position: absolute;
-    left: 50%;
-    top: 45%;
-    transform: translate(-50%, -50%);
-    z-index: 1001;
-}
-
 .modal-thumbnail>.modal-thumbnail-slide {
     width: auto;
     height: 60px;
@@ -856,7 +858,7 @@ padding-top: 120px;
 
 .modal-thumbnail-slide--active {
     border: 2px solid transparent; /* Устанавливаем границу, но делаем её прозрачной */
-    border-image-source: linear-gradient(236.55deg, #0D2F68 18.06%, #D51117 96.56%); /* Синий цвет сверху слева, красный снизу справа */
+    border-image-source: linear-gradient(53.45deg, #D51117 18.06%, #0D2F68 96.56%); /* Красный цвет снизу справа, синий сверху слева */
     border-image-slice: 1; /* Указываем, как обрезать градиент */
     border-image-width: 2; /* Устанавливаем ширину границы */
     border-image-outset: 0; /* Устанавливаем вынос границы */
@@ -864,20 +866,3 @@ padding-top: 120px;
     border-radius: 10px; /* Добавляем закругление краев */
 }
 
-.modal-gallery-info {
-    background: #081E36;
-}
-
-.modal-gallery-info .modal-gallery-btn {
-    width: 149px;
-    height: 44px;
-    border-radius: 30px;
-    background: #D51117;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-gallery {
-    background: #011224fa;
-}
