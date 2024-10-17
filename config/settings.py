@@ -125,12 +125,13 @@ CLIPS_PATH = os.path.join(BASE_DIR, "media", "clips")
 
 PROXY_URL = os.getenv("PROXY_URL")
 
-EMAIL_HOST = os.getenv("EMAIL_HOST")
-EMAIL_PORT = os.getenv("EMAIL_PORT")
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "postfix"
+EMAIL_PORT = 25
 EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+DEFAULT_FROM_EMAIL = "kirypleshkov123@yandex.ru"
 
 EMAIL_TO_GETTING_INFO = "kirypleshkov@mail.ru"
 
