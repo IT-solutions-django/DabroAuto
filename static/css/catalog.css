@@ -114,12 +114,84 @@
   .form-buttons {
     padding-top: 0;
   }
+
+  #mark-dropdown {
+    order: 0;
+  }
+
+  #model-dropdown {
+    order: 1;
+  }
+
+  #year-dropdown {
+    order: 2;
+  }
+
+  #mileage-dropdown {
+    order: 3;
+  }
+
+  #eng_v-dropdown {
+    order: 4;
+  }
+
+  #kpp_type-dropdown {
+    order: 5;
+  }
+
+  #priv-dropdown {
+    order: 6;
+  }
+
+  .color-group-dropdown {
+    order: 7;
+  }
+
+  .form-buttons {
+    order: 8;
+  }
 }
 
 @media (min-width: 993px) and (max-width: 1075px) {
   .search-form {
     grid-template-columns: 1fr 1fr;
     visibility: visible;
+  }
+
+  #mark-dropdown {
+    order: 0;
+  }
+
+  #model-dropdown {
+    order: 1;
+  }
+
+  #year-dropdown {
+    order: 2;
+  }
+
+  #mileage-dropdown {
+    order: 3;
+  }
+
+  #eng_v-dropdown {
+    order: 4;
+  }
+
+  #kpp_type-dropdown {
+    order: 5;
+  }
+
+  #priv-dropdown {
+    order: 6;
+  }
+
+  .color-group-dropdown {
+    order: 7;
+  }
+
+  .form-buttons {
+    order: 8;
   }
 }
 
