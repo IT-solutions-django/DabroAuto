@@ -597,7 +597,8 @@ padding-top: 120px;
 
     .thumbnail-slides {
         display: flex;
-        overflow-y: scroll;
+        overflow-x: auto;
+        overflow-y: hidden;
         gap: 8px;
     }
 
@@ -863,3 +864,6 @@ padding-top: 120px;
     border-radius: 10px; /* Добавляем закругление краев */
 }
 
+.car-info .card-box {
+  width: 640px;
+}
