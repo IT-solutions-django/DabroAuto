@@ -3,8 +3,8 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/card.css' %}">
     <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+    <link rel="stylesheet" href="{% static 'css/card.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -47,95 +47,93 @@
         <div class="content">
             <div class="car-info">
                 <div class="title">{{ car.mark }} {{ car.model }} {{ car.grade }}</div>
-                <div class="price">{{ car.price|beautify_number }} <span class="rub">₽</span></div>
-
-                <div class="info_questionary">
-                    <div class="btns_stage">
-                        <div class="btns_a">
-                            <a href="#">Оставить заявку</a>
+                <div class="text">
+                    <div class="price">{{ car.price|beautify_number }} <span class="rub">₽</span></div>
+                    <div class="info_questionary">
+                        <div class="btns_stage">
+                            <div class="btns_a">
+                                <a href="#">Оставить заявку</a>
+                            </div>
+                            <a href="{{ whatsapp_url }}" target="_blank"><img src="{% static 'img/w1.svg' %}" alt=""></a>
                         </div>
-                        <a href="{{ whatsapp_url }}" target="_blank"><img src="{% static 'img/w1.svg' %}" alt=""></a>
+                        <div class="economy">Экономия до 30% от рынка авто в наличии <img src="{% static 'img/info.svg' %}" alt=""></div>
                     </div>
-                    <div class="economy">Экономия до 30% от рынка авто в наличии <img src="{% static 'img/info.svg' %}" alt=""></div>
+
+                    <table class="info_table">
+                        <tbody>
+                            <tr>
+                                <td>Год выпуска:</td>
+                                <td><span>{{ car.year }} г.</span></td>
+                            </tr>
+                            {% if car.kuzov %}
+                                <tr>
+                                    <td>Кузов:</td>
+                                    <td><span>{{ car.kuzov }}</span></td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td>Страна:</td>
+                                <td><span>{{ country }}</span></td>
+                            </tr>
+                            <tr>
+                                <td>КПП:</td>
+                                <td><span>{{ car.kpp }}</span></td>
+                            </tr>
+                            <tr>
+                                <td>Объем двигателя:</td>
+                                <td><span>{{ car.eng_v }} л.</span></td>
+                            </tr>
+                            <tr>
+                                <td>Привод:</td>
+                                <td><span>{{ car.priv }}</span></td>
+                            </tr>
+                            {% if car.color %}
+                                <tr>
+                                    <td>Цвет:</td>
+                                    <td><span>{{ car.color }}</span></td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td>Пробег:</td>
+                                <td><span>{{ car.mileage|beautify_number }} км</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <div class="card-box">
+                    <div class="card__main">
+                         <div class="gallery">
+                             <div class="main-slides">
+                                 {% for photo in car.images %}
+                                 <img
+                                     src="{{photo}}"
+                                     alt="{{ car.brand }} {{ car.model }}"
+                                     class="gallery-slide slide-{{ forloop.counter0 }} gallery__Image"
+                                     data-large="{{photo}}"
+                                     style="cursor: pointer;"
+                                 />
+                                 {% endfor %}
+                                 <p class="slides-counter">
+                                     <span class="curr-slide-count">0</span> /
+                                     <span class="all-slides-count">8</span>
+                                 </p>
 
-                <table class="info_table">
-                    <tbody>
-                        <tr>
-                            <td>Год выпуска:</td>
-                            <td><span>{{ car.year }} г.</span></td>
-                        </tr>
-                        {% if car.kuzov %}
-                            <tr>
-                                <td>Кузов:</td>
-                                <td><span>{{ car.kuzov }}</span></td>
-                            </tr>
-                        {% endif %}
-                        <tr>
-                            <td>Страна:</td>
-                            <td><span>{{ country }}</span></td>
-                        </tr>
-                        <tr>
-                            <td>КПП:</td>
-                            <td><span>{{ car.kpp }}</span></td>
-                        </tr>
-                        <tr>
-                            <td>Объем двигателя:</td>
-                            <td><span>{{ car.eng_v }} л.</span></td>
-                        </tr>
-                        <tr>
-                            <td>Привод:</td>
-                            <td><span>{{ car.priv }}</span></td>
-                        </tr>
-                        {% if car.color %}
-                            <tr>
-                                <td>Цвет:</td>
-                                <td><span>{{ car.color }}</span></td>
-                            </tr>
-                        {% endif %}
-                        <tr>
-                            <td>Пробег:</td>
-                            <td><span>{{ car.mileage|beautify_number }} км</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+                                 <div class="previous-slide-button slider-controller-button">
+                                     <img class="slider-controller-button--img" src="{%static 'img/arrow-left.svg' %}" alt="" srcset="">
+                                     <img class="slider-controller-button--back" src="{%static 'img/Ellipse 57.png' %}" alt="" srcset="">
 
-
-            </div>
-            <div class="card-box">
-                <div class="card__main">
-                     <div class="gallery">
-                         <div class="main-slides">
-                             {% for photo in car.images %}
-                             <img
-                                 src="{{photo}}"
-                                 alt="{{ car.brand }} {{ car.model }}"
-                                 class="gallery-slide slide-{{ forloop.counter0 }} gallery__Image"
-                                 data-large="{{photo}}"
-                                 style="cursor: pointer;"
-                             />
-                             {% endfor %}
-                             <p class="slides-counter">
-                                 <span class="curr-slide-count">0</span> /
-                                 <span class="all-slides-count">8</span>
-                             </p>
-
-                             <div class="previous-slide-button slider-controller-button">
-                                 <img class="slider-controller-button--img" src="{%static 'img/arrow-left.svg' %}" alt="" srcset="">
-                                 <img class="slider-controller-button--back" src="{%static 'img/Ellipse 57.png' %}" alt="" srcset="">
-
-                             </div>
-                             <div class="next-slide-button slider-controller-button">
-                                 <img class="slider-controller-button--img" src="{%static 'img/arrow-right.svg' %}" alt="" srcset="">
-                                 <img class="slider-controller-button--back" src="{%static 'img/Ellipse 56.png' %}" alt="" srcset="">
+                                 </div>
+                                 <div class="next-slide-button slider-controller-button">
+                                     <img class="slider-controller-button--img" src="{%static 'img/arrow-right.svg' %}" alt="" srcset="">
+                                     <img class="slider-controller-button--back" src="{%static 'img/Ellipse 56.png' %}" alt="" srcset="">
+                                 </div>
                              </div>
                          </div>
-                     </div>
-                    <div class="thumbnail-slides"></div>
+                        <div class="thumbnail-slides"></div>
+                    </div>
                 </div>
+            </div>
         </div>
-        </div>
-
         {% with form=questionnaire_form %}
             {% include 'home/questionnaire_form.html' %}
         {% endwith %}
