@@ -165,3 +165,24 @@ if (telInputs.length > 0) {
         });
     });
 }
+
+var swiper_test = new Swiper(".cars-test .mySwiperl", {
+    slidesPerView: 'auto',
+    spaceBetween: 16,
+    centeredSlides: true,
+    pagination: {
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".cars-test .swiper_next",
+      prevEl: ".cars-test .swiper_prev",
+    },
+    breakpoints: {
+      0: {
+        spaceBetween: 12,
+      },
+      768: {
+        spaceBetween: 16,
+      }
+    },
+});
