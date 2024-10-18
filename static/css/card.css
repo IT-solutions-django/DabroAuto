@@ -13,7 +13,7 @@
 .car-info {
   display: grid;
   grid-template-columns: auto max-content;
-  grid-template-rows: 58px auto;
+  grid-template-rows: max-content auto;
   grid-template-areas:
       "item1 item3"
       "item2 item3";
@@ -187,10 +187,6 @@
     margin-top: 40px;
   }
 }
-
-
-
-
 
 .info_table td {
   font-family: Inter;
