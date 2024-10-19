@@ -19,6 +19,7 @@ from apps.catalog.models import (
 import datetime
 
 from business.calculate_car_price import get_config, calc_price
+from config import settings
 
 
 @dataclass
@@ -50,13 +51,14 @@ ORDERING = {
 
 
 def update_catalog_meta():
+    user_ip = settings.SERVER_IP
     tables = ("stats", "main", "china")
     for table in tables:
         base_filters = get_base_filters(table)
-        upload_and_save_marks_and_models(table, base_filters.values())
+        upload_and_save_marks_and_models(table, base_filters.values(), user_ip)
 
 
-def get_car_by_id(country_manufacturing: str, car_id: str):
+def get_car_by_id(country_manufacturing: str, car_id: str, user_ip: str):
     try:
         car = Car.objects.get(
             id=car_id, country_manufacturing__name=country_manufacturing
@@ -89,7 +91,7 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
         [f"id+=+'{car_id}'"],
         "0,1",
     )
-    data = fetch_by_query(query)
+    data = fetch_by_query(query, user_ip)
 
     try:
         car = data[0]
@@ -154,7 +156,9 @@ def get_popular_cars(country_manufacturing: str, count_cars: int):
     return cars[:count_cars]
 
 
-def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int):
+def get_cars_info(
+    table_name: str, filters: dict, page: str, cars_per_page: int, user_ip: str
+):
     base_filters = get_base_filters(table_name)
     ordering = get_ordering(filters)
     filters = connect_filters(filters, base_filters)
@@ -167,7 +171,7 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
         ordering,
     )
     print(query)
-    data = fetch_by_query(query)
+    data = fetch_by_query(query, user_ip)
 
     config = get_config()
     curr = {
@@ -197,7 +201,7 @@ def get_cars_info(table_name: str, filters: dict, page: str, cars_per_page: int)
         for car in data
     ]
 
-    cars_count = get_cars_count(table_name, filters)
+    cars_count = get_cars_count(table_name, filters, user_ip)
     pages_count = (int(cars_count) - 1) // cars_per_page + 1
 
     return clear_data, pages_count
@@ -209,14 +213,14 @@ def get_ordering(filters: dict):
     return ORDERING.get(ordering, ORDERING["new"])
 
 
-def get_cars_count(table_name: str, filters: list[str]):
+def get_cars_count(table_name: str, filters: list[str], user_ip: str):
     query = get_sql_query(
         "count(*)",
         table_name,
         filters,
         "0,1",
     )
-    data = fetch_by_query(query)
+    data = fetch_by_query(query, user_ip)
     return data[0]["TAG0"]
 
 
@@ -300,35 +304,39 @@ def get_color_data_or_none(id: str | None):
 
 
 @transaction.atomic
-def upload_and_save_marks_and_models(table_name: str, base_filters: Iterable[str]):
+def upload_and_save_marks_and_models(
+    table_name: str, base_filters: Iterable[str], user_ip: str
+):
     country_manufacturing = Country.objects.get(table_name=table_name)
     CarMark.objects.filter(country_manufacturing=country_manufacturing).delete()
     CarModel.objects.filter(mark__country_manufacturing=country_manufacturing).delete()
 
     fields = "DISTINCT+MODEL_NAME,+MARKA_NAME"
 
-    for line in full_data_fetch(fields, table_name, base_filters):
+    for line in full_data_fetch(fields, table_name, base_filters, user_ip):
         car_mark, _ = CarMark.objects.get_or_create(
             name=line["MARKA_NAME"], country_manufacturing=country_manufacturing
         )
         CarModel.objects.create(name=line["MODEL_NAME"], mark=car_mark)
 
 
-def full_data_fetch(fields: str, table_name: str, base_filters: Iterable[str]):
+def full_data_fetch(
+    fields: str, table_name: str, base_filters: Iterable[str], user_ip: str
+):
     offset = 0
     query = get_sql_query(fields, table_name, base_filters, f"{offset},250")
-    data = fetch_by_query(query)
+    data = fetch_by_query(query, user_ip)
 
     while len(data) > 0:
         yield from data
 
         offset += 250
         query = get_sql_query(fields, table_name, base_filters, f"{offset},250")
-        data = fetch_by_query(query)
+        data = fetch_by_query(query, user_ip)
 
 
-def fetch_by_query(sql_query: str):
-    url = f"http://78.46.90.228/api/?ip=45.84.177.55&code=A25nhGfE56Kd&sql={sql_query}"
+def fetch_by_query(sql_query: str, user_ip: str):
+    url = f"http://78.46.90.228/api/?ip={user_ip}&code=A25nhGfE56Kd&sql={sql_query}"
     res = requests.get(url)
     soup = BeautifulSoup(res.content.decode("utf-8"), "xml")
     return [

@@ -5,6 +5,7 @@ from django.views.generic import FormView, TemplateView
 from apps.service_info.models import SocialMedia, ContactInformation
 from business.catalog_parser import get_car_by_id
 from pages.home.forms import QuestionnaireForm
+from utils.get_user_ip import get_user_ip
 
 
 class CarCardView(TemplateView):
@@ -18,10 +19,12 @@ class CarCardView(TemplateView):
         context = super().get_context_data(*args, **kwargs)
         car_id = kwargs["id"]
 
+        user_ip = get_user_ip(self.request)
+
         context["title"] = "Карточка Автомобиля"
         context["name"] = self.title
 
-        context["car"] = get_car_by_id(self.country, car_id)
+        context["car"] = get_car_by_id(self.country, car_id, user_ip)
         context["country"] = self.country
 
         context["questionnaire_form"] = QuestionnaireForm

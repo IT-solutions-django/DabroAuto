@@ -10,6 +10,7 @@ from apps.service_info.models import ContactInformation, SocialMedia
 from business.catalog_parser import get_cars_info, get_popular_cars
 from pages.catalog_page.forms import CarSearchForm
 from pages.home.forms import QuestionnaireForm
+from utils.get_user_ip import get_user_ip
 from utils.pagination import get_page_range
 
 CARS_PER_PAGE = 12
@@ -33,11 +34,14 @@ class CatalogView(FormView):
         """
         Если форма валидна, вернем код 200
         """
+        user_ip = get_user_ip(self.request)
+
         cars_info, pages_count = get_cars_info(
             self.table_name,
             form.data,
             "1",
             self.cars_per_page,
+            user_ip,
         )
         cars = [asdict(car) for car in cars_info]
         page_range = get_page_range(1, pages_count)
@@ -55,11 +59,14 @@ class CatalogView(FormView):
         context["title"] = "Каталог"
         context["name"] = self.name
 
+        user_ip = get_user_ip(self.request)
+
         cars_info, pages_count = get_cars_info(
             self.table_name,
             self.request.GET,
             self.request.GET.get("page", "1"),
             self.cars_per_page,
+            user_ip,
         )
 
         context["popular_cars"] = get_popular_cars(
