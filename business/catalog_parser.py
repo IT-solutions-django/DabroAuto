@@ -76,7 +76,7 @@ def get_car_by_id(country_manufacturing: str, car_id: str):
             images=["/media/" + im.image.name for im in car.image.all()],
             kuzov=car.kuzov,
             kpp=car.kpp,
-            eng_v=car.eng_v,
+            eng_v=str(car.eng_v).replace(",", "."),
             priv=car.priv,
             color=car.color,
         )

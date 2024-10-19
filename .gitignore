@@ -1,4 +1,4 @@
 .env
 .idea
 media
-config/settings_integration.json
+staticfiles

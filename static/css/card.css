@@ -6,17 +6,35 @@
 }
 
 .content {
-  display: grid;
-  grid-template-columns: 0.5fr 0.5fr;
   padding-top: 40px;
   padding-bottom: 120px;
 }
 
 .car-info {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: auto max-content;
+  grid-template-rows: max-content auto;
+  grid-template-areas:
+      "item1 item3"
+      "item2 item3";
 }
+
+@media (max-width : 1110px) {
+  .car-info {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "item1"
+        "item3"
+        "item2";
+  }
+
+  .car-info .title {
+    padding-bottom: 16px;
+  }
+}
+
+
 
 .car-info .title {
   font-family: Bebas-Neue, Arial, sans-serif;
@@ -24,6 +42,15 @@
   font-weight: 700;
   line-height: 40px;
   color: #FFFFFF;
+  grid-area: item1;
+}
+
+.car-info .text {
+  grid-area: item2;
+}
+
+.car-info .card-box {
+  grid-area: item3;
 }
 
 .car-info .price {
@@ -41,6 +68,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-top: 24px;
 }
 
 .btns_stage .btns_a a {
@@ -50,9 +78,10 @@
   line-height: 21.78px;
 
   color: #fff;
-  padding: 24px 40px;
-  text-align: center;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
   width: 300px;
 
   background: linear-gradient(94.98deg, #0D2F68 0%, #D51117 100%);
@@ -80,7 +109,83 @@
 .info_table {
   width: 500px;
   border-collapse: collapse;
-  padding-top: 8px;
+  margin-top: 24px;
+}
+
+@media (max-width : 450px) {
+  .info_table {
+    width: 350px;
+  }
+}
+
+@media (max-width : 640px) {
+  .main-slides>.gallery-slide {
+    width: 500px;
+    height: auto;
+  }
+
+  .car-info .card-box {
+    width: 500px;
+    height: auto;
+  }
+
+  .car-info .text {
+    margin-top: 40px;
+  }
+
+  .car-info .title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+}
+
+@media (max-width : 500px) {
+  .main-slides>.gallery-slide {
+    width: 450px;
+    height: auto;
+  }
+
+  .car-info .card-box {
+    width: 450px;
+    height: auto;
+  }
+
+  .car-info .text {
+    margin-top: 40px;
+  }
+
+  .car-info .price {
+    font-family: Bebas Neue;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  .btns_stage .btns_a a {
+    height: 43px;
+  }
+
+  .btns_stage img  {
+    height: 43px;
+    width: 43px;
+  }
+}
+
+@media (max-width : 450px) {
+  .main-slides>.gallery-slide {
+    width: 400px;
+    height: auto;
+  }
+
+  .car-info .card-box {
+    width: 400px;
+    height: auto;
+  }
+
+  .car-info .text {
+    margin-top: 40px;
+  }
 }
 
 .info_table td {
@@ -97,4 +202,8 @@
   display: block;
   min-height: 19.35px;
   color: #FFFFFF;
+}
+
+.rub {
+  font-size: 85%;
 }

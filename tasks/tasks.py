@@ -1,8 +1,8 @@
 from celery import shared_task
 
+from business.catalog_parser import update_catalog_meta
 from business.download_clips import download_clips
 from business.parse_currency_rate import update_currency_rate
-from business.sending_mail import send_email
 from business.update_clip import update_clip
 from business.update_review import update_review
 from business.telegram_integration import get_new_chat_ids, telegram_send_mail_for_all
@@ -24,11 +24,6 @@ def update_clips_task():
 
 
 @shared_task
-def send_email_task(title: str, message: str):
-    send_email(title, message)
-
-
-@shared_task
 def update_currency_rate_task():
     update_currency_rate()
 
@@ -41,3 +36,8 @@ def telegram_chats_update_task():
 @shared_task
 def telegram_send_mail_for_all_task(text: str):
     telegram_send_mail_for_all(text)
+
+
+@shared_task
+def update_catalog_meta_task():
+    update_catalog_meta()

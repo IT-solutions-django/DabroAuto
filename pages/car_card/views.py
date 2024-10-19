@@ -26,25 +26,34 @@ class CarCardView(TemplateView):
 
         context["questionnaire_form"] = QuestionnaireForm
 
-        context["phone_number_main"] = ContactInformation.objects.get(
-            name="Основной номер телефона",
-        ).content
+        context["phone_number_main"] = ContactInformation.objects.get_or_create(
+            name="Основной номер телефона", defaults={"content": "8 (800) 500-49-46"}
+        )[0].content
 
-        context["tg_url"] = SocialMedia.objects.get(name="Телеграм-канал").url
-        context["vk_url"] = SocialMedia.objects.get(name="VK").url
-        context["inst_url"] = SocialMedia.objects.get(name="Instagram").url
+        context["tg_url"] = SocialMedia.objects.get_or_create(
+            name="Телеграм-канал", defaults={"url": "https://t.me/batareyka25rus"}
+        )[0].url
+        context["vk_url"] = SocialMedia.objects.get_or_create(
+            name="VK",
+            defaults={
+                "url": "https://vk.com/batareyka25rus?ysclid=m2cvbntabv851406401"
+            },
+        )[0].url
+        context["inst_url"] = SocialMedia.objects.get_or_create(
+            name="Instagram", defaults={"url": "https://t.me/batareyka25rus"}
+        )[0].url
 
-        context["phone_number"] = ContactInformation.objects.get(
-            name="Номер телефона",
-        ).content
-        context["whatsapp"] = ContactInformation.objects.get(
-            name="WhatsApp",
-        ).content
+        context["phone_number"] = ContactInformation.objects.get_or_create(
+            name="Номер телефона", defaults={"content": "8 800 550 48 32"}
+        )[0].content
+        context["whatsapp"] = ContactInformation.objects.get_or_create(
+            name="WhatsApp", defaults={"content": "+7 (924) 420-24-32"}
+        )[0].content
+        context["address"] = ContactInformation.objects.get_or_create(
+            name="Адрес", defaults={"content": "г. Владивосток, ул. Тополевая 6"}
+        )[0].content
         context["whatsapp_url"] = (
             f"https://wa.me/{''.join(i for i in context["whatsapp"] if i.isdigit())}"
         )
-        context["address"] = ContactInformation.objects.get(
-            name="Адрес",
-        ).content
 
         return context

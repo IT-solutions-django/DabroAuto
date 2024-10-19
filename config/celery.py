@@ -33,4 +33,8 @@ app.conf.beat_schedule = {
         "task": "tasks.tasks.telegram_chats_update_task",
         "schedule": timedelta(hours=2),
     },
+    "update_catalog_meta": {
+        "task": "tasks.tasks.update_catalog_meta_task",
+        "schedule": timedelta(hours=2),
+    },
 }

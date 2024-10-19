@@ -2692,4 +2692,8 @@ body:has(.modal_.show) .modal_back {
   /* Hover effekti */
 }
 
+#contactForm button:disabled {
+  cursor: not-allowed;
+}
+
 /*# sourceMappingURL=index.css.map */

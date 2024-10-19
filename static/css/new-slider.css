@@ -1,0 +1,75 @@
+@media only screen and (max-width: 1200px) {
+    .cars-test .popular_cars_block .right_sliders {
+        width: 100%;
+    }
+}
+
+.cars-test .popular_cars_block .right_sliders {
+    width: 100%;
+}
+
+.cars-test .popular_cars_block .right_sliders .title {
+    margin-top: 10px;
+    position: absolute;
+    right: 20px;
+    width: 43%;
+    z-index: 20;
+}
+
+.cars-test .popular_cars_block .right_sliders .swiper-slide-active {
+    width: 640px;
+    height: 443px;
+}
+
+.cars-test .popular_cars_block .right_sliders .swiper-slide-active a {
+    min-width: 640px;
+    height: 443px;
+}
+
+.cars-test .popular_cars_block .right_sliders .swiper-slide-active .items2 .img_items img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 443px;
+    object-fit: cover;
+    border-radius: 28px;
+    width: 100%;
+}
+
+.cars-test .popular_cars_block .right_sliders .swiper-slide-active .items2 .top_items {
+    margin-top: 15px;
+    margin-left: 15px;
+    position: absolute;
+    z-index: 10;
+}
+
+.cars-test .popular_cars_block .right_sliders .swiper-slide-active .items2 .top_items h3 {
+    font-size: 26px;
+}
+
+.cars-test .popular_cars_block .right_sliders .swiper-slide-active .items2 .top_items p {
+    font-size: 16px;
+}
+
+.cars-test .popular_cars_block .right_sliders .swiper-slide-active .items2 .bottoms_als {
+    position: absolute;
+    z-index: 10;
+    bottom: 15px;
+    margin-left: 15px;
+    width: 92%;
+}
+
+.cars-test .popular_cars_block .right_sliders .swiper-slide-active .items2 .bottoms_als h4 {
+    font-size: 28px;
+}
+
+
+.cars-test .swiper-wrapper {
+    margin-left: -200px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.cars-test .popular_cars_block .right_sliders .swiper-slide:first-child.swiper-slide-active {
+    margin-left: -100px;
+}

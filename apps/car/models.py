@@ -142,6 +142,10 @@ class Car(models.Model):
     def beautiful_mileage(self):
         return "{0:,}".format(self.mileage).replace(",", " ")
 
+    @property
+    def beautiful_eng_v(self):
+        return str(self.eng_v).replace(",", ".")
+
     def __str__(self):
         return f"{self.brand} {self.model} {self.specification}"
 
