@@ -166,6 +166,13 @@ if (telInputs.length > 0) {
     });
 }
 
+var swiper_main_card = new Swiper(".mySwiper-main-card", {
+    pagination: {
+      el: ".swiper-pagination-main-card",
+      clickable: true,
+    },
+  });
+
 var swiper_test = new Swiper(".cars-test .mySwiperl", {
     slidesPerView: 'auto',
     spaceBetween: 16,
@@ -185,4 +192,16 @@ var swiper_test = new Swiper(".cars-test .mySwiperl", {
         spaceBetween: 16,
       }
     },
+    on: {
+        slideChange: function () {
+            swiper_main_card.forEach(e => e.slideTo(0))
+            const currentIndex = swiper_test.activeIndex
+            swiper_main_card[currentIndex].slides.slice(1).forEach(e => {
+                e.style.visibility = 'hidden'
+                setTimeout(() => {
+                    e.style.visibility = 'visible'
+                }, 800);
+            })
+        },
+      }
 });
