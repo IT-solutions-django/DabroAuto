@@ -172,6 +172,7 @@ var swiper_main_card = new Swiper(".mySwiper-main-card", {
       clickable: true,
     },
     simulateTouch: false,
+    allowTouchMove: false,
   });
 
 var swiper_test = new Swiper(".cars-test .mySwiperl", {
