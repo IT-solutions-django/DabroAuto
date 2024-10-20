@@ -4,7 +4,6 @@ from django.conf import settings
 from django.db import transaction
 
 from apps.clip.models import Clip, ClipPlatform
-from business.settings_integration_client import get_settings_integration_config
 from business.youtube_integration import YouTubeClipParser
 
 

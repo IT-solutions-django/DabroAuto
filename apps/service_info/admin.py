@@ -5,7 +5,6 @@ from apps.service_info.models import (
     StagesOfWork,
     ContactInformation,
     InformationAboutCompany,
-    Settings,
     Questionnaire,
 )
 
@@ -38,11 +37,6 @@ class InformationAboutCompanyAdmin(admin.ModelAdmin):
 
     search_fields = ("block",)
     fields = ("block", "content")
-
-
-@admin.register(Settings)
-class SettingsAdmin(admin.ModelAdmin):
-    search_fields = ("name",)
 
 
 @admin.register(Questionnaire)

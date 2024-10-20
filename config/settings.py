@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     "apps.telegram_sender",
     # Pages
     "pages.home",
-    "pages.admin_settings_integration",
     "pages.catalog_page",
     "pages.car_card",
     # Prom Apps
@@ -116,10 +115,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 API_KEY_2GIS = os.getenv("API_KEY_2GIS")
-
-SETTINGS_INTEGRATION_PATH = os.path.join(
-    BASE_DIR, "config", "settings_integration.json"
-)
 
 CLIPS_PATH = os.path.join(BASE_DIR, "media", "clips")
 

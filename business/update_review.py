@@ -10,7 +10,6 @@ from business.review_parser_2gis import (
     get_2gis_organization_reviews_info,
     UpdateReviewError,
 )
-from business.settings_integration_client import get_settings_integration_config
 
 
 @transaction.atomic
