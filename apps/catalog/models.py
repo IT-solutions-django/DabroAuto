@@ -117,6 +117,7 @@ class CarMark(CountryRelatedMixin):
         verbose_name = "марка автомобиля"
         verbose_name_plural = "марки автомобиля"
         unique_together = ("name", "country_manufacturing")
+        ordering = ("name",)
 
 
 class CarModel(models.Model):
@@ -138,6 +139,7 @@ class CarModel(models.Model):
         verbose_name = "модель автомобиля"
         verbose_name_plural = "модели автомобиля"
         unique_together = ("name", "mark")
+        ordering = ("name",)
 
 
 class CarColor(CountryRelatedMixin):
@@ -154,6 +156,7 @@ class CarColor(CountryRelatedMixin):
         verbose_name = "цвет автомобиля"
         verbose_name_plural = "цвета автомобиля"
         unique_together = ("name", "country_manufacturing")
+        ordering = ("name",)
 
 
 class CarColorTag(models.Model):
