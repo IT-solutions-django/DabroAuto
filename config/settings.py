@@ -95,6 +95,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": os.getenv("CACHE_LOCATION_URL"),
+    }
+}
+
 LANGUAGE_CODE = "ru"
 
 TIME_ZONE = "Asia/Barnaul"
@@ -127,3 +134,5 @@ CELERY_TIMEZONE = "Asia/Barnaul"
 TELEGRAM_BOT_API_KEY = os.getenv("TELEGRAM_BOT_API_KEY")
 
 SERVER_IP = "185.84.162.166"
+
+CACHE_TIMEOUT = 60 * 30
