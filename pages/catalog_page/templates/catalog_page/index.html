@@ -291,9 +291,9 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div id="carContainer" class="catalog-content">
+            <div id="carContainer" class="catalog-content row row-cols-auto">
                 {% for car in cars_info %}
-                    <div class="swiper-slide">
+                    <div class="swiper-slide col">
                         <a href="{{ request.path }}{{ car.id }}" class="items2">
                             <div class="top_items">
                                 <h3>{{ car.mark }} {{ car.model }}</h3>

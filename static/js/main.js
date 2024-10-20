@@ -208,7 +208,7 @@ var swiper_test = new Swiper(".cars-test .mySwiperl", {
       }
 });
 
-if (swiper_main_card) {
+if (swiper_main_card && swiper_main_card[0]) {
     swiper_main_card[0].slides.slice(1).forEach(e => {
         e.style.visibility = 'hidden'
         setTimeout(() => {
