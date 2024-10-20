@@ -7,6 +7,10 @@ from utils.model_mixins import NameMixin, URLMixin
 class ReviewLocation(NameMixin, URLMixin):
     """Модель описывающая площадку на которой расположен отзыв оставленный автосалону"""
 
+    count_upload = models.PositiveIntegerField(
+        verbose_name="количество для скачивания", default=0, help_text="больше нуля"
+    )
+
     class Meta:
         verbose_name = "площадка с отзывом"
         verbose_name_plural = "площадки с отзывом"
