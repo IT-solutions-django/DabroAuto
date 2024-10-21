@@ -291,9 +291,9 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div id="carContainer" class="catalog-content">
+            <div id="carContainer" class="catalog-content row row-cols-auto">
                 {% for car in cars_info %}
-                    <div class="swiper-slide">
+                    <div class="swiper-slide col">
                         <a href="{{ request.path }}{{ car.id }}" class="items2">
                             <div class="top_items">
                                 <h3>{{ car.mark }} {{ car.model }}</h3>
@@ -340,45 +340,57 @@
     {% endwith %}
     {% include 'home/social_media.html' %}
 
-    <div class="popular_cars cars-test">
-        <div class="popular_cars_block">
-            <div class="right_sliders">
-                <div class="title">
-                    <h2><span>Популярные</span> авто <img src="/static/img/{{ logo }}" alt=""></h2>
-                    <div class="swiper_buttons">
-                        <div class="swiper_prev">
-                            <img src="{% static 'img/prev.svg' %}" alt="">
-                        </div>
-                        <div class="swiper_next">
-                            <img src="{% static 'img/prev.svg' %}" alt="">
+    <section>
+        <div class="popular_cars cars-test">
+            <div class="popular_cars_block">
+                <div class="right_sliders">
+                    <div class="title">
+                        <h2><span>Популярные</span> авто <img src="/static/img/{{ logo }}" alt=""></h2>
+                        <div class="swiper_buttons">
+                            <div class="swiper_prev">
+                                <img src="{% static 'img/prev.svg' %}" alt="">
+                            </div>
+                            <div class="swiper_next">
+                                <img src="{% static 'img/prev.svg' %}" alt="">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="swiper mySwiperl">
-                    <div class="swiper-wrapper">
-                        {% for car in popular_cars %}
-                            <div class="swiper-slide">
-                                <a href="{{ request.path }}{{ car.id }}" class="items2">
-                                    <div class="top_items">
-                                        <h3>{{ car.brand }} {{ car.model }}</h3>
-                                        <p>{{ car.year_manufactured }} • {{ car.beautiful_mileage }} км • {{ car.beautiful_eng_v }} л.</p>
+                    <div class="swiper mySwiperl">
+                        <div class="swiper-wrapper">
+                            {% for car in popular_cars %}
+                                <div class="swiper-slide">
+                                    <div class="swiper mySwiper-main-card">
+                                        <div class="swiper-wrapper">
+                                            {% for main_car_image in car.image.all %}
+                                                <div class="swiper-slide">
+                                                     <a href="{{ request.path }}{{ car.id }}" class="items2">
+                                                        <div class="top_items">
+                                                            <h3>{{ car.brand }} {{ car.model }}</h3>
+                                                            <p>{{ car.year_manufactured }} • {{ car.beautiful_mileage }} км • {{ car.beautiful_eng_v }} л.</p>
+                                                        </div>
+                                                        <div class="img_items">
+                                                            <img class="main_card_img" src="{{ main_car_image.image.url }}" alt="">
+                                                        </div>
+                                                        <div class="bottoms_als">
+                                                            <h4>{{ car.beautiful_price }} <span class="rub">₽</span></h4>
+                                                            <div class="red_btn">Оставить заявку</div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="swiper-pagination-main-card"></div>
                                     </div>
-                                    <div class="img_items">
-                                        <img class="main_card_img" src="{{ car.image.all.first.image.url }}" alt="">
-                                    </div>
-                                    <div class="bottoms_als">
-                                        <h4>{{ car.beautiful_price }} <span class="rub">₽</span></h4>
-                                        <div class="red_btn">Оставить заявку</div>
-                                    </div>
-                                </a>
-                            </div>
-                        {% endfor %}
 
+                                </div>
+                            {% endfor %}
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     </main>
 {% endblock %}
@@ -389,3 +401,4 @@
     <script src="{% static 'js/catalog.js' %}"></script>
 
 {% endblock %}
+

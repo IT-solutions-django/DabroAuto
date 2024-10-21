@@ -10,7 +10,6 @@ from business.review_parser_2gis import (
     get_2gis_organization_reviews_info,
     UpdateReviewError,
 )
-from business.settings_integration_client import get_settings_integration_config
 
 
 @transaction.atomic
@@ -18,17 +17,12 @@ def update_review() -> None:
     """
     Обновление отзывов. Парсинг из 2gis и загрузка в базу.
     """
-    settings_integration_config = get_settings_integration_config()
-
-    review_location_name = settings_integration_config.get("reviews_service_name", None)
-    count_reviews_to_parse = int(settings_integration_config.get("reviews_count", 0))
-
-    review_location = _get_data_from_db(ReviewLocation, name=review_location_name)
+    review_location = _get_data_from_db(ReviewLocation, name="2ГИС")
 
     new_review_data = get_2gis_organization_reviews_info(
         review_location.url,
         settings.API_KEY_2GIS,
-        count_reviews_to_parse,
+        review_location.count_upload,
     )
 
     _delete_old_data()

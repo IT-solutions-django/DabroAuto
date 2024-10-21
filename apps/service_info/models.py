@@ -46,29 +46,6 @@ class InformationAboutCompany(ContentMixin):
         verbose_name_plural = "информация об автосалоне"
 
 
-class Settings(models.Model):
-    """Модель описывающая информацию об настройках сайта"""
-
-    youtube_channel_url = models.TextField(
-        verbose_name="ссылка на канал", help_text="ссылка в формате http/..."
-    )
-    youtube_count_videos = models.PositiveIntegerField(
-        verbose_name="количество видео для скачивания", help_text="положительное число"
-    )
-
-    reviews_service_url = models.TextField(
-        verbose_name="ссылка на 2ГИС организации", help_text="ссылка в формате http/..."
-    )
-    reviews_count = models.PositiveIntegerField(
-        verbose_name="количество отзывов для скачивания",
-        help_text="положительное число",
-    )
-
-    class Meta:
-        verbose_name = "настройка сайта"
-        verbose_name_plural = "настройки сайта"
-
-
 class Questionnaire(CreatedAtMixin):
     """Модель описывающая информацию об обратной связи"""
 

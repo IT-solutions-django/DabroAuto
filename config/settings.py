@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     "apps.telegram_sender",
     # Pages
     "pages.home",
-    "pages.admin_settings_integration",
     "pages.catalog_page",
     "pages.car_card",
     # Prom Apps
@@ -96,6 +95,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": os.getenv("CACHE_LOCATION_URL"),
+    }
+}
+
 LANGUAGE_CODE = "ru"
 
 TIME_ZONE = "Asia/Barnaul"
@@ -117,10 +123,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 API_KEY_2GIS = os.getenv("API_KEY_2GIS")
 
-SETTINGS_INTEGRATION_PATH = os.path.join(
-    BASE_DIR, "config", "settings_integration.json"
-)
-
 CLIPS_PATH = os.path.join(BASE_DIR, "media", "clips")
 
 PROXY_URL = os.getenv("PROXY_URL")
@@ -130,3 +132,7 @@ CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
 CELERY_TIMEZONE = "Asia/Barnaul"
 
 TELEGRAM_BOT_API_KEY = os.getenv("TELEGRAM_BOT_API_KEY")
+
+SERVER_IP = "185.84.162.166"
+
+CACHE_TIMEOUT = 60 * 30
