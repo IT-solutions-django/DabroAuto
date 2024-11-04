@@ -4,6 +4,7 @@
 <head>
     <title>{{title}}</title>
     <meta charset="UTF-8">
+    <meta name="description" content="{{ description }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
     <link rel="stylesheet" href="{% static 'libs/swiper-bundle.min.css' %}" />
@@ -16,18 +17,18 @@
         <header>
             <div class="container">
                 <div class="logo">
-                    <a href="#"><img src="{% static 'img/logo.svg' %}" alt=""></a>
+                    <a href="/"><img src="{% static 'img/logo.svg' %}" alt=""></a>
                 </div>
                 <div class="header_menu">
                     <div class="logo_menu">
                         <div class="logo">
-                            <a href="#"><img src="{% static 'img/logo.svg' %}" alt=""></a>
+                            <a href="/"><img src="{% static 'img/logo.svg' %}" alt=""></a>
                         </div>
                         <div class="menu_child">
                             <ul>
-                                <li><a href="#">Авто из Кореи</a></li>
-                                <li><a href="#">Авто из Китая</a></li>
-                                <li><a href="#">Авто из Японии</a></li>
+                                <li><a href="{% url 'korea-page' %}">Авто из Кореи</a></li>
+                                <li><a href="{% url 'china-page' %}">Авто из Китая</a></li>
+                                <li><a href="{% url 'japan-page' %}">Авто из Японии</a></li>
                                 <li><a href="#">Контакты</a></li>
                             </ul>
                         </div>
@@ -65,15 +66,15 @@
                             <div class="footer_links">
                                 <ul>
                                     <li>Каталог</li>
-                                    <li><a href="#">Авто из Кореи</a></li>
-                                    <li><a href="#">Авто из Китая</a></li>
-                                    <li><a href="#">Авто из Японии</a></li>
+                                    <li><a href="{% url 'korea-page' %}">Авто из Кореи</a></li>
+                                    <li><a href="{% url 'china-page' %}">Авто из Китая</a></li>
+                                    <li><a href="{% url 'japan-page' %}">Авто из Японии</a></li>
                                 </ul>
                                 <ul>
                                     <li>Компания</li>
-                                    <li><a href="#">О компании</a></li>
-                                    <li><a href="#">Доставка</a></li>
-                                    <li><a href="#">Отзывы</a></li>
+                                    <li><a href="#about_us">О компании</a></li>
+                                    <li><a href="#delivery">Доставка</a></li>
+                                    <li><a href="#comments">Отзывы</a></li>
                                 </ul>
                             </div>
                         </div>

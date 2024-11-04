@@ -131,7 +131,7 @@ class YouTubeClipParser:
             {
                 "id": video_info["id"],
                 "title": video_info["snippet"]["title"],
-                "thumbnail_url": video_info["snippet"]["thumbnails"]["maxres"]["url"],
+                "thumbnail_url": video_info["snippet"]["thumbnails"]["high"]["url"],
                 "view_count": video_info["statistics"]["viewCount"],
                 "url": f'https://www.youtube.com/watch?v={video_info["id"]}',
             }

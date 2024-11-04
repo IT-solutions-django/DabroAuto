@@ -7,7 +7,7 @@ from pages.catalog_page.views import (
     CarModelListView,
     CatalogView,
 )
-from pages.home.views import HomeView
+from pages.home.views import HomeView, home
 
 urlpatterns = [
     path(
@@ -57,5 +57,5 @@ urlpatterns = [
     path(
         "models/", cache_page(CACHE_TIMEOUT)(CarModelListView.as_view()), name="models"
     ),
-    path("", cache_page(CACHE_TIMEOUT)(HomeView.as_view()), name="home"),
+    path("", home, name="home"),
 ]

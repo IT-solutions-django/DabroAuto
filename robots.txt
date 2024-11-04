@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Allow: /china/
+Allow: /japan/
+Allow: /korea/
+
+Allow: /japan/?mark=2727
+Allow: /japan/?mark=2743
+Allow: /china/?mark=2790
+Allow: /china/?mark=2794
+Allow: /japan/?mark=2717
+Allow: /china/?mark=2787
+Allow: /china/?mark=2813
+Allow: /japan/?mark=2724
+Allow: /japan/?mark=2718
+Allow: /japan/?mark=2729
+Allow: /china/?mark=2812
+
+Disallow: /china/*
+Disallow: /japan/*
+Disallow: /korea/*
+

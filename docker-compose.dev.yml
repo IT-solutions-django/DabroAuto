@@ -11,7 +11,10 @@ services:
     depends_on:
       - postgres
     volumes:
+      - .:/usr/src/app
       - ./media:/usr/src/app/media
+    env_file:
+      - .env
 
   postgres:
     image: postgres:16
@@ -22,19 +25,26 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
+      - postgres_data:/var/lib/postgresql/data
       - .:/docker-entrypoint-initdb.d
     ports:
       - "6543:5432"
+    env_file:
+      - .env
 
   redis:
      image: redis
+     hostname: redis
      container_name: car_seller_redis
      command: redis-server /usr/local/etc/redis/redis.conf
      restart: unless-stopped
      volumes:
        - .:/usr/local/etc/redis/redis.conf
      ports:
-       - "6380:6379"
+       - "6379:6379"
+     env_file:
+       - .env
+
 
   celery:
      build: .
@@ -45,7 +55,12 @@ services:
        - postgres
        - redis
      volumes:
+       - .:/usr/src/app
        - ./media:/usr/src/app/media
+     links:
+        - redis
+     env_file:
+         - .env
 
   celery-beat:
      build: .
@@ -56,4 +71,12 @@ services:
        - postgres
        - redis
      volumes:
+       - .:/usr/src/app
        - ./media:/usr/src/app/media
+     links:
+       - redis
+     env_file:
+       - .env
+
+volumes:
+  postgres_data:

@@ -1,11 +1,14 @@
+from dataclasses import asdict
 from typing import Any
 
 from django.views.generic import FormView, TemplateView
 
 from apps.service_info.models import SocialMedia, ContactInformation
-from business.catalog_parser import get_car_by_id
+from business.catalog_parser import get_car_by_id, get_cars_info
 from pages.home.forms import QuestionnaireForm
 from utils.get_user_ip import get_user_ip
+
+from apps.catalog.models import Country, CarMark
 
 
 class CarCardView(TemplateView):
@@ -19,13 +22,39 @@ class CarCardView(TemplateView):
         context = super().get_context_data(*args, **kwargs)
         car_id = kwargs["id"]
 
+        url_name = self.request.resolver_match.url_name
+        context['url_name'] = url_name
+
         user_ip = get_user_ip(self.request)
 
         context["title"] = "Карточка Автомобиля"
         context["name"] = self.title
 
-        context["car"] = get_car_by_id(self.country, car_id, user_ip)
+        car = get_car_by_id(self.country, car_id, user_ip)
+        context["car"] = car
         context["country"] = self.country
+
+        try:
+            id_car = CarMark.objects.get(name=car.mark, country_manufacturing__name=self.country).id
+        except Exception:
+            id_car = None
+
+        country = Country.objects.get(name=self.country)
+        table_name = country.table_name
+
+        if id_car:
+            cars_info_recommend, pages_count = get_cars_info(
+                table_name,
+                {'mark': id_car, 'year_from': 2020, 'year_to': 2021,
+                 'ordering': 'high_eng_v'},
+                "1",
+                5,
+                user_ip,
+            )
+
+            cars_recommend = [asdict(car) for car in cars_info_recommend]
+
+            context['cars_recommend'] = cars_recommend
 
         context["questionnaire_form"] = QuestionnaireForm
 

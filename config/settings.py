@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = '=$&(7o&+rgd9ly+x2avwrggb7lmtw-cuapm(@=q0&p2tw6whn&'
 
 DEBUG = True
 
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "tasks",
     "pages",
     "tags",
+    "apps.delivery"
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,5 @@ TELEGRAM_BOT_API_KEY = os.getenv("TELEGRAM_BOT_API_KEY")
 SERVER_IP = "185.84.162.166"
 
 CACHE_TIMEOUT = 60 * 30
+
+os.environ["IMAGEIO_FFMPEG_EXE"] = "/usr/bin/ffmpeg"

@@ -46,7 +46,7 @@
         </div>
         <div class="content">
             <div class="car-info">
-                <div class="title">{{ car.mark }} {{ car.model }} {{ car.grade }}</div>
+                <div class="title">{{ car.mark }} {{ car.model }} {{ car.year }}</div>
                 <div class="text">
                     <div class="price">{{ car.price|beautify_number }} <span class="rub">₽</span></div>
                     <div class="info_questionary">
@@ -97,6 +97,12 @@
                                 <td>Пробег:</td>
                                 <td><span>{{ car.mileage|beautify_number }} км</span></td>
                             </tr>
+                            {% if car.rate and country == 'Япония' %}
+                                <tr>
+                                    <td>Оценка:</td>
+                                    <td><span>{{ car.rate }}</span></td>
+                                </tr>
+                            {% endif %}
                         </tbody>
                     </table>
                 </div>
@@ -139,6 +145,18 @@
         {% endwith %}
     </div>
 </section>
+<div>
+    <h2>Похожие автомобили</h2>
+    <ul>
+        {% for similar_car in cars_recommend %}
+            <li>
+                <a href="{% url url_name similar_car.id %}">
+                    {{ similar_car.mark }} {{ similar_car.model }} - {{ similar_car.year }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
 </main>
 {% endblock %}
 

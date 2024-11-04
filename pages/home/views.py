@@ -1,4 +1,6 @@
 from typing import Any
+from django.shortcuts import render
+from collections import defaultdict
 
 from django.http import JsonResponse
 from django.views.generic import FormView
@@ -13,8 +15,9 @@ from apps.service_info.models import (
     InformationAboutCompany,
     StagesOfWork,
 )
-from pages.home.forms import QuestionnaireForm
+from pages.home.forms import QuestionnaireForm, DeliveryForm
 from tasks.tasks import telegram_send_mail_for_all_task
+from apps.delivery.models import Delivery
 
 
 class HomeView(FormView):
@@ -30,9 +33,9 @@ class HomeView(FormView):
         """
         message = form.save()
         telegram_send_mail_for_all_task.delay(
-            "Обратная связь с сайта Правый руль\n"
-            f"Автор: {message.name}\n"
-            f"Номер телефона: {message.phone_number}\n"
+            "Обратная связь с сайта DabroAuto\n\n"
+            f"Автор: {message.name}\n\n"
+            f"Номер телефона: {message.phone_number}\n\n"
             f"Содержание: {message.content}",
         )
         return JsonResponse({}, status=200)
@@ -45,8 +48,17 @@ class HomeView(FormView):
         return JsonResponse({"errors": errors}, status=400)
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
+        delivery = Delivery.objects.select_related('city').order_by('city__name')
+        unique_body_types = get_distinct()
+
         context = super().get_context_data(id=id, **kwargs)
-        context["title"] = "Главная"
+        context["title"] = "Авто с аукционов Японии, Китая и Кореи с русификацией - DAbroAUTO"
+        context['description'] = ("Привезем авто с аукционов Японии, Китая и Кореи под ключ с "
+                                  "растаможкой и доставкой в регионы. ⭐ Каталог с ценами и фото! ⚡ "
+                                  "Рассчитать стоимость доставки можно на нашем сайте.")
+
+        context['delivery'] = delivery
+        context['unique_body_types'] = unique_body_types
 
         context["korea_cars"] = Car.objects.filter(country_manufacturing__name="Корея")
         context["china_cars"] = Car.objects.filter(country_manufacturing__name="Китай")
@@ -129,3 +141,54 @@ def get_car_brand_id_or_none(name: str, country_manufacturing: str):
         ).id
     except Exception:
         return None
+
+
+def get_distinct():
+    deliveries = Delivery.objects.select_related('body_type').values('city', 'body_type__name', 'price')
+    city_body_map = defaultdict(lambda: defaultdict(list))
+
+    for delivery in deliveries:
+        city_body_map[delivery['city']][delivery['body_type__name']].append(delivery['price'])
+
+    unique_body_types = set()
+    for body_types in city_body_map.values():
+        unique_body_types.update(body_types.keys())
+
+    unique_body_types = list(unique_body_types)
+
+    return unique_body_types
+
+
+def home(request):
+    korea_cars = Car.objects.filter(country_manufacturing__name="Корея")[:4]
+    china_cars = Car.objects.filter(country_manufacturing__name="Китай")[:4]
+    japan_cars = Car.objects.filter(country_manufacturing__name="Япония")[:4]
+
+    car_type_choices = [
+        ('sedan', 'Седан'),
+        ('crossover', 'Кроссовер'),
+        ('suv', 'Внедорожник')
+    ]
+    if request.method == 'POST':
+        form_1 = DeliveryForm(request.POST)
+        form_1.fields['car_type'].choices = car_type_choices
+        if form_1.is_valid():
+            car_type = form_1.cleaned_data['car_type']
+            destination = form_1.cleaned_data['destination']
+
+    else:
+        form_1 = DeliveryForm()
+        form_1.fields['car_type'].choices = car_type_choices
+
+        form_2 = QuestionnaireForm()
+
+    return render(
+        request, 'home/index.html',
+        {
+            'form': form_1,
+            'japan_cars': japan_cars,
+            'korea_cars': korea_cars,
+            'china_cars': china_cars,
+            'form_2': form_2
+        }
+    )

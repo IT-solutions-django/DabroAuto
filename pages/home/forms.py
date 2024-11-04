@@ -4,15 +4,9 @@ from apps.service_info.models import Questionnaire
 
 
 class QuestionnaireForm(forms.ModelForm):
-    privacy_policy_agreed = forms.BooleanField(
-        required=True,
-        error_messages={"required": "Вы должны согласиться с политикой безопасности."},
-        initial=True,
-    )
-
     class Meta:
         model = Questionnaire
-        fields = ["name", "phone_number", "content", "privacy_policy_agreed"]
+        fields = ["name", "phone_number", "content"]
         widgets = {
             "name": forms.TextInput(
                 attrs={
@@ -34,6 +28,22 @@ class QuestionnaireForm(forms.ModelForm):
                     "placeholder": "Введите текст сообщения, укажите страну, марку и год машины.",
                     "maxlength": "200",
                 }
-            ),
-            "privacy_policy_agreed": forms.CheckboxInput(),
+            )
         }
+
+
+class DeliveryForm(forms.Form):
+    car_type = forms.ChoiceField(
+        choices=[],
+        widget=forms.RadioSelect,
+        label="Выберите тип авто",
+        required=True
+    )
+    destination = forms.CharField(
+        max_length=100,
+        label="Пункт назначения",
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Город назначения',
+            'class': 'city-input'
+        })
+    )

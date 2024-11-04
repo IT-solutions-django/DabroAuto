@@ -23,9 +23,13 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - .:/usr/src/app
       - .:/docker-entrypoint-initdb.d
     ports:
       - "6543:5432"
+    env_file:
+      - .env
 
   redis:
      image: redis
@@ -35,7 +39,9 @@ services:
      volumes:
        - .:/usr/local/etc/redis/redis.conf
      ports:
-       - "6380:6379"
+       - "6379:6379"
+     env_file:
+       - .env
 
   celery:
      build: .
@@ -46,7 +52,12 @@ services:
        - postgres
        - redis
      volumes:
+       - .:/usr/src/app
        - ./media:/usr/src/app/media
+     links:
+       - redis
+     env_file:
+       - .env
 
   celery-beat:
      build: .
@@ -57,7 +68,12 @@ services:
        - postgres
        - redis
      volumes:
+       - .:/usr/src/app
        - ./media:/usr/src/app/media
+     links:
+       - redis
+     env_file:
+       - .env
 
   nginx:
     image: nginx:latest
@@ -72,3 +88,6 @@ services:
       - ./media:/media
     depends_on:
       - backend
+
+volumes:
+  postgres_data:

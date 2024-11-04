@@ -118,6 +118,10 @@ def get_car_by_id(country_manufacturing: str, car_id: str, user_ip: str):
     images = [image for image in car["IMAGES"].split("#")]
     images = [*images[1:], images[0]]
 
+    car_rate = car.get('RATE', '')
+    if car_rate:
+        car_rate = car['RATE']
+
     return CarCard(
         id=car["ID"],
         mark=car["MARKA_NAME"],
@@ -126,14 +130,14 @@ def get_car_by_id(country_manufacturing: str, car_id: str, user_ip: str):
         year=car["YEAR"],
         mileage=car["MILEAGE"],
         price=int(
-            calc_price(
+            round(calc_price(
                 car["FINISH"],
                 curr,
                 car["YEAR"],
                 car["ENG_V"],
                 country.table_name,
                 config,
-            )[0]
+            )[0], -3)
         ),
         images=images,
         kuzov=car["KUZOV"],
@@ -141,6 +145,7 @@ def get_car_by_id(country_manufacturing: str, car_id: str, user_ip: str):
         eng_v=str(float(car["ENG_V"]) / 1000),
         priv=priv,
         color=color_tag.color.name if color_tag is not None else car["COLOR"],
+        rate=car_rate if car_rate else None
     )
 
 
@@ -191,9 +196,9 @@ def get_cars_info(
             mileage=car["MILEAGE"],
             eng_v=str(float(car["ENG_V"]) / 1000),
             price=int(
-                calc_price(
+                round(calc_price(
                     car["FINISH"], curr, car["YEAR"], car["ENG_V"], table_name, config
-                )[0]
+                )[0], -3)
             ),
             images=[image[:-3] for image in car["IMAGES"].split("#")],
             rate=car["RATE"],
