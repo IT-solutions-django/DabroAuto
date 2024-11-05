@@ -14,90 +14,65 @@
 </head>
 <body>
     <div class="wrapper">
-        <header>
-            <div class="container">
-                <div class="logo">
-                    <a href="/"><img src="{% static 'img/logo.svg' %}" alt=""></a>
-                </div>
-                <div class="header_menu">
-                    <div class="logo_menu">
-                        <div class="logo">
-                            <a href="/"><img src="{% static 'img/logo.svg' %}" alt=""></a>
-                        </div>
-                        <div class="menu_child">
-                            <ul>
-                                <li><a href="{% url 'korea-page' %}">Авто из Кореи</a></li>
-                                <li><a href="{% url 'china-page' %}">Авто из Китая</a></li>
-                                <li><a href="{% url 'japan-page' %}">Авто из Японии</a></li>
-                                <li><a href="#">Контакты</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="contact_info">
-                        <div class="phone_inf">
-                            <a href="#">{{ phone_number_main }}</a>
-                        </div>
-                        <div class="mesengers">
-                            <a href="{{ tg_url }}" target="_blank"><img src="{% static 'img/cta_button.svg' %}" alt=""></a>
-                            <a href="{{ whatsapp_url }}" target="_blank"><img src="{% static 'img/cta_button1.svg' %}" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="hamburger">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect x="3" y="5" width="18" height="1.5" rx="0.75" fill="white"/>
-                        <rect x="3" y="11" width="18" height="1.5" rx="0.75" fill="white"/>
-                        <rect x="3" y="17" width="18" height="1.5" rx="0.75" fill="white"/>
-                    </svg>
-                </div>
-            </div>
-        </header>
+        <header class="navbar">
+    <div class="logo-header">
+        <img src="{% static 'img/_dabroauto 1.png' %}" alt="Логотип" class="logo-image-header">
+    </div>
+    <button class="burger-menu" id="burgerMenu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+    </button>
+    <nav id="menu" class="menu">
+        <a href="#">Авто из Японии</a>
+        <a href="#">Авто из Китая</a>
+        <a href="#">Авто из Кореи</a>
+        <a href="#">Аукционы</a>
+        <a href="#">Контакты</a>
+    </nav>
+    <div id="contactInfo" class="contact-info-block">
+        <div class="social-icons">
+            <a href="#" class="icon telegram-icon" style="background-image: url({% static 'img/tg.png' %});"></a>
+            <a href="#" class="icon whatsapp-icon" style="background-image: url({% static 'img/whatsapp.png' %});"></a>
+            <a href="#" class="icon youtube-icon" style="background-image: url({% static 'img/Frame.png' %});"></a>
+            <a href="#" class="icon vk-icon" style="background-image: url({% static 'img/vk.png' %});"></a>
+        </div>
+        <div class="contact-details">
+            <span class="phone-number">+7 123 456 78 90</span>
+            <a href="https://wa.me/71234567890" target="_blank" class="whatsapp-link">Написать в Whatsapp</a>
+        </div>
+    </div>
+</header>
 
         {% block content %}{% endblock %}
 
-        <footer>
-            <div class="footer_top">
-                <div class="container">
-                    <div class="footer_row">
-                        <div class="footer_left">
-                            <a href="#" class="brand_logo">
-                                <img src="{% static 'img/logo.svg' %}" alt="">
-                            </a>
-                            <div class="footer_links">
-                                <ul>
-                                    <li>Каталог</li>
-                                    <li><a href="{% url 'korea-page' %}">Авто из Кореи</a></li>
-                                    <li><a href="{% url 'china-page' %}">Авто из Китая</a></li>
-                                    <li><a href="{% url 'japan-page' %}">Авто из Японии</a></li>
-                                </ul>
-                                <ul>
-                                    <li>Компания</li>
-                                    <li><a href="#about_us">О компании</a></li>
-                                    <li><a href="#delivery">Доставка</a></li>
-                                    <li><a href="#comments">Отзывы</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="footer_contact">
-                            <p>Звонок по России бесплатный</p>
-                            <a href="tel:+{{ phone_number }}">{{ phone_number }}</a>
-                            <div class="social">
-                                <a href="{{ tg_url }}" target="_blank"><img src="{% static 'img/ico-tg2.svg' %}" alt=""></a>
-                                <a href="{{ whatsapp_url }}" target="_blank"><img src="{% static 'img/ico-whatsapp.svg' %}" alt=""></a>
-                                <a href="{{ vk_url }}" target="_blank"><img src="{% static 'img/ico-wk2.svg' %}" alt=""></a>
-                                <a href="{{ inst_url }}" target="_blank"><img src="{% static 'img/ico-insta2.svg' %}" alt=""></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer_bottom">
-                <div class="container">
-                    <p>© 2024 ООО «Правый руль» Автомобили под заказ из Кореи, Китая и Японии</p>
-                    <p><a href="#">Политика конфиденциальности</a></p>
-                </div>
-            </div>
-        </footer>
+        <footer class="footer">
+    <div class="footer-left">
+        <nav class="footer-nav">
+            <a href="#">Авто из Японии</a>
+            <a href="#">Авто из Китая</a>
+            <a href="#">Авто из Кореи</a>
+            <a href="#">Аукционы</a>
+            <a href="#">Контакты</a>
+        </nav>
+        <div class="footer-logo">
+            <h2>DAbroAUTO</h2>
+            <p>2024</p>
+        </div>
+    </div>
+    <div class="footer-right">
+        <div class="social-links-footer">
+            <a href="#"><img src="{% static 'img/tg.png' %}" alt="Telegram"></a>
+            <a href="#"><img src="{% static 'img/whatsapp.png' %}" alt="WhatsApp"></a>
+            <a href="#"><img src="{% static 'img/Frame.png' %}" alt="YouTube"></a>
+            <a href="#"><img src="{% static 'img/vk.png' %}" alt="VK"></a>
+        </div>
+        <div class="contact-info-footer">
+            <p class="phone-number-footer">+7 123 456 78 90</p>
+            <p>Написать в Whatsapp</p>
+        </div>
+    </div>
+</footer>
     </div>
 </body>
 
@@ -109,4 +84,11 @@
 <script src="{% static 'libs/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/jquery.marquee/1.4.0/jquery.marquee.min.js"></script>
+<script>
+    document.getElementById('burgerMenu').addEventListener('click', function() {
+    document.getElementById('menu').classList.toggle('active');
+    document.getElementById('contactInfo').classList.toggle('active');
+});
+
+</script>
 </html>

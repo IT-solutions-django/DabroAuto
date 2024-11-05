@@ -204,82 +204,6 @@
                 </div>
             </form>
 
-            <div class="popular_cars cars1">
-                <div class="popular_cars_block">
-                    <div class="left_sliders">
-                        <div class="swiper mySwiper">
-                            <div class="swiper-wrapper">
-                                {% for main_car_image in popular_cars.0.image.all %}
-                                    <div class="swiper-slide">
-                                    <a href="{{ request.path }}{{ popular_cars.0.id }}" class="items_slid1">
-                                        <img class="main_card_img" src="{{ main_car_image.image.url }}" alt="">
-                                        <div class="info_tops">
-                                            <h4>{{ popular_cars.0.brand }} {{ popular_cars.0.model }}</h4>
-                                            <p>{{ popular_cars.0.year_manufactured }} • {{ popular_cars.0.beautiful_mileage }} км • {{ popular_cars.0.beautiful_eng_v }} л.</p>
-                                        </div>
-                                        <div class="bottom_inf">
-                                            <h3>{{ popular_cars.0.beautiful_price }} <span class="rub">₽</span></h3>
-                                            <div class="red_btn">Оставить заявку</div>
-                                        </div>
-                                    </a>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            <div class="swiper-pagination"></div>
-                        </div>
-                    </div>
-                    <div class="right_sliders">
-                        <div class="title">
-                            <h2><span>Популярные</span> авто <img src="/static/img/{{ logo }}" alt=""></h2>
-                            <div class="swiper_buttons">
-                                <div class="swiper_prev">
-                                    <img src="{% static 'img/prev.svg' %}" alt="">
-                                </div>
-                                <div class="swiper_next">
-                                    <img src="{% static 'img/prev.svg' %}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper mySwiperl">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <a href="{{ request.path }}{{ popular_cars.0.id }}" class="items_slid1">
-                                        <img class="main_card_img" src="{{ popular_cars.0.image.all.first.image.url }}" alt="">
-                                        <div class="info_tops">
-                                            <h4>{{ popular_cars.0.brand }} {{ popular_cars.0.model }}</h4>
-                                            <p>{{ popular_cars.0.year_manufactured }} • {{ popular_cars.0.beautiful_mileage }} км • {{ popular_cars.0.beautiful_eng_v }} л.</p>
-                                        </div>
-                                        <div class="bottom_inf">
-                                            <h3>{{ popular_cars.0.beautiful_price }} <span class="rub">₽</span></h3>
-                                            <div class="red_btn">Оставить заявку</div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                {% for car in popular_cars|slice:"1:" %}
-                                    <div class="swiper-slide">
-                                        <a href="{{ request.path }}{{ car.id }}" class="items2">
-                                            <div class="top_items">
-                                                <h3>{{ car.brand }} {{ car.model }}</h3>
-                                                <p>{{ car.year_manufactured }} • {{ car.beautiful_mileage }} км • {{ car.beautiful_eng_v }} л.</p>
-                                            </div>
-                                            <div class="img_items">
-                                                <img class="main_card_img" src="{{ car.image.all.first.image.url }}" alt="">
-                                            </div>
-                                            <div class="bottoms_als">
-                                                <h4>{{ car.beautiful_price }} <span class="rub">₽</span></h4>
-                                                <div class="red_btn">Оставить заявку</div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                {% endfor %}
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
 
             <div class="dropdown ordering__filter-select" id="ordering-dropdown">
                 <button class="btn btn-secondary dropdown-toggle ordering__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -291,29 +215,25 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div id="carContainer" class="catalog-content row row-cols-auto">
+            <section class="car-section">
+                <div class="car-cards">
                 {% for car in cars_info %}
-                    <div class="swiper-slide col">
-                        <a href="{{ request.path }}{{ car.id }}" class="items2">
-                            <div class="top_items">
-                                <h3>{{ car.mark }} {{ car.model }}</h3>
-                                {% if name == 'Японии' %}
-                                    <p>{{ car.year }} • {{ car.mileage|beautify_number }} км • {{ car.eng_v }} л. • {{ car.rate }}</p>
-                                {% else %}
-                                    <p>{{ car.year }} • {{ car.mileage|beautify_number }} км • {{ car.eng_v }} л.</p>
-                                {% endif %}
-                            </div>
-                            <div class="img_items">
-                                <img class="main_card_img check_img" src="{{ car.images.0 }}" alt="">
-                            </div>
-                            <div class="bottoms_als">
-                                <h4>{{  car.price|beautify_number }} <span class="rub">₽</span></h4>
-                                <div class="red_btn">Оставить заявку</div>
-                            </div>
-                        </a>
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="{{ car.images.0 }}" alt="Car Image">
+                        <div class="car-details">
+                            <span class="price">{{ car.price|beautify_number }} ₽</span>
+                            <span class="detail-box">{{ car.mileage|beautify_number }} км</span>
+                        </div>
                     </div>
+                    <div class="car-info">
+                        <span>{{ car.mark }} {{ car.model }}</span>
+                        <p>{{ car.eng_v }} л, {{ car.priv }}</p>
+                    </div>
+                </div>
                 {% endfor %}
-            </div>
+                </div>
+            </section>
             <div class="pagination-elements">
             {% if page_range|length != 0 %}
                 <div class="pagination">
@@ -335,63 +255,9 @@
             </div>
         </div>
     </section>
-    {% with form=questionnaire_form %}
+    {% with form_2=questionnaire_form %}
         {% include 'home/questionnaire_form.html' %}
     {% endwith %}
-    {% include 'home/social_media.html' %}
-
-    <section>
-        <div class="popular_cars cars-test">
-            <div class="popular_cars_block">
-                <div class="right_sliders">
-                    <div class="title">
-                        <h2><span>Популярные</span> авто <img src="/static/img/{{ logo }}" alt=""></h2>
-                        <div class="swiper_buttons">
-                            <div class="swiper_prev">
-                                <img src="{% static 'img/prev.svg' %}" alt="">
-                            </div>
-                            <div class="swiper_next">
-                                <img src="{% static 'img/prev.svg' %}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper mySwiperl">
-                        <div class="swiper-wrapper">
-                            {% for car in popular_cars %}
-                                <div class="swiper-slide">
-                                    <div class="swiper mySwiper-main-card">
-                                        <div class="swiper-wrapper">
-                                            {% for main_car_image in car.image.all %}
-                                                <div class="swiper-slide">
-                                                     <a href="{{ request.path }}{{ car.id }}" class="items2">
-                                                        <div class="top_items">
-                                                            <h3>{{ car.brand }} {{ car.model }}</h3>
-                                                            <p>{{ car.year_manufactured }} • {{ car.beautiful_mileage }} км • {{ car.beautiful_eng_v }} л.</p>
-                                                        </div>
-                                                        <div class="img_items">
-                                                            <img class="main_card_img" src="{{ main_car_image.image.url }}" alt="">
-                                                        </div>
-                                                        <div class="bottoms_als">
-                                                            <h4>{{ car.beautiful_price }} <span class="rub">₽</span></h4>
-                                                            <div class="red_btn">Оставить заявку</div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            {% endfor %}
-                                        </div>
-                                        <div class="swiper-pagination-main-card"></div>
-                                    </div>
-
-                                </div>
-                            {% endfor %}
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     </main>
 {% endblock %}
 

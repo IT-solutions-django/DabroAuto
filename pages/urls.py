@@ -7,7 +7,7 @@ from pages.catalog_page.views import (
     CarModelListView,
     CatalogView,
 )
-from pages.home.views import HomeView, home
+from pages.home.views import HomeView, home, post_questionnaire_form
 
 urlpatterns = [
     path(
@@ -58,4 +58,5 @@ urlpatterns = [
         "models/", cache_page(CACHE_TIMEOUT)(CarModelListView.as_view()), name="models"
     ),
     path("", home, name="home"),
+    path('post_questionnaire_form', post_questionnaire_form, name='post_questionnaire_form')
 ]

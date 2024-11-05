@@ -1138,17 +1138,17 @@ body {
     }
 
     .car-card {
-        width: 217px;
+        width: 240px;
     }
 
     .car-image {
-        width: 180px;
-        height: 120px;
+        width: 240px;
+        height: 140px;
     }
 
     .car-image img {
-        width: 180px;
-        height: 120px;
+        width: 240px;
+        height: 140px;
     }
 
     .car-info {
@@ -1166,6 +1166,22 @@ body {
     .show-all-btn {
         width: 110px;
         font-size: 14px;
+        padding: 15px 15px;
+        margin-top: 7px;
+    }
+
+    .car-icons-container {
+        display: block;
+    }
+
+    .car-icons a {
+        width: 40px;
+        height: 40px;
+    }
+
+    .car-icons a img {
+        width: 40px;
+        height: 40px;
     }
 }
 
@@ -1213,7 +1229,11 @@ body {
 
     .city-input {
         width: 100%; /* Полная ширина */
-        max-width: 390px;
+        max-width: 275px;
+    }
+
+    .input-icon {
+        right: 4%;
     }
 
     .calculate-cost-btn-delivery {
@@ -1246,6 +1266,7 @@ body {
   }
 
   .card-right {
+    max-width: 270px;
     width: 100%; /* Полная ширина для карточек с этапами */
   }
 }
@@ -1308,7 +1329,11 @@ body {
     }
 
     .video-card-review {
-        width: 390px;
+        width: 310px;
+    }
+
+    .review-card {
+        width: 120px;
     }
 }
 

@@ -69,6 +69,7 @@ def _create_reviews(reviews: list[dict], review_location: ReviewLocation) -> Non
             created_at=datetime.strptime(
                 review["created_at"], "%Y-%m-%dT%H:%M:%S.%f%z"
             ),
+            text=review['text']
         )
 
 

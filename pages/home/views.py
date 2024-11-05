@@ -1,5 +1,5 @@
 from typing import Any
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from collections import defaultdict
 
 from django.http import JsonResponse
@@ -164,23 +164,18 @@ def home(request):
     china_cars = Car.objects.filter(country_manufacturing__name="Китай")[:4]
     japan_cars = Car.objects.filter(country_manufacturing__name="Япония")[:4]
 
+    reviews = Review.objects.all()
+
     car_type_choices = [
         ('sedan', 'Седан'),
         ('crossover', 'Кроссовер'),
         ('suv', 'Внедорожник')
     ]
-    if request.method == 'POST':
-        form_1 = DeliveryForm(request.POST)
-        form_1.fields['car_type'].choices = car_type_choices
-        if form_1.is_valid():
-            car_type = form_1.cleaned_data['car_type']
-            destination = form_1.cleaned_data['destination']
 
-    else:
-        form_1 = DeliveryForm()
-        form_1.fields['car_type'].choices = car_type_choices
+    form_1 = DeliveryForm()
+    form_1.fields['car_type'].choices = car_type_choices
 
-        form_2 = QuestionnaireForm()
+    form_2 = QuestionnaireForm()
 
     return render(
         request, 'home/index.html',
@@ -189,6 +184,20 @@ def home(request):
             'japan_cars': japan_cars,
             'korea_cars': korea_cars,
             'china_cars': china_cars,
-            'form_2': form_2
+            'form_2': form_2,
+            'reviews': reviews
         }
     )
+
+
+def post_questionnaire_form(request):
+    if request.method == 'POST':
+        form = QuestionnaireForm(request.POST)
+        message = form.save()
+        telegram_send_mail_for_all_task.delay(
+            "Обратная связь с сайта DabroAuto\n\n"
+            f"Автор: {message.name}\n\n"
+            f"Номер телефона: {message.phone_number}\n\n"
+            f"Содержание: {message.content}",
+        )
+        return redirect('/')

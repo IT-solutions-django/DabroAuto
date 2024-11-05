@@ -82,6 +82,7 @@ def _get_needed_data_format(
                     "name": review["user"]["name"],
                     "avatar": review["user"]["photo_preview_urls"]["url"] or None,
                 },
+                "text": review['text']
             }
             for review in fetched_data["reviews"]
             if review["rating"] >= MIN_RATING

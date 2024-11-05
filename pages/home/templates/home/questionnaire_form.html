@@ -1,94 +1,41 @@
 {% load static %}
 
-<section class="contacts" id="contacts">
-    <div class="container">
-        <div class="contact_row">
-            <div class="contact_left">
-                <div class="title">
-                    <h2>Контактная информация
-                        <img src="{% static 'img/contact_title_image.webp' %}" alt="">
-                    </h2>
-                </div>
-                <p class="section_description">Оставьте свою заявку и наш менеджер свяжется с Вами для уточнения деталей.</p>
-                <div class="contact_item">
-                    <p>Звонок по России бесплатный</p>
-                    <a href="tel:+{{ phone_number }}">{{ phone_number }}</a>
-                </div>
-                <div class="contact_item" target="_blank">
-                    <p>WhatsApp</p>
-                    <a href="{{ whatsapp_url }}">{{ whatsapp }}</a>
-                </div>
-                <div class="contact_item">
-                    <p>Офис</p>
-                    <div>{{ address }}</div>
-                </div>
+<div class="contact-container">
+    <div class="contact-info">
+        <p style="font-size: 48px; font-weight: 800;">Контакты</p>
+        <p style="font-size: 16px; color: #666666">г. Владивосток, ул. Пушкина 90</p>
+        <p style="font-size: 20px; font-weight: bold; margin-top: -7px; margin-bottom: 30px;">+7 (423) 123-45-67</p>
+        <p style="font-size: 16px; color: #666666; margin-bottom: 7px;">Email</p>
+        <a href="mailto:info@dabroauto.ru">info@dabroauto.ru</a>
+        <p style="font-size: 20px; font-weight: bold; margin-top: 50px;">Подберем авто под ваш запрос</p>
+        <form action="post_questionnaire_form" method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                {{ form_2.name }}
+                {{ form_2.phone_number }}
             </div>
-            <form class="contact_form" id="contactForm" method="post" action="">
-                {% csrf_token %}
-                <div class="form_group">
-                    <label>
-                        <p>Имя</p>
-                        {{ form.name }}
-                    </label>
-                    <label>
-                        <p>Телефон</p>
-                        {{ form.phone_number }}
-                    </label>
-                </div>
-                <div class="form_group">
-                    <label>
-                        <p>Уточните свой вопрос</p>
-                        {{ form.content }}
-                    </label>
-                </div>
-                <div class="form_group">
-                    <label>
-                        <span class="checkmark"></span>
-                        {{ form.privacy_policy_agreed }}
-                        <p>С <a href="#">правилами политики конфиденциальности</a> ознакомлен</p>
-                    </label>
-                </div>
-                <div class="form_group">
-                    <button type="submit" name="submit">Отправить</button>
-                </div>
-            </form>
+            <div class="form-row">
+                {{ form_2.content }}
+            </div>
+            <button type="submit">Отправить заявку</button>
+        </form>
+        <div class="social-links">
+            <a href="#"><img src="{% static 'img/tg.png' %}" alt="Telegram"></a>
+            <a href="#"><img src="{% static 'img/whatsapp.png' %}" alt="WhatsApp"></a>
+            <a href="#"><img src="{% static 'img/Frame.png' %}" alt="YouTube"></a>
+            <a href="#"><img src="{% static 'img/vk.png' %}" alt="VK"></a>
         </div>
     </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    const checkFormValid = () => {
-        const formValid= document.querySelector('#contactForm').checkValidity();
-    };
-    $(document).ready(function () {
-        $('#contactForm').submit(function () {
-            $.ajax({
-                data: $(this).serialize(),
-                type: $(this).attr('method'),
-                url: "{% url 'home' %}",
-                success: function (response) {
-                    $('#contactForm').trigger('reset');
-                    alert("Ваше сообщение успешно доставлено!");
-                    checkFormValid();
-                },
-                error: function (response) {
-                    const errors = JSON.parse(response.responseJSON.errors)
-                    console.log(errors)
-                }
-            });
-            return false;
-        });
-
-
-        checkFormValid();
-
-        $('#contactForm').on('input', checkFormValid);
-    });
-
-
-
-
-
-
-</script>
-</section>
+    <div class="map">
+       <iframe
+        width="100%"
+        height="100%"
+        frameborder="0"
+        scrolling="no"
+        marginheight="0"
+        marginwidth="0"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=131.8750%2C43.1050%2C131.9250%2C43.1300&layer=mapnik&marker=43.1175%2C131.9006"
+        style="border: 0;">
+        </iframe>
+    </div>
+</div>

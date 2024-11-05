@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 {% load static %}
+{% load tags %}
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DAuto</title>
     <link rel="stylesheet" href="{% static 'main/style.css' %}">
 </head>
@@ -273,47 +275,16 @@
                 </div>
             </div>
             <div class="review-cards">
+                {% for review in reviews %}
                 <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>Рад, что обратился сюда — ребята знают своё дело и работают на совесть!</p>
+                    <div class="stars">
+                        {% for count in review.stars|range_filter %}
+                            ★
+                        {% endfor %}
+                    </div>
+                    <p>{{ review.text|truncatechars:100 }}</p>
                 </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>Доставка и оформление без хлопот, компания поддерживала на всех этапах.</p>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>Компания проявила ответственность и профессионализм на всех этапах.</p>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>Рад, что обратился сюда — ребята знают своё дело и работают на совесть!</p>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>Рад, что обратился сюда — ребята знают своё дело и работают на совесть! Спасибо им!</p>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>Рад, что обратился сюда — ребята знают своё дело и работают на совесть!</p>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>Рад, что обратился сюда — ребята знают своё дело и работают на совесть!</p>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>Рад, что обратился сюда — ребята знают своё дело и работают на совесть!</p>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>Рад, что обратился сюда — ребята знают своё дело и работают на совесть!</p>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <p>Рад, что обратился сюда — ребята знают своё дело и работают на совесть!</p>
-                </div>
-                <!-- Добавьте больше карточек при необходимости -->
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -359,7 +330,8 @@
         <p style="font-size: 16px; color: #666666; margin-bottom: 7px;">Email</p>
         <a href="mailto:info@dabroauto.ru">info@dabroauto.ru</a>
         <p style="font-size: 20px; font-weight: bold; margin-top: 50px;">Подберем авто под ваш запрос</p>
-        <form action="" method="post">
+        <form action="post_questionnaire_form" method="post">
+            {% csrf_token %}
             <div class="form-row">
                 {{ form_2.name }}
                 {{ form_2.phone_number }}

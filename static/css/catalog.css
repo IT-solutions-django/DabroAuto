@@ -1,8 +1,168 @@
+.car-section {
+    padding-left: 8%;
+    padding-top: 5%;
+}
+
+.car-section h2 {
+    font-size: 38px;
+    text-align: left;
+    weight: 800;
+}
+
+.car-icons-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.car-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.car-icons a {
+    border: 2px solid #f0f0f0; /* светло-серая рамка */
+    border-radius: 12px; /* скругление углов (по желанию) */
+    padding: 1px; /* внутренние отступы (по желанию) */
+    transition: border-color 0.3s; /* эффект при наведении */
+    background-color: #f0f0f0;
+    height: 55px;
+    width: 55px;
+}
+
+.car-icons a:hover {
+    border-color: gray; /* цвет рамки при наведении (по желанию) */
+}
+
+.car-icons a img {
+    width: 55px;
+    height: 55px;
+}
+
+.show-all-btn {
+    padding-top: 20px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    background-color: #F2F2F2;
+    color: #000;
+    border: none;
+    border-radius: 12px; /* Rounded corners */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+    gap: 10px; /* Space between text and arrow */
+    width: 135px;
+    line-height: 19px;
+    text-decoration: none;
+}
+
+.show-all-btn:hover {
+    background-color: #c8c8c8;
+}
+
+.car-cards {
+    display: flex;
+    gap: 30px; /* Adjust gap as needed for spacing */
+    justify-content: flex-start; /* Align cards to the left */
+    /* Allows wrapping on smaller screens */
+    height: auto;
+    flex-wrap: wrap;
+}
+
+.car-card {
+    width: 240px;
+    height: auto;
+    max-height: 307px;
+    border-radius: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.car-image {
+    position: relative;
+    width: 240px;
+    height: 160px;
+}
+
+.car-image img {
+    width: 240px;
+    height: 160px;
+    display: block;
+    border-radius: 20px;
+}
+
+.car-details {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.price {
+    background-color: #DB001A;
+    color: #fff;
+    padding-top: 4px;
+    padding-right: 8px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 18px;
+    width: auto;
+    max-width: 120px;
+    height: auto;
+    max-height: 31px;
+}
+
+.detail-box {
+    background-color: #222222;
+    color: #fff;
+    padding-top: 4px;
+    padding-right: 8px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    width: auto;
+    max-width: 89px;
+    height: auto;
+    max-height: 26px;
+    weight: 400;
+}
+
+.car-info {
+    padding-top: 20px;
+    padding-right: 12px;
+    padding-left: 12px;
+    width: 293px;
+    height: auto;
+    max-height: 53px;
+}
+
+.car-info span {
+    font-size: 18px;
+    margin: 0;
+    weight: 400;
+    line-height: 22px;
+}
+
+.car-info p {
+    font-size: 16px;
+    color: #999999;
+    margin: 5px 0 0;
+    weight: 400;
+}
+
 .catalog-routing {
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;
-    color: #FFFFFF80;
+    color: black;
+    margin-top: 50px;
 }
 
 .catalog-title {
@@ -12,7 +172,7 @@
     font-size: 40px;
     font-weight: 700;
     line-height: 40px;
-    color: #FFFFFF;
+    color: black;
     text-align: left;
     text-transform: uppercase;
 }
@@ -25,7 +185,7 @@
 
 .search-form {
   border-radius: 24px;
-  background-color: #081E36;
+  background-color: #f0f0f0;
   padding: 24px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -260,10 +420,10 @@
   height: 51px;
   padding: 16px;
   border-radius: 32px;
-  background: #20344A;
+  background: white;
   outline: none;
   cursor: pointer;
-  color: #FFFFFF80;
+  color: black !important;
   border: none;
   text-align: left;
 
@@ -273,7 +433,7 @@
 }
 
 .search-form .btn:active {
-  background: #233c54;
+  background: white;
   border: none;
 }
 
@@ -305,12 +465,13 @@
 .search-form .dropdown-menu {
   padding: 8px ;
   border-radius: 12px;
-  background: #20344A;
+  background: white;
   box-shadow: 0px 4px 24px 0px #0000001F;
   max-height: 300px;
   overflow-y: auto;
   width: 100%;
   z-index: 2;
+  color: black !important;
 }
 
 .search-form .dropdown-menu::-webkit-scrollbar {
@@ -320,7 +481,7 @@
 
 .search-form .dropdown-menu::-webkit-scrollbar-track {
   margin-block: 6px;
-  background: #1A2939;
+  background: white;
 }
 
 .search-form .dropdown-menu::-webkit-scrollbar-thumb {
@@ -333,15 +494,15 @@
 .search-form .dropdown-menu button {
   padding: 4px 12px 4px 12px;
   border-radius: 12px;
-  color: #FFFFFF;
+  color: black;
 }
 
 .search-form .dropdown-menu li:first-child button {
-  color: #FFFFFF80;
+  color: black;
 }
 
 .search-form .dropdown-menu button:hover {
-  background: #1A2939;
+  background: #f0f0f0;
 }
 
 .font-weight-bold {
@@ -353,8 +514,8 @@
 }
 
 .search-form .two-parts span {
-  background: #20344A;
-  color: #FFFFFF40;
+  background: #c8c8c8;
+  color: #c8c8c8;
   font-size: 20px;
   width: 4px;
   display: flex;
@@ -366,7 +527,7 @@
   width: 190px;
   height: 44px;
   border-radius: 30px;
-  background: #FFFFFF1A;
+  background: red;
   font-family: Inter;
   font-size: 14px;
   font-weight: 600;
@@ -657,7 +818,7 @@
   gap: 2px;
   border-radius: 52px;
   display: flex;
-  background-color: #1A2939;
+  background-color: #f0f0f0;
   width: max-content;
   height: max-content;
 }
@@ -669,13 +830,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: black;
   transition: background-color 0.2s ease-in-out;
   border-radius: 48px;
 }
 
 .pagination a:hover {
-  background-color: #20344A;
+  background-color: #c8c8c8;
 }
 
 .pagination .current-page {
@@ -704,10 +865,10 @@
   height: 44px;
   padding-inline: 16px;
   border-radius: 30px;
-  background: #FFFFFF1A;
+  background: #c8c8c8;
   outline: none;
   cursor: pointer;
-  color: #FFFFFF;
+  color: black;
 
   border: none;
   text-align: left;
@@ -719,6 +880,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 10px;
 }
 
 @media (max-width: 992px) {
@@ -737,6 +899,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 0;
 }
 
 #ordering-mobile-dropdown .dropdown-toggle::after {
@@ -746,8 +909,9 @@
 
 
 .ordering__filter-select .btn:active {
-  background: rgba(255, 255, 255, 0.07);
+  background: #c8c8c8;
   border: none;
+  color: black;
 }
 
 .dropdown-toggle::after {
@@ -757,7 +921,7 @@
 .ordering__filter-select .dropdown-menu {
   padding: 8px;
   border-radius: 12px;
-  background: #1A2939;
+  background: white;
   box-shadow: 0px 4px 24px 0px #0000001F;
   max-height: 300px;
   overflow-y: auto;
@@ -788,11 +952,12 @@
   font-weight: 400;
   line-height: 19.36px;
   text-align: left;
+  color: black;
 
 }
 
 .ordering__filter-select .dropdown-menu a:hover {
-  background-color: #20344A;
+  background-color: #f0f0f0;
 }
 
 .rub {

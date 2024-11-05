@@ -72,6 +72,10 @@ class Review(models.Model):
         verbose_name="дата добавления отзыва",
     )
 
+    text = models.TextField(
+        verbose_name='текст отзыва'
+    )
+
     def __str__(self):
         return f"{self.stars} звезды от {self.author}"
 
