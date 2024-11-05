@@ -19,8 +19,8 @@ class QuestionnaireForm(forms.ModelForm):
                 attrs={
                     "placeholder": "+7",
                     "type": "tel",
-                    "pattern": r"^\+7 \d{3} \d{3} \d{2} \d{2}$",
-                    "title": "Формат: '+7 999 999 99 99'",
+                    "pattern": r"^\+7\d{10}$",
+                    "title": "Формат: '+7XXXXXXXXXX'",
                 }
             ),
             "content": forms.Textarea(

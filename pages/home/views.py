@@ -200,4 +200,4 @@ def post_questionnaire_form(request):
             f"Номер телефона: {message.phone_number}\n\n"
             f"Содержание: {message.content}",
         )
-        return redirect('/')
+        return redirect(request.META.get('HTTP_REFERER', '/'))

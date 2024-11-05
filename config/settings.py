@@ -139,3 +139,5 @@ SERVER_IP = "185.84.162.166"
 CACHE_TIMEOUT = 60 * 30
 
 os.environ["IMAGEIO_FFMPEG_EXE"] = "/usr/bin/ffmpeg"
+
+APPEND_SLASH = False

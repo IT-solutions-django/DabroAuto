@@ -58,8 +58,8 @@ class Questionnaire(CreatedAtMixin):
         max_length=16,
         validators=[
             RegexValidator(
-                regex=r"^\+7 \d{3} \d{3} \d{2} \d{2}$",
-                message="Номер телефона должен быть определенного формата: '+7 999 999 99 99'.",
+                regex=r"^\+7\d{10}$",
+                message="Номер телефона должен быть определенного формата: '+7XXXXXXXXXX'.",
             )
         ],
         verbose_name="номер телефона",
