@@ -16,7 +16,9 @@
     <div class="wrapper">
         <header class="navbar">
     <div class="logo-header">
-        <img src="{% static 'img/_dabroauto 1.png' %}" alt="Логотип" class="logo-image-header">
+        <a href="/">
+            <img src="{% static 'img/_dabroauto 1.png' %}" alt="Логотип" class="logo-image-header">
+        </a>
     </div>
     <button class="burger-menu" id="burgerMenu">
         <span class="burger-line"></span>
@@ -49,9 +51,9 @@
         <footer class="footer">
     <div class="footer-left">
         <nav class="footer-nav">
-            <a href="#">Авто из Японии</a>
-            <a href="#">Авто из Китая</a>
-            <a href="#">Авто из Кореи</a>
+            <a href="{% url 'japan-page' %}">Авто из Японии</a>
+            <a href="{% url 'china-page' %}">Авто из Китая</a>
+            <a href="{% url 'korea-page' %}">Авто из Кореи</a>
             <a href="#">Аукционы</a>
             <a href="#">Контакты</a>
         </nav>
