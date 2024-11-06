@@ -8,9 +8,9 @@ load_dotenv()
 
 SECRET_KEY = '=$&(7o&+rgd9ly+x2avwrggb7lmtw-cuapm(@=q0&p2tw6whn&'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["194.87.56.114"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -134,7 +134,7 @@ CELERY_TIMEZONE = "Asia/Barnaul"
 
 TELEGRAM_BOT_API_KEY = os.getenv("TELEGRAM_BOT_API_KEY")
 
-SERVER_IP = "185.84.162.166"
+SERVER_IP = "194.87.56.114"
 
 CACHE_TIMEOUT = 60 * 30
 
