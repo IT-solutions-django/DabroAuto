@@ -1,5 +1,4 @@
 .car-section {
-    padding-left: 8%;
     padding-top: 5%;
 }
 
@@ -73,8 +72,13 @@
     flex-wrap: wrap;
 }
 
+.car-cards a {
+    text-decoration: none;
+    color: black;
+}
+
 .car-card {
-    width: 240px;
+    width: 256px;
     height: auto;
     max-height: 307px;
     border-radius: 20px;
@@ -182,6 +186,21 @@
   height: 34px;
   margin-top: -2px;
 }
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #F2F2F2;
+    padding-left: 8%;
+    padding-top: 5%;
+    border-radius: 24px;
+    flex-wrap: wrap;
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-bottom: 24px;
+}
+
 
 .search-form {
   border-radius: 24px;
@@ -514,7 +533,7 @@
 }
 
 .search-form .two-parts span {
-  background: #c8c8c8;
+  background: white;
   color: #c8c8c8;
   font-size: 20px;
   width: 4px;
@@ -865,7 +884,7 @@
   height: 44px;
   padding-inline: 16px;
   border-radius: 30px;
-  background: #c8c8c8;
+  background: #f0f0f0;
   outline: none;
   cursor: pointer;
   color: black;

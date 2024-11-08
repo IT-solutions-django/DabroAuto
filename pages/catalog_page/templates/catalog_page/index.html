@@ -207,7 +207,7 @@
 
             <div class="dropdown ordering__filter-select" id="ordering-dropdown">
                 <button class="btn btn-secondary dropdown-toggle ordering__filter-select--btn" id="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Сначала новые
+                    Сортировка
                 </button>
                 <ul class="dropdown-menu">
                     {% for ordering_param in ordering_params %}
@@ -218,19 +218,21 @@
             <section class="car-section">
                 <div class="car-cards">
                 {% for car in cars_info %}
-                <div class="car-card">
-                    <div class="car-image">
-                        <img src="{{ car.images.0 }}" alt="Car Image">
-                        <div class="car-details">
-                            <span class="price">{{ car.price|beautify_number }} ₽</span>
-                            <span class="detail-box">{{ car.mileage|beautify_number }} км</span>
+                    <a href="{{ request.path }}{{ car.id }}/">
+                        <div class="car-card">
+                            <div class="car-image">
+                                <img src="{{ car.images.0 }}" alt="Car Image">
+                                <div class="car-details">
+                                    <span class="price">{{ car.price|beautify_number }} ₽</span>
+                                    <span class="detail-box">{{ car.mileage|beautify_number }} км</span>
+                                </div>
+                            </div>
+                            <div class="car-info">
+                                <span>{{ car.mark }} {{ car.model }}</span>
+                                <p>{{ car.eng_v }} л, {{ car.priv }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="car-info">
-                        <span>{{ car.mark }} {{ car.model }}</span>
-                        <p>{{ car.eng_v }} л, {{ car.priv }}</p>
-                    </div>
-                </div>
+                    </a>
                 {% endfor %}
                 </div>
             </section>

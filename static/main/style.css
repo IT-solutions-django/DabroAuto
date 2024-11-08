@@ -441,7 +441,7 @@ html, body {
 
 .input-container .city-input {
     display: block; /* Делаем элемент блочным */
-    width: 400px; /* Ширина поля ввода на 100% */
+    width: 100%; /* Ширина поля ввода на 100% */
     margin-top: 20px; /* Отступы сверху и снизу */
     padding: 10px; /* Отступы для удобства ввода */
     font-size: 16px; /* Размер шрифта */
@@ -454,7 +454,7 @@ html, body {
 .input-container {
     position: relative;
     display: inline-block;
-    width: 400px; /* Контейнер будет той же ширины, что и поле ввода */
+    width: 100%; /* Контейнер будет той же ширины, что и поле ввода */
     height: 70px;
     margin-bottom: 20px;
 }
@@ -462,7 +462,7 @@ html, body {
 .input-icon {
     position: absolute;
     top: 62%; /* Центрируем по вертикали */
-    right: 3px; /* Отступ от правого края */
+    right: 0px; /* Отступ от правого края */
     transform: translateY(-50%); /* Смещаем для точного центрирования */
     width: 20px; /* Ширина иконки */
     height: 20px; /* Высота иконки */
@@ -826,8 +826,8 @@ html, body {
 }
 
 .logo-image-header {
-    width: 122.44px;
-    height: 80px;
+    width: 90px;
+    height: 70px;
     margin-left: 210px;
 }
 
@@ -1050,8 +1050,8 @@ html, body {
     }
 
     .logo-image-header {
-        width: 100px;
-        height: 65px;
+        width: 80px;
+        height: 60px;
         margin-left: 0px;
     }
 
@@ -1224,17 +1224,12 @@ html, body {
     }
 
     .input-container {
-        max-width: 390px;
         width: 100%; /* Полная ширина */
+        margin-left: -10px;
     }
 
     .city-input {
         width: 100%; /* Полная ширина */
-        max-width: 275px;
-    }
-
-    .input-icon {
-        right: 4%;
     }
 
     .calculate-cost-btn-delivery {

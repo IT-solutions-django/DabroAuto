@@ -140,23 +140,11 @@
                 </div>
             </div>
         </div>
-        {% with form=questionnaire_form %}
+        {% with form_2=questionnaire_form %}
             {% include 'home/questionnaire_form.html' %}
         {% endwith %}
     </div>
 </section>
-<div>
-    <h2>Похожие автомобили</h2>
-    <ul>
-        {% for similar_car in cars_recommend %}
-            <li>
-                <a href="{% url url_name similar_car.id %}">
-                    {{ similar_car.mark }} {{ similar_car.model }} - {{ similar_car.year }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-</div>
 </main>
 {% endblock %}
 

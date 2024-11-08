@@ -41,12 +41,16 @@ class CarCard:
 
 
 ORDERING = {
-    "new": "+ORDER+BY+YEAR+DESC",
-    "old": "+ORDER+BY+YEAR+ASC",
-    "low_eng_v": "+ORDER+BY+ENG_V+ASC",
-    "high_eng_v": "+ORDER+BY+ENG_V+DESC",
-    "new_auc_date": "+ORDER+BY+AUCTION_DATE+DESC",
-    "old_auc_date": "+ORDER+BY+AUCTION_DATE+ASC",
+    "asc_mileage": "+ORDER+BY+MILEAGE+ASC",
+    "desc_mileage": "+ORDER+BY+MILEAGE+DESC",
+    "asc_price": "+ORDER+BY+FINISH+ASC",
+    "desc_price": "+ORDER+BY+FINISH+DESC",
+    "asc_eng_v": "+ORDER+BY+ENG_V+ASC",
+    "desc_eng_v": "+ORDER+BY+ENG_V+DESC",
+    "asc_year": "+ORDER+BY+YEAR+ASC",
+    "desc_year": "+ORDER+BY+YEAR+DESC",
+    "asc_auc_date": "+ORDER+BY+AUCTION_DATE+ASC",
+    "desc_auc_date": "+ORDER+BY+AUCTION_DATE+DESC",
 }
 
 
@@ -162,7 +166,7 @@ def get_popular_cars(country_manufacturing: str, count_cars: int):
 
 
 def get_cars_info(
-    table_name: str, filters: dict, page: str, cars_per_page: int, user_ip: str
+        table_name: str, filters: dict, page: str, cars_per_page: int, user_ip: str
 ):
     base_filters = get_base_filters(table_name)
     ordering = get_ordering(filters)
@@ -202,6 +206,11 @@ def get_cars_info(
             ),
             images=[image[:-3] for image in car["IMAGES"].split("#")],
             rate=car["RATE"],
+            priv=(
+                "Передний" if car["PRIV"] == "FF" else
+                "Задний" if car["PRIV"] == "FR" else
+                "Полный"
+            )
         )
         for car in data
     ]
@@ -215,7 +224,7 @@ def get_cars_info(
 def get_ordering(filters: dict):
     ordering = filters.get("ordering") or ""
 
-    return ORDERING.get(ordering, ORDERING["new"])
+    return ORDERING.get(ordering, "")
 
 
 def get_cars_count(table_name: str, filters: list[str], user_ip: str):
@@ -254,7 +263,7 @@ def connect_filters(filters: dict, base_filters: dict):
         mark_name and f"MARKA_NAME+=+'{mark_name}'",
         model_name and f"MODEL_NAME+=+'{model_name}'",
         priv,
-        colors and f"COLOR+IN+(+'{ "',+'".join(colors)}'+)",
+        colors and f"COLOR+IN+(+'{"',+'".join(colors)}'+)",
         year_from and f"YEAR+>=+{year_from}",
         year_to and f"YEAR+<=+{year_to}",
         eng_v_from and f"ENG_V+>=+{eng_v_from}",
@@ -262,7 +271,7 @@ def connect_filters(filters: dict, base_filters: dict):
         mileage_from and f"MILEAGE+>=+{mileage_from}",
         mileage_to and f"MILEAGE+<=+{mileage_to}",
         kpp_type and f"KPP_TYPE+=+'{kpp_type}'",
-        rate and f"RATE+IN+(+'{ rate }'+)",
+        rate and f"RATE+IN+(+'{rate}'+)",
     ]
 
     if mark_name is not None:
@@ -310,7 +319,7 @@ def get_color_data_or_none(id: str | None):
 
 @transaction.atomic
 def upload_and_save_marks_and_models(
-    table_name: str, base_filters: Iterable[str], user_ip: str
+        table_name: str, base_filters: Iterable[str], user_ip: str
 ):
     country_manufacturing = Country.objects.get(table_name=table_name)
     CarMark.objects.filter(country_manufacturing=country_manufacturing).delete()
@@ -326,7 +335,7 @@ def upload_and_save_marks_and_models(
 
 
 def full_data_fetch(
-    fields: str, table_name: str, base_filters: Iterable[str], user_ip: str
+        fields: str, table_name: str, base_filters: Iterable[str], user_ip: str
 ):
     offset = 0
     query = get_sql_query(fields, table_name, base_filters, f"{offset},250")
@@ -351,11 +360,11 @@ def fetch_by_query(sql_query: str, user_ip: str):
 
 
 def get_sql_query(
-    fields: str,
-    table_name: str,
-    base_filters: Iterable[str],
-    limit: str,
-    ordering: str = "",
+        fields: str,
+        table_name: str,
+        base_filters: Iterable[str],
+        limit: str,
+        ordering: str = "",
 ):
     query = f"select+{fields}+from+{table_name}+WHERE+1+=+1+and+{'+and+'.join(base_filters)}{ordering}+limit+{limit}"
     return query
@@ -365,21 +374,21 @@ def get_base_filters(table_name: str):
     base_filers = BaseFilter.objects.get(country_manufacturing__table_name=table_name)
 
     max_auction_date = (
-        base_filers.auction_date
-        and datetime.datetime.now()
-        - datetime.timedelta(days=int(base_filers.auction_date))
+            base_filers.auction_date
+            and datetime.datetime.now()
+            - datetime.timedelta(days=int(base_filers.auction_date))
     )
 
     kpp_types = (str(kpp_type) for kpp_type in base_filers.kpp_type)
 
     result = {
         "AUCTION": f"AUCTION+NOT+LIKE+'%{base_filers.auction}%'",
-        "MARKA_NAME": f"MARKA_NAME+NOT+IN+(+'{ "',+'".join(base_filers.marka_name)}'+)",
+        "MARKA_NAME": f"MARKA_NAME+NOT+IN+(+'{"',+'".join(base_filers.marka_name)}'+)",
         "YEAR": f"YEAR+>=+{base_filers.year}",
         "ENG_V": f"ENG_V+>+{base_filers.eng_v}",
         "MILEAGE": f"MILEAGE+<=+{base_filers.mileage}",
         "FINISH": f"FINISH+>+{base_filers.finish}",
-        "KPP_TYPE": f"KPP_TYPE+IN+(+'{ "',+'".join(kpp_types)}'+)",
+        "KPP_TYPE": f"KPP_TYPE+IN+(+'{"',+'".join(kpp_types)}'+)",
     }
     if base_filers.auction_date is not None:
         result.update(
@@ -398,14 +407,14 @@ def get_base_filters(table_name: str):
     if base_filers.priv:
         result.update(
             {
-                "PRIV": f"PRIV+NOT+IN+(+'{ "',+'".join(base_filers.priv)}'+)",
+                "PRIV": f"PRIV+NOT+IN+(+'{"',+'".join(base_filers.priv)}'+)",
             }
         )
 
     if base_filers.rate:
         result.update(
             {
-                "RATE": f"RATE+IN+(+'{ "',+'".join(base_filers.rate)}'+)",
+                "RATE": f"RATE+IN+(+'{"',+'".join(base_filers.rate)}'+)",
             }
         )
 

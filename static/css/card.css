@@ -2,7 +2,14 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 17px;
-  color: #FFFFFF80;
+  color: black;
+  margin-top: 30px;
+  margin-bottom: -10px;
+}
+
+.contact-container {
+    margin-bottom: 24px;
+    border-radius: 24px;
 }
 
 .content {
@@ -41,7 +48,7 @@
   font-size: 40px;
   font-weight: 700;
   line-height: 40px;
-  color: #FFFFFF;
+  color: black;
   grid-area: item1;
 }
 
@@ -58,7 +65,7 @@
   font-size: 36px;
   font-weight: 700;
   line-height: 36px;
-  color: #FFFFFF;
+  color: black;
   margin-top: 35px;
 }
 
@@ -85,7 +92,7 @@
   height: 70px;
   width: 300px;
 
-  background: linear-gradient(94.98deg, #0D2F68 0%, #D51117 100%);
+  background: #DB001A;
   border-radius: 60px;
 }
 
@@ -98,7 +105,7 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
-  color: #fff;
+  color: black;
 }
 
 .info_questionary {
@@ -194,7 +201,7 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 19.36px;
-  color: #FFFFFF80;
+  color: #666666;
   border: 1px solid transparent;
   padding: 6px;
 }
@@ -202,7 +209,7 @@
 .info_table td span {
   display: block;
   min-height: 19.35px;
-  color: #FFFFFF;
+  color: black;
 }
 
 .rub {
