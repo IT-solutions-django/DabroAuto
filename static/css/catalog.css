@@ -87,12 +87,12 @@
 
 .car-image {
     position: relative;
-    width: 240px;
+    width: 256px;
     height: 160px;
 }
 
 .car-image img {
-    width: 240px;
+    width: 256px;
     height: 160px;
     display: block;
     border-radius: 20px;
@@ -142,9 +142,8 @@
     padding-top: 20px;
     padding-right: 12px;
     padding-left: 12px;
-    width: 293px;
+    width: 256px;
     height: auto;
-    max-height: 53px;
 }
 
 .car-info span {
