@@ -16,7 +16,7 @@
     width: 100vw;
     height: 100vh;
     z-index: 1000;
-    background: #011224CC;
+    background-color: #666666;
     backdrop-filter: blur(40px);
 }
 
@@ -146,18 +146,14 @@
     height: 45px;
 }
 
-.modal-gallery-link:hover {
-    background-color: #0000004D;
-}
-
 .modal-gallery-title {
-    color: #FFFFFF;
+    color: black;
     font-size: 18px;
     font-weight: 500;
 }
 
 .modal-gallery-count {
-    color: #FFFFFF;
+    color: black`;
     font-family: Bebas Neue;
     font-size: 24px;
     font-weight: 700;
@@ -167,7 +163,6 @@
 
 .modal-gallery-text {
     font-size: 14px;
-    color: #FFFFFF80;
     font-weight: 400;
 }
 
@@ -181,7 +176,7 @@
 }
 
 .modal-gallery-info {
-    background: #081E36;
+    background: #F2F2F2;
     width: 100%;
     margin-top: 16px;
     padding: 16px;

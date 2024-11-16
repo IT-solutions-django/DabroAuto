@@ -11,6 +11,12 @@ class Country(NameMixin):
         verbose_name="название таблицы",
         help_text="максимальная длина - 20",
     )
+    currency_icon = models.CharField(
+        max_length=4,
+        verbose_name="символ валюты",
+        null=True,
+        blank=True
+    )
 
     class Meta:
         verbose_name = "страна производства"
@@ -53,6 +59,13 @@ class BaseFilter(CountryRelatedMixin):
         decimal_places=1,
         verbose_name="объем двигателя",
         help_text="строго больше какого значения (л)",
+    )
+    max_eng_v = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        verbose_name="максимальный объем двигателя",
+        help_text="не больше какого значения (л)",
+        default=6
     )
     mileage = models.PositiveIntegerField(
         verbose_name="пробег",

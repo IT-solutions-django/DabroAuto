@@ -2,7 +2,7 @@ from dataclasses import asdict
 from typing import Any
 
 from django.views.generic import FormView, TemplateView
-
+from apps.catalog.models import CurrencyRate
 from apps.service_info.models import SocialMedia, ContactInformation
 from business.catalog_parser import get_car_by_id, get_cars_info
 from pages.home.forms import QuestionnaireForm
@@ -30,9 +30,20 @@ class CarCardView(TemplateView):
         context["title"] = "Карточка Автомобиля"
         context["name"] = self.title
 
-        car = get_car_by_id(self.country, car_id, user_ip)
+        car, main_page_car = get_car_by_id(self.country, car_id, user_ip)
         context["car"] = car
+        context['main_page_car'] = main_page_car
         context["country"] = self.country
+
+        context["eur"] = float(CurrencyRate.objects.get(name="Евро").course)
+        context["dollar"] = float(CurrencyRate.objects.get(name="Доллар").course)
+
+        if self.country == 'Япония':
+            context['url_catalog_cars'] = 'japan'
+        elif self.country == 'Китай':
+            context['url_catalog_cars'] = 'china'
+        else:
+            context['url_catalog_cars'] = 'korea'
 
         try:
             id_car = CarMark.objects.get(name=car.mark, country_manufacturing__name=self.country).id

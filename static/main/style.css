@@ -11,6 +11,8 @@ html, body {
     padding: 10px 170px;
     background-color: #1e1e1e; /* фон */
     color: #fff;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .burger-menu {
@@ -87,11 +89,12 @@ html, body {
     background-image: url('/static/img/Frame 1664.png');
     color: #fff;
     text-align: left;
-    padding-left: 8%;
-    padding-top: 5%;
     position: relative;
     height: auto;
     min-height: 400px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 170px;
 }
 
 .car-images-hero {
@@ -125,9 +128,8 @@ html, body {
 
 .hero h1 {
     font-size: 3.5vw; /* Изменяем размер шрифта в зависимости от ширины экрана */
-    margin: 0;
+    margin: 0 auto;
     font-weight: 800;
-    margin-top: -2vw;
 }
 
 .hero p {
@@ -142,7 +144,6 @@ html, body {
     border: none;
     cursor: pointer;
     position: absolute;
-    left: 8%;
     bottom: 16%;
     border-radius: 16px;
     font-size: 1.5vw; /* Адаптивный размер шрифта */
@@ -151,8 +152,9 @@ html, body {
 
 
 .car-section {
-    padding-left: 8%;
-    padding-top: 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 170px;
 }
 
 .car-section h2 {
@@ -223,6 +225,10 @@ html, body {
     /* Allows wrapping on smaller screens */
     height: auto;
     flex-wrap: wrap;
+}
+.car-cards a {
+    text-decoration: none;
+    color: black;
 }
 
 .car-card {
@@ -319,11 +325,12 @@ html, body {
                 #C72C48,  /* Вишневый цвет */
                 rgba(0, 0, 0, 2), /* Полу-прозрачный черный цвет */
                 #FF0000); /* Красный цвет */
-    padding-top: 100px; /* Внутренние отступы блока */
-    padding-bottom: 100px;
     text-align: center; /* Центрируем текст */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Опциональная тень для глубины */
     max-height: 404px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 70px 170px;
 }
 
 .cost-title {
@@ -366,8 +373,10 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px;
     background-image: url('/static/img/Map_of_federal_subjects_of_Russia_(2022) 1.png'); /* Задний фон */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 170px;
 }
 
 .delivery-container {
@@ -555,8 +564,9 @@ html, body {
 .container {
   display: flex;
   gap: 60px;
-  padding-left: 8%;
-  padding-top: 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 170px;
 }
 
 .left-section, .right-section {
@@ -628,13 +638,14 @@ html, body {
 
 .reviews-section {
     background-color: #f2f2f2; /* Цвет фона блока */
-    padding-left: 8%;
-    padding-top: 5%;
     border-radius: 12px;
     display: flex;
     justify-content: space-between;
     gap: 50px;
     height: auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 170px;
 }
 
 .left-section-review {
@@ -762,10 +773,11 @@ html, body {
 }
 
 .new-videos-section {
-    padding-left: 8%;
-    padding-top: 5%;
     background-color: white; /* Цвет фона блока */
     height: auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 170px;
 }
 
 .new-videos-section span {
@@ -839,10 +851,11 @@ html, body {
     justify-content: space-between;
     align-items: flex-start;
     background-color: #F2F2F2;
-    padding-left: 8%;
-    padding-top: 5%;
     border-radius: 10px;
     flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 170px;
 }
 
 .contact-info {
@@ -906,7 +919,6 @@ html, body {
     max-width: 235px;
     font-size: 18px;
     font-weight: 700;
-    max-height: 70px;
 }
 
 .contact-info button:hover {
@@ -932,8 +944,7 @@ html, body {
     padding: 20px;
     background-color: white;
     border-radius: 32px;
-    margin-top: 148px;
-    margin-right: 115px;
+    margin-top: 159px;
     flex: 1;
     min-width: 300px; /* Минимальная ширина карты */
     max-width: 500px; /* Максимальная ширина карты */
@@ -952,10 +963,11 @@ html, body {
     align-items: center;
     background-color: #1F1F1F;
     color: white;
-    padding-left: 8%;
-    padding-top: 5%;
     font-family: Arial, sans-serif;
     height: auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 170px;
 }
 
 .footer-left {

@@ -1,5 +1,6 @@
 from celery import shared_task
-
+from django.core.mail import send_mail
+from django.conf import settings
 from business.catalog_parser import update_catalog_meta
 from business.download_clips import download_clips
 from business.parse_currency_rate import update_currency_rate
@@ -41,3 +42,14 @@ def telegram_send_mail_for_all_task(text: str):
 @shared_task
 def update_catalog_meta_task():
     update_catalog_meta()
+
+
+@shared_task
+def email_send_task(subject, message, recipient_list):
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        recipient_list,
+        fail_silently=False
+    )

@@ -6,7 +6,149 @@
   margin-top: 30px;
   margin-bottom: -10px;
 }
+.card-routing a {
+    text-decoration: none;
+    color: grey;
+}
+.active-routing {
+    color: black !important;
+}
+.modal_price_back {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s ease-in-out;
+}
 
+.modal_price_back.show {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.3s ease-in-out;
+}
+
+.modal_price {
+  transform: translateY(-20px);
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal_price.show .modal_form {
+  transform: translateY(0); /* Возвращаем в исходное положение */
+}
+
+.modal_price {
+  margin-top: 40px;
+}
+
+.modal_price .cont {
+  padding: 40px;
+  min-height: 200px;
+  background-color: #F2F2F2;
+  border-radius: 28px;
+  color: black;
+}
+
+.modal_price .title {
+  padding-left: 5px;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.modal_price table {
+  width: 100%;
+  border-spacing: 20px;
+}
+
+.modal_price table td {
+  padding-inline: 5px;
+  padding-top: 15px;
+}
+
+.modal_price table td:first-of-type {
+  width: 70%;
+}
+
+.modal_price table td:last-of-type {
+  text-align: right;
+  font-size: 18px;
+  min-width: 150px;
+}
+
+.modal_price table td.price {
+  font-size: 22px;
+}
+
+.modal_price table td span {
+  font-size: 14px;
+}
+
+.modal_price .currency {
+  font-size: 14px;
+  padding-top: 20px;
+  padding-inline: 5px;
+  display: flex;
+  justify-content: space-between;
+  color: #808980;
+}
+
+.modal_price_back .top {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  padding-bottom: 10px;
+}
+
+.modal_price_back .top button {
+  border: none;
+  outline: none;
+  background: #808980;
+  border-radius: 30px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal_price_back .top button img {
+  width: 14px;
+  height: 14px;
+}
+
+
+.price_model_opener {
+  margin-top: 20px;
+
+  width: 190px;
+  height: 44px;
+  border-radius: 30px;
+  background: #CB131B;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19.6px;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+}
+.price_model_opener:hover {
+    background-color: #b71c1c;
+}
 .contact-container {
     margin-bottom: 24px;
     border-radius: 24px;
@@ -95,7 +237,9 @@
   background: #DB001A;
   border-radius: 60px;
 }
-
+.btns_stage .btns_a a:hover {
+    background-color: #b71c1c;
+}
 .btns_stage .btns_a {
   margin-right: 12px;
 }
@@ -214,4 +358,33 @@
 
 .rub {
   font-size: 85%;
+}
+
+@media (max-width: 792px) {
+  .modal_price {
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    margin-top: 20px;
+  }
+
+  .modal_price .cont {
+    border-radius: 0;
+    padding-top: 0;
+    padding-inline: 20px;
+  }
+
+  .modal_price_back .top {
+    background: #081E36;
+    padding-top: 20px;
+    padding-right: 20px;
+  }
+
+  body:has(.modal_price_back.show) {
+    overflow: hidden;
+  }
 }

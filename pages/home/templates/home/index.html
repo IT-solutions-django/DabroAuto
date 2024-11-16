@@ -67,6 +67,7 @@
     </div>
     <div class="car-cards">
         {% for car in japan_cars %}
+        <a href="/japan/{{ car.id }}/">
         <div class="car-card">
             <div class="car-image">
                 {% if car.image.all %}
@@ -82,6 +83,7 @@
                 <p>{{ car.eng_v }} л, {{ car.priv }}</p>
             </div>
         </div>
+        </a>
         {% endfor %}
     </div>
     </section>
@@ -103,6 +105,7 @@
     </div>
     <div class="car-cards">
         {% for car in korea_cars %}
+        <a href="/korea/{{ car.id }}/">
         <div class="car-card">
             <div class="car-image">
                 {% if car.image.all %}
@@ -118,6 +121,7 @@
                 <p>{{ car.eng_v }} л, {{ car.priv }}</p>
             </div>
         </div>
+        </a>
         {% endfor %}
     </div>
 </section>
@@ -140,6 +144,7 @@
     </div>
     <div class="car-cards">
         {% for car in china_cars %}
+        <a href="/china/{{ car.id }}/">
         <div class="car-card">
             <div class="car-image">
                 {% if car.image.all %}
@@ -155,6 +160,7 @@
                 <p>{{ car.eng_v }} л, {{ car.priv }}</p>
             </div>
         </div>
+        </a>
         {% endfor %}
     </div>
 </section>

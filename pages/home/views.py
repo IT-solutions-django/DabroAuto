@@ -4,7 +4,7 @@ from collections import defaultdict
 
 from django.http import JsonResponse
 from django.views.generic import FormView
-
+from django.conf import settings
 from apps.car.models import Car
 from apps.catalog.models import CarMark
 from apps.clip.models import Clip
@@ -16,7 +16,7 @@ from apps.service_info.models import (
     StagesOfWork,
 )
 from pages.home.forms import QuestionnaireForm, DeliveryForm
-from tasks.tasks import telegram_send_mail_for_all_task
+from tasks.tasks import telegram_send_mail_for_all_task, email_send_task
 from apps.delivery.models import Delivery
 
 
@@ -199,5 +199,14 @@ def post_questionnaire_form(request):
             f"Автор: {message.name}\n\n"
             f"Номер телефона: {message.phone_number}\n\n"
             f"Содержание: {message.content}",
+        )
+        email_send_task.delay(
+            subject="Обратная связь с сайта DabroAuto",
+            message=(
+                f"Автор: {message.name}\n\n"
+                f"Номер телефона: {message.phone_number}\n\n"
+                f"Содержание: {message.content}"
+            ),
+            recipient_list=[settings.CONTACT_EMAIL]
         )
         return redirect(request.META.get('HTTP_REFERER', '/'))

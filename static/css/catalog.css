@@ -167,6 +167,13 @@
     color: black;
     margin-top: 50px;
 }
+.catalog-routing a {
+    text-decoration: none;
+    color: grey;
+}
+.active-routing {
+    color: black !important;
+}
 
 .catalog-title {
     font-family: Bebas-Neue, Arial, sans-serif;

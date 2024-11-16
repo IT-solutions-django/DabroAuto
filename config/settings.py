@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "apps.clip",
     "apps.catalog",
     "apps.telegram_sender",
+    "apps.commission",
     # Pages
     "pages.home",
     "pages.catalog_page",
@@ -48,7 +49,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
 
 ROOT_URLCONF = "config.urls"
 
@@ -111,7 +111,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
@@ -141,3 +140,13 @@ CACHE_TIMEOUT = 60 * 30
 os.environ["IMAGEIO_FFMPEG_EXE"] = "/usr/bin/ffmpeg"
 
 APPEND_SLASH = False
+
+# Email configuration
+DEFAULT_FROM_EMAIL = 'Matvey-Django@yandex.ru'
+CONTACT_EMAIL = 'matvejvarlamov495@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'Matvey-Django@yandex.ru'
+EMAIL_HOST_PASSWORD = 'qlmdfckrcruclgju'

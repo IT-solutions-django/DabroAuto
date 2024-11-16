@@ -17,7 +17,7 @@ from apps.catalog.models import (
     CurrencyRate,
 )
 import datetime
-
+from apps.commission.models import Commission
 from business.calculate_car_price import get_config, calc_price
 from config import settings
 
@@ -38,6 +38,13 @@ class CarCard:
     priv: Optional[str] = None
     color: Optional[str] = None
     rate: Optional[str] = None
+    finish_price: Optional[int] = None
+    current_currency: Optional[CurrencyRate] = None
+    commission: Optional[Commission] = None
+    customs_duty: Optional[list] = None
+    country: Optional[Country] = None
+    equipment: Optional[str] = None
+    steering_wheel: Optional[str] = None
 
 
 ORDERING = {
@@ -85,7 +92,7 @@ def get_car_by_id(country_manufacturing: str, car_id: str, user_ip: str):
             eng_v=str(car.eng_v).replace(",", "."),
             priv=car.priv,
             color=car.color,
-        )
+        ), True
 
     country = Country.objects.get(name=country_manufacturing)
 
@@ -112,12 +119,15 @@ def get_car_by_id(country_manufacturing: str, car_id: str, user_ip: str):
     color_tag = CarColorTag.objects.filter(name=car["COLOR"]).first()
 
     config = get_config()
+    commission = Commission.objects.get(country=country)
     curr = {
         "jpy": float(CurrencyRate.objects.get(name="Иена").course),
         "eur": float(CurrencyRate.objects.get(name="Евро").course),
         "cny": float(CurrencyRate.objects.get(name="Юань").course),
         "kor": float(CurrencyRate.objects.get(name="Вона").course),
     }
+
+    current_currency = get_current_currency(country)
 
     images = [image for image in car["IMAGES"].split("#")]
     images = [*images[1:], images[0]]
@@ -134,14 +144,15 @@ def get_car_by_id(country_manufacturing: str, car_id: str, user_ip: str):
         year=car["YEAR"],
         mileage=car["MILEAGE"],
         price=int(
-            round(calc_price(
+            calc_price(
                 car["FINISH"],
                 curr,
                 car["YEAR"],
                 car["ENG_V"],
                 country.table_name,
                 config,
-            )[0], -3)
+                commission,
+            )[0]
         ),
         images=images,
         kuzov=car["KUZOV"],
@@ -149,8 +160,30 @@ def get_car_by_id(country_manufacturing: str, car_id: str, user_ip: str):
         eng_v=str(float(car["ENG_V"]) / 1000),
         priv=priv,
         color=color_tag.color.name if color_tag is not None else car["COLOR"],
-        rate=car_rate if car_rate else None
-    )
+        rate=car_rate if car_rate else None,
+        finish_price=int(car["FINISH"]),
+        commission=commission,
+        current_currency=current_currency,
+        customs_duty=calc_price(
+            car["FINISH"],
+            curr,
+            car["YEAR"],
+            car["ENG_V"],
+            country.table_name,
+            config,
+            commission,
+        )[1],
+        country=country
+    ), False
+
+
+def get_current_currency(country: Country) -> CurrencyRate:
+    if country.name == "Япония":
+        return CurrencyRate.objects.get(name="Иена")
+    elif country.name == "Китай":
+        return CurrencyRate.objects.get(name="Юань")
+    else:
+        return CurrencyRate.objects.get(name="Вона")
 
 
 def get_popular_cars(country_manufacturing: str, count_cars: int):
@@ -183,6 +216,7 @@ def get_cars_info(
     data = fetch_by_query(query, user_ip)
 
     config = get_config()
+    commission = Commission.objects.get(country__table_name=table_name)
     curr = {
         "jpy": float(CurrencyRate.objects.get(name="Иена").course),
         "eur": float(CurrencyRate.objects.get(name="Евро").course),
@@ -200,9 +234,15 @@ def get_cars_info(
             mileage=car["MILEAGE"],
             eng_v=str(float(car["ENG_V"]) / 1000),
             price=int(
-                round(calc_price(
-                    car["FINISH"], curr, car["YEAR"], car["ENG_V"], table_name, config
-                )[0], -3)
+                calc_price(
+                    car["FINISH"],
+                    curr,
+                    car["YEAR"],
+                    car["ENG_V"],
+                    table_name,
+                    config,
+                    commission,
+                )[0]
             ),
             images=[image[:-3] for image in car["IMAGES"].split("#")],
             rate=car["RATE"],
@@ -282,6 +322,9 @@ def connect_filters(filters: dict, base_filters: dict):
 
     if eng_v_from:
         del base_filters["ENG_V"]
+
+    if eng_v_to:
+        del base_filters["MAX_ENG_V"]
 
     if mileage_to:
         del base_filters["MILEAGE"]
@@ -386,6 +429,7 @@ def get_base_filters(table_name: str):
         "MARKA_NAME": f"MARKA_NAME+NOT+IN+(+'{"',+'".join(base_filers.marka_name)}'+)",
         "YEAR": f"YEAR+>=+{base_filers.year}",
         "ENG_V": f"ENG_V+>+{base_filers.eng_v}",
+        "MAX_ENG_V": f"ENG_V+<=+{base_filers.max_eng_v * 1000}",
         "MILEAGE": f"MILEAGE+<=+{base_filers.mileage}",
         "FINISH": f"FINISH+>+{base_filers.finish}",
         "KPP_TYPE": f"KPP_TYPE+IN+(+'{"',+'".join(kpp_types)}'+)",

@@ -156,6 +156,11 @@ function updateModels() {
             const button = dropdown.querySelector('.catalog__filter-select--btn');
             button.textContent = select.options[select.selectedIndex].text;
 
+            if (data.length > 0) {
+                button.disabled = false;
+            } else {
+                button.disabled = true; // Оставляем кнопку disabled, если модели не найдены
+            }
         },
         error: function (xhr, status, error) {
             console.error('Ошибка AJAX:', error);
